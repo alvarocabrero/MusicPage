@@ -1,0 +1,15 @@
+/* Controlador: portada (último lanzamiento), carrusel de lanzamientos y su pop up. */
+import {RELEASES,latestRelease} from "../models/releases.js";
+import {cardHTML,rowHTML,heroView,releaseDialogView} from "../views/releaseView.js";
+import {initCarousel} from "./carouselController.js";
+import {initDialog} from "./dialogController.js";
+
+export function initReleases(){
+ heroView.render(latestRelease());
+
+ const abrir=initDialog({items:RELEASES,view:releaseDialogView,show:r=>releaseDialogView.render(r)});
+ const el=document.getElementById("car-rel");
+ initCarousel({el,n:RELEASES.length,card:i=>cardHTML(RELEASES[i]),row:i=>rowHTML(RELEASES[i],i),onOpen:abrir});
+ /* En la vista "ver todos", los botones de cada fila abren el pop up. */
+ el.addEventListener("click",e=>{const b=e.target.closest("[data-i]");if(b)abrir(+b.dataset.i)});
+}

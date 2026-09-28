@@ -1,0 +1,14 @@
+/* cabecera */
+.top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:5;background:var(--fondo);border-bottom:4px solid var(--tinta);transition:background-color .25s,border-color .25s}
+.top .brand{transition:opacity .25s,visibility .25s}
+.top nav a{transition:color .25s}
+.top.at-top{background:transparent;border-bottom-color:transparent}
+.top.at-top .brand{opacity:0;visibility:hidden}
+.top.at-top nav a{color:#000}
+.top.at-top nav a:hover{color:var(--rojo)}
+@media (prefers-reduced-motion:reduce){.top,.top .brand,.top nav a{transition:none}}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+.top .brand{height:54px;display:block}
+nav{display:flex;gap:26px;align-items:center;font:800 .95rem var(--display)}
+nav a{text-decoration:none}
+nav a:hover{color:var(--rojo)}

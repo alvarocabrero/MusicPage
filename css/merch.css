@@ -1,0 +1,18 @@
+/* merch */
+#merch .hd{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));gap:32px}
+.mi{display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+.mi .mp{display:block;width:100%;aspect-ratio:1;border:4px solid var(--tinta);background:var(--gris);overflow:hidden}
+.mi .mp img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 40%;transition:transform .4s}
+.mi a.mp:hover img{transform:scale(1.04)}
+.mi h3{font:800 1.15rem/1.25 var(--display)}
+.mi .pr{font:500 .95rem var(--display)}
+.mi .mt{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;width:100%;margin:4px 0 8px}
+.mi .mt button{padding:0;border:3px solid var(--tinta);background:none;cursor:pointer;aspect-ratio:1;overflow:hidden;opacity:.6}
+.mi .mt button.on,.mi .mt button:hover{opacity:1;border-color:var(--rojo)}
+.mi .mt img{display:block;width:100%;height:100%;object-fit:cover}
+.mi .me{margin:0;font:800 .8rem/1.4 var(--display)}
+.mi .md{margin:0;font:300 .9rem/1.5 var(--texto)}
+.mi .abrir{text-decoration:none}
+.mnone{grid-column:1/-1;border:4px solid var(--tinta);padding:40px 24px;font:800 clamp(1.4rem,3vw,2rem)/1.2 var(--display);text-transform:uppercase}
+.mnone span{display:block;margin-top:8px;font:500 .95rem/1.5 var(--display);text-transform:none}

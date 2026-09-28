@@ -1,0 +1,14 @@
+/* vídeos */
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,340px),1fr));gap:32px}
+.vid{border:4px solid var(--tinta);background:var(--fondo);display:flex;flex-direction:column}
+.vid .vcap{flex:1}
+.vbtn{position:relative;display:block;width:100%;aspect-ratio:16/9;padding:0;border:0;background:#000;cursor:pointer;overflow:hidden}
+.vbtn img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.vbtn .play{position:absolute;left:50%;top:50%;width:76px;height:76px;transform:translate(-50%,-50%);background:var(--rojo);display:grid;place-items:center;border:4px solid #000}
+.vbtn .play:after{content:"";border-style:solid;border-width:14px 0 14px 24px;border-color:#0000 #0000 #0000 #fff;margin-left:6px}
+.vbtn:hover .play{background:#fff}
+.vbtn:hover .play:after{border-left-color:var(--rojo)}
+.vid iframe{display:block;width:100%;aspect-ratio:16/9;border:0}
+.vcap{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;padding:12px 14px;border-top:4px solid var(--tinta)}
+.vcap b{font:800 1.05rem/1.2 var(--display)}
+.vcap a{font:800 .85rem var(--display);color:var(--rojo);white-space:nowrap}

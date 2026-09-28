@@ -1,0 +1,14 @@
+:root{--rojo:#e22c14;--gris:#b6bbbf;--fondo:#fff;--tinta:#000;--sobre-rojo:#fff;--logo-l:block;--logo-d:none;
+--display:"Raleway","Helvetica Neue",Arial,sans-serif;--texto:"Merriweather",Georgia,"Times New Roman",serif;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--fondo:#000;--tinta:#fff;--logo-l:none;--logo-d:block}}
+:root[data-theme="dark"]{--fondo:#000;--tinta:#fff;--logo-l:none;--logo-d:block}
+*,*:before,*:after{box-sizing:inherit}
+html{scroll-padding-top:calc(72px + env(safe-area-inset-top,0px));scroll-behavior:smooth}
+body{margin:0;background:var(--fondo);color:var(--tinta);font:300 1rem/1.75 var(--texto)}
+h1,h2,h3{font-family:var(--display);font-weight:900;margin:0;line-height:1}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--tinta);outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+.lg{height:100%;width:auto;aspect-ratio:var(--r)}
+.l-l{display:var(--logo-l)}.l-d{display:var(--logo-d)}
