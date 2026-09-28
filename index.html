@@ -56,6 +56,7 @@ section .sub{font-weight:300;font-style:italic;margin:0 0 40px;max-width:60ch}
 .cover{aspect-ratio:1;border:4px solid var(--tinta);position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:16px;margin-bottom:14px;font:900 clamp(1.5rem,3.2vw,2.1rem)/.98 var(--display);text-transform:uppercase;letter-spacing:-.01em}
 .cover:before{content:"";position:absolute;inset:0;background:radial-gradient(circle,currentColor 1.6px,#0000 2.2px) 0 0/9px 9px;opacity:.22;-webkit-mask:linear-gradient(200deg,#000 0,#0000 55%);mask:linear-gradient(200deg,#000 0,#0000 55%)}
 .cover span{position:relative}
+.cover .cv{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.cover.hasimg:before,.cover.hasimg span{display:none}
 .c0{background:var(--rojo);color:#fff}.c1{background:#000;color:#fff}.c2{background:var(--gris);color:#000}.c3{background:#fff;color:var(--rojo)}
 .rel{display:flex;flex-direction:column;align-items:flex-start}
 .rel .cover{width:100%}
@@ -74,7 +75,12 @@ section .sub{font-weight:300;font-style:italic;margin:0 0 40px;max-width:60ch}
 .rel .cover:hover{outline:4px solid var(--rojo);outline-offset:0}
 .abrir{display:inline-block;margin-top:10px;background:var(--rojo);color:#fff;border:3px solid var(--rojo);padding:7px 16px;font:800 .9rem var(--display);cursor:pointer}
 .abrir:hover{background:var(--tinta);border-color:var(--tinta);color:var(--fondo)}
-dialog{border:4px solid var(--tinta);background:var(--fondo);color:var(--tinta);padding:0;width:min(560px,calc(100% - 24px));max-height:calc(100dvh - 24px);overflow:auto}
+dialog{border:0;background:none;color:var(--tinta);padding:0;width:min(560px,calc(100% - 24px));max-height:none;overflow:visible}
+.dbox{border:4px solid var(--tinta);background:var(--fondo);max-height:calc(100dvh - 24px);overflow:auto}
+.nv{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:64px;border:4px solid var(--tinta);background:var(--fondo);color:var(--tinta);font:800 2.2rem/1 var(--display);padding:0 0 6px;cursor:pointer}
+.nv:hover{background:var(--rojo);border-color:var(--rojo);color:#fff}
+.nv-p{right:calc(100% + 12px)}.nv-n{left:calc(100% + 12px)}
+@media (max-width:700px){.nv{top:calc(100% + 12px);transform:none;width:64px;height:48px;padding:0 0 4px}.nv-p{right:auto;left:0}.nv-n{left:auto;right:0}}
 dialog::backdrop{background:#000b}
 .dh{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;padding:20px 20px 16px;border-bottom:4px solid var(--tinta)}
 .dh h3{font-size:1.7rem;text-transform:uppercase;letter-spacing:-.01em}
@@ -82,11 +88,13 @@ dialog::backdrop{background:#000b}
 .dx{flex:none;background:var(--tinta);color:var(--fondo);border:0;width:40px;height:40px;font:800 1.4rem var(--display);cursor:pointer}
 .dx:hover{background:var(--rojo);color:#fff}
 .dp{padding:16px 20px 0}
-.dp iframe{display:block;width:100%;height:352px;border:0;border-radius:12px}
+.dp iframe{display:block;width:100%;height:152px;border:0;border-radius:12px}
+@media (min-height:880px){.dp iframe{height:352px}}
 .dp small{display:block;margin:8px 0 0;font:italic 300 .8rem/1.5 var(--texto)}
 .plats{list-style:none;margin:0;padding:16px 20px 20px}
 .plats li+li{margin-top:8px}
-.plats a{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px 14px;border:3px solid var(--tinta);text-decoration:none;font:800 1rem var(--display)}
+.plats a{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:13px 14px;border:3px solid var(--tinta);text-decoration:none;font:800 1.05rem var(--display)}
+.plats b{display:flex;align-items:center;gap:10px;font:inherit}.plats svg{width:26px;height:26px;flex:none;fill:currentColor}
 .plats a:hover{background:var(--tinta);color:var(--fondo)}
 .plats a.dir{background:var(--rojo);border-color:var(--rojo);color:#fff}
 .plats a.dir:hover{background:var(--tinta);border-color:var(--tinta)}
@@ -387,14 +395,20 @@ footer a{font-weight:800}
 </main>
 
 <dialog id="dlg" aria-labelledby="dt">
-  <div class="dh"><div><h3 id="dt"></h3><p id="dm"></p></div><button class="dx" id="dx" aria-label="Cerrar">×</button></div>
-  <div class="dp" id="dpv"></div>
-  <ul class="plats" id="dpl"></ul>
+  <div class="dbox">
+    <div class="dh"><div><h3 id="dt"></h3><p id="dm"></p></div><button class="dx" id="dx" aria-label="Cerrar">×</button></div>
+    <div class="dp" id="dpv"></div>
+    <ul class="plats" id="dpl"></ul>
+  </div>
+  <button class="nv nv-p" id="dprev" aria-label="Anterior">‹</button><button class="nv nv-n" id="dnext" aria-label="Siguiente">›</button>
 </dialog>
 
 <dialog id="vdlg" aria-labelledby="vtt">
-  <div class="dh"><div><h3 id="vtt"></h3></div><button class="dx" id="vdx" aria-label="Cerrar">×</button></div>
-  <div class="vp" id="vpv"></div>
+  <div class="dbox">
+    <div class="dh"><div><h3 id="vtt"></h3></div><button class="dx" id="vdx" aria-label="Cerrar">×</button></div>
+    <div class="vp" id="vpv"></div>
+  </div>
+  <button class="nv nv-p" id="vprev" aria-label="Anterior">‹</button><button class="nv nv-n" id="vnext" aria-label="Siguiente">›</button>
 </dialog>
 
 <footer id="contacto"><div class="wrap">
@@ -476,29 +490,37 @@ function carousel(el,o){
  });
  layout(false);state();
 }
-/* Pega aquí enlaces directos cuando los tengas: links:{apple:"https://…",ytm:"https://…",deezer:"https://…",bandcamp:"https://…"}
+/* Pega aquí enlaces directos cuando los tengas: links:{apple:"https://…",ytm:"https://…",bandcamp:"https://…"}
    sp = ID del álbum en Spotify (activa la preescucha). */
 var RELEASES=[
- {t:"Michelin Star Desserts",a:"Arte Kills",k:"Álbum",y:"2026",n:"9 canciones",sp:"6VGBkOI87jrnjTRuvFNyJG",links:{apple:"https://music.apple.com/es/album/michelin-star-desserts/6786133651",bandcamp:"https://artekills.bandcamp.com/album/michelin-star-desserts",deezer:"https://www.deezer.com/es/album/1018412601",ytm:"https://music.youtube.com/browse/MPREb_lQqqAcaSpCi"}},
- {t:"El Nudo de la Cereza",a:"A1 Invazion",k:"Álbum",y:"2026",n:"7 canciones",sp:"5Guw6EzL57BMQc7MgFTPxE",links:{deezer:"https://www.deezer.com/es/album/1037173352",ytm:"https://music.youtube.com/browse/MPREb_5miiVQU3g5K"}},
- {t:"Grand Chelem",a:"Arte Kills",k:"Álbum",y:"2026",n:"7 canciones",sp:"3q17McxpH6L8qiCZq6v7vR",links:{apple:"https://music.apple.com/es/album/grand-chelem/1896072366",bandcamp:"https://artekills.bandcamp.com/album/grand-chelem",deezer:"https://www.deezer.com/es/album/970939591",ytm:"https://music.youtube.com/browse/MPREb_AsrZoK5XdVb"}},
- {t:"Spooky Cartoons",a:"Lev",k:"Álbum",y:"2026",n:"14 canciones",sp:"3xe8jjaywxo0SjHLDoxghX",links:{apple:"https://music.apple.com/es/album/spooky-cartoons/1871916493",bandcamp:"https://artekills.bandcamp.com/album/spooky-cartoons",deezer:"https://www.deezer.com/es/album/904579952",ytm:"https://music.youtube.com/browse/MPREb_X8baN6Liulr"}},
- {t:"Taiga & Cazador",a:"Arte Kills",k:"Álbum",y:"2025",n:"16 canciones",sp:"7nswazETv9nz5oFonH3uUk",links:{apple:"https://music.apple.com/es/album/taiga-cazador/1850392570",bandcamp:"https://artekills.bandcamp.com/album/taiga-cazador",deezer:"https://www.deezer.com/es/album/847371532",ytm:"https://music.youtube.com/browse/MPREb_hHwWOLSk3El"}},
- {t:"Nuevo Vesuvio",a:"Arte Kills",k:"EP",y:"Mayo 2025",n:"Incluye Mesa Reservada, con Silver J",sp:"2uzyz2LG2ciQuzBWbs9PFD",links:{apple:"https://music.apple.com/es/album/nuevo-vesuvio-ep/1810583619",bandcamp:"https://artekills.bandcamp.com/album/nuevo-vesuvio",deezer:"https://www.deezer.com/es/album/747451551",ytm:"https://music.youtube.com/browse/MPREb_jU58RUmJGZI"}}
+ {img:"michelin-star-desserts",t:"Michelin Star Desserts",a:"Arte Kills",k:"Álbum",y:"2026",n:"9 canciones",sp:"6VGBkOI87jrnjTRuvFNyJG",links:{tidal:"https://tidal.com/album/538871911",apple:"https://music.apple.com/es/album/michelin-star-desserts/6786133651",bandcamp:"https://artekills.bandcamp.com/album/michelin-star-desserts",ytm:"https://music.youtube.com/browse/MPREb_lQqqAcaSpCi"}},
+ {img:"el-nudo-de-la-cereza",t:"El Nudo de la Cereza",a:"A1 Invazion",k:"Álbum",y:"2026",n:"7 canciones",sp:"5Guw6EzL57BMQc7MgFTPxE",links:{tidal:"https://tidal.com/album/546065606",ytm:"https://music.youtube.com/browse/MPREb_5miiVQU3g5K"}},
+ {img:"grand-chelem",t:"Grand Chelem",a:"Arte Kills",k:"Álbum",y:"2026",n:"7 canciones",sp:"3q17McxpH6L8qiCZq6v7vR",links:{tidal:"https://tidal.com/album/519731498",apple:"https://music.apple.com/es/album/grand-chelem/1896072366",bandcamp:"https://artekills.bandcamp.com/album/grand-chelem",ytm:"https://music.youtube.com/browse/MPREb_AsrZoK5XdVb"}},
+ {img:"spooky-cartoons",t:"Spooky Cartoons",a:"Lev",k:"Álbum",y:"2026",n:"14 canciones",sp:"3xe8jjaywxo0SjHLDoxghX",links:{tidal:"https://tidal.com/album/492636246",apple:"https://music.apple.com/es/album/spooky-cartoons/1871916493",bandcamp:"https://artekills.bandcamp.com/album/spooky-cartoons",ytm:"https://music.youtube.com/browse/MPREb_X8baN6Liulr"}},
+ {img:"taiga-cazador",t:"Taiga & Cazador",a:"Arte Kills",k:"Álbum",y:"2025",n:"16 canciones",sp:"7nswazETv9nz5oFonH3uUk",links:{tidal:"https://tidal.com/album/470415446",apple:"https://music.apple.com/es/album/taiga-cazador/1850392570",bandcamp:"https://artekills.bandcamp.com/album/taiga-cazador",ytm:"https://music.youtube.com/browse/MPREb_hHwWOLSk3El"}},
+ {img:"nuevo-vesuvio",t:"Nuevo Vesuvio",a:"Arte Kills",k:"EP",y:"Mayo 2025",n:"Incluye Mesa Reservada, con Silver J",sp:"2uzyz2LG2ciQuzBWbs9PFD",links:{tidal:"https://tidal.com/album/432040998",apple:"https://music.apple.com/es/album/nuevo-vesuvio-ep/1810583619",bandcamp:"https://artekills.bandcamp.com/album/nuevo-vesuvio",ytm:"https://music.youtube.com/browse/MPREb_jU58RUmJGZI"}}
 ];
+var PICON={
+ bandcamp:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M0 18.75l7.437-13.5H24l-7.438 13.5H0z"/></svg>',
+ spotify:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>',
+ apple:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.994 6.124a9.23 9.23 0 00-.24-2.19c-.317-1.31-1.062-2.31-2.18-3.043a5.022 5.022 0 00-1.877-.726 10.496 10.496 0 00-1.564-.15c-.04-.003-.083-.01-.124-.013H5.986c-.152.01-.303.017-.455.026-.747.043-1.49.123-2.193.4-1.336.53-2.3 1.452-2.865 2.78-.192.448-.292.925-.363 1.408-.056.392-.088.785-.1 1.18 0 .032-.007.062-.01.093v12.223c.01.14.017.283.027.424.05.815.154 1.624.497 2.373.65 1.42 1.738 2.353 3.234 2.801.42.127.856.187 1.293.228.555.053 1.11.06 1.667.06h11.03a12.5 12.5 0 001.57-.1c.822-.106 1.596-.35 2.295-.81a5.046 5.046 0 001.88-2.207c.186-.42.293-.87.37-1.324.113-.675.138-1.358.137-2.04-.002-3.8 0-7.595-.003-11.393zm-6.423 3.99v5.712c0 .417-.058.827-.244 1.206-.29.59-.76.962-1.388 1.14-.35.1-.706.157-1.07.173-.95.045-1.773-.6-1.943-1.536a1.88 1.88 0 011.038-2.022c.323-.16.67-.25 1.018-.324.378-.082.758-.153 1.134-.24.274-.063.457-.23.51-.516a.904.904 0 00.02-.193c0-1.815 0-3.63-.002-5.443a.725.725 0 00-.026-.185c-.04-.15-.15-.243-.304-.234-.16.01-.318.035-.475.066-.76.15-1.52.303-2.28.456l-2.325.47-1.374.278c-.016.003-.032.01-.048.013-.277.077-.377.203-.39.49-.002.042 0 .086 0 .13-.002 2.602 0 5.204-.003 7.805 0 .42-.047.836-.215 1.227-.278.64-.77 1.04-1.434 1.233-.35.1-.71.16-1.075.172-.96.036-1.755-.6-1.92-1.544-.14-.812.23-1.685 1.154-2.075.357-.15.73-.232 1.108-.31.287-.06.575-.116.86-.177.383-.083.583-.323.6-.714v-.15c0-2.96 0-5.922.002-8.882 0-.123.013-.25.042-.37.07-.285.273-.448.546-.518.255-.066.515-.112.774-.165.733-.15 1.466-.296 2.2-.444l2.27-.46c.67-.134 1.34-.27 2.01-.403.22-.043.442-.088.663-.106.31-.025.523.17.554.482.008.073.012.148.012.223.002 1.91.002 3.822 0 5.732z"/></svg>',
+ ytm:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm0 19.104c-3.924 0-7.104-3.18-7.104-7.104S8.076 4.896 12 4.896s7.104 3.18 7.104 7.104-3.18 7.104-7.104 7.104zm0-13.332c-3.432 0-6.228 2.796-6.228 6.228S8.568 18.228 12 18.228s6.228-2.796 6.228-6.228S15.432 5.772 12 5.772zM9.684 15.54V8.46L15.816 12l-6.132 3.54z"/></svg>',
+ tidal:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12.012 3.992L8.008 7.996 4.004 3.992 0 7.996 4.004 12l4.004-4.004L12.012 12l-4.004 4.004 4.004 4.004 4.004-4.004L12.012 12l4.004-4.004-4.004-4.004zM16.042 7.996l3.979-3.979L24 7.996l-3.979 3.979z"/></svg>',
+};
 var PLATS=[
+ {id:"bandcamp",n:"Bandcamp",s:"https://bandcamp.com/search?q="},
  {id:"spotify",n:"Spotify",s:"https://open.spotify.com/search/",d:function(r){return r.sp?"https://open.spotify.com/album/"+r.sp:""}},
  {id:"apple",n:"Apple Music",s:"https://music.apple.com/es/search?term="},
  {id:"ytm",n:"YouTube Music",s:"https://music.youtube.com/search?q="},
- {id:"deezer",n:"Deezer",s:"https://www.deezer.com/search/"},
- {id:"bandcamp",n:"Bandcamp",s:"https://bandcamp.com/search?q="}
+ {id:"tidal",n:"Tidal",s:"https://tidal.com/search?q="}
 ];
 carousel(document.getElementById("car-rel"),{n:RELEASES.length,
- card:function(i){var r=RELEASES[i];return '<span class="tipo">'+r.k+'</span><div class="cc"><h3 class="tt">'+r.t+'</h3><div class="meta">'+r.a+' · '+r.y+'</div><button class="rm" aria-label="Escuchar '+r.t+'">'+ICON_GO+'<span>Escuchar</span></button></div>'},
- row:function(i){var r=RELEASES[i];return '<article class="slide rs" role="listitem"><button class="cover c'+(i%4)+'" data-i="'+i+'" aria-label="Abrir '+r.t+': preescucha y plataformas"><span>'+r.t+'</span></button><div class="info"><span class="tipo">'+r.k+'</span><h3>'+r.t+'</h3><div class="meta">'+r.a+' · '+r.y+' · '+r.n+'</div><button class="abrir" data-i="'+i+'">Escuchar</button></div></article>'},
+ card:function(i){var r=RELEASES[i];return '<img class="th" src="img/'+r.img+'.jpg" alt="Portada de '+r.t+'" loading="lazy" onload="this.parentNode.classList.add(\'hasimg\')" onerror="this.remove()"><div class="shade"></div><span class="tipo">'+r.k+'</span><div class="cc"><h3 class="tt">'+r.t+'</h3><div class="meta">'+r.a+' · '+r.y+'</div><button class="rm" aria-label="Escuchar '+r.t+'">'+ICON_GO+'<span>Escuchar</span></button></div>'},
+ row:function(i){var r=RELEASES[i];return '<article class="slide rs" role="listitem"><button class="cover c'+(i%4)+'" data-i="'+i+'" aria-label="Abrir '+r.t+': preescucha y plataformas"><img class="cv" src="img/'+r.img+'.jpg" alt="" loading="lazy" onload="this.parentNode.classList.add(\'hasimg\')" onerror="this.remove()"><span>'+r.t+'</span></button><div class="info"><span class="tipo">'+r.k+'</span><h3>'+r.t+'</h3><div class="meta">'+r.a+' · '+r.y+' · '+r.n+'</div><button class="abrir" data-i="'+i+'">Escuchar</button></div></article>'},
  open:function(i){abrir(i)}});
 
 var dlg=document.getElementById("dlg"),dpv=document.getElementById("dpv");
+var cur=0;
 function abrir(i){
  var r=RELEASES[i],q=encodeURIComponent(r.t+" "+r.a);
  document.getElementById("dt").textContent=r.t;
@@ -506,8 +528,8 @@ function abrir(i){
  dpv.innerHTML=r.sp?'<iframe src="https://open.spotify.com/embed/album/'+r.sp+'?utm_source=generator" title="Preescucha de '+r.t+'" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>':'';
  document.getElementById("dpl").innerHTML=PLATS.map(function(p){
   var d=(r.links&&r.links[p.id])||(p.d?p.d(r):"");
-  return d?'<li><a class="dir" href="'+d+'" target="_blank" rel="noopener">'+p.n+'<span>'+(p.l||'Escuchar')+'</span></a></li>':'<li><a href="'+p.s+q+'" target="_blank" rel="noopener">'+p.n+'<span>Buscar</span></a></li>'}).join("");
- dlg.showModal();
+  return d?'<li><a class="dir" href="'+d+'" target="_blank" rel="noopener"><b>'+PICON[p.id]+p.n+'</b><span>'+(p.l||'Escuchar')+'</span></a></li>':''}).join("");
+ cur=i;if(!dlg.open)dlg.showModal();
 }
 document.getElementById("car-rel").addEventListener("click",function(e){var b=e.target.closest("[data-i]");if(b)abrir(+b.dataset.i)});
 document.getElementById("dx").onclick=function(){dlg.close()};
@@ -536,8 +558,14 @@ carousel(vids,{n:VIDEOS.length,
  row:function(i){var v=VIDEOS[i];return '<article class="slide vs" role="listitem"><button class="vbtn" data-id="'+v.id+'" aria-label="Reproducir el vídeo '+v.t+'"><img src="https://i.ytimg.com/vi/'+v.id+'/hqdefault.jpg" alt="" loading="lazy" onerror="this.remove()"><span class="play"></span></button><div class="vcap"><b>'+v.t+'</b><a href="https://www.youtube.com/watch?v='+v.id+'" target="_blank" rel="noopener">Abrir en YouTube</a></div></article>'},
  open:function(i){openVideo(i)}});
 var vdlg=document.getElementById("vdlg"),vpv=document.getElementById("vpv");
-function openVideo(i){var v=VIDEOS[i];document.getElementById("vtt").textContent=v.t;vpv.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+v.id+'?autoplay=1&rel=0" title="'+v.t+'" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>';vdlg.showModal()}
+var vcur=0;
+function openVideo(i){var v=VIDEOS[i];document.getElementById("vtt").textContent=v.t;vpv.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+v.id+'?autoplay=1&rel=0" title="'+v.t+'" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen></iframe>';vcur=i;if(!vdlg.open)vdlg.showModal()}
 document.getElementById("vdx").onclick=function(){vdlg.close()};
+document.getElementById("dprev").onclick=function(){abrir((cur+RELEASES.length-1)%RELEASES.length)};
+document.getElementById("dnext").onclick=function(){abrir((cur+1)%RELEASES.length)};
+document.getElementById("vprev").onclick=function(){openVideo((vcur+VIDEOS.length-1)%VIDEOS.length)};
+document.getElementById("vnext").onclick=function(){openVideo((vcur+1)%VIDEOS.length)};
+document.addEventListener("keydown",function(e){var d=e.key==="ArrowLeft"?-1:e.key==="ArrowRight"?1:0;if(!d)return;if(dlg.open)abrir((cur+d+RELEASES.length)%RELEASES.length);else if(vdlg.open)openVideo((vcur+d+VIDEOS.length)%VIDEOS.length)});
 vdlg.addEventListener("click",function(e){if(e.target===vdlg)vdlg.close()});
 vdlg.addEventListener("close",function(){vpv.innerHTML=""});
 </script>
