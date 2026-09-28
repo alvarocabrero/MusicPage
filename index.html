@@ -80,6 +80,24 @@ section .sub{font-weight:300;font-style:italic;margin:0 0 40px;max-width:60ch}
 .vids li{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:18px 0;border-bottom:2px solid var(--tinta)}
 .vids b{font:800 clamp(1.05rem,2.4vw,1.4rem) var(--display)}
 .vids a{font:800 .95rem var(--display);color:var(--rojo);white-space:nowrap}
+/* merch */
+#merch .hd{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.mgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));gap:32px}
+.mi{display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+.mi .mp{display:block;width:100%;aspect-ratio:1;border:4px solid var(--tinta);background:var(--gris);overflow:hidden}
+.mi .mp img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 40%;transition:transform .4s}
+.mi a.mp:hover img{transform:scale(1.04)}
+.mi h3{font:800 1.15rem/1.25 var(--display)}
+.mi .pr{font:500 .95rem var(--display)}
+.mi .mt{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;width:100%;margin:4px 0 8px}
+.mi .mt button{padding:0;border:3px solid var(--tinta);background:none;cursor:pointer;aspect-ratio:1;overflow:hidden;opacity:.6}
+.mi .mt button.on,.mi .mt button:hover{opacity:1;border-color:var(--rojo)}
+.mi .mt img{display:block;width:100%;height:100%;object-fit:cover}
+.mi .me{margin:0;font:800 .8rem/1.4 var(--display)}
+.mi .md{margin:0;font:300 .9rem/1.5 var(--texto)}
+.mi .abrir{text-decoration:none}
+.mnone{grid-column:1/-1;border:4px solid var(--tinta);padding:40px 24px;font:800 clamp(1.4rem,3vw,2rem)/1.2 var(--display);text-transform:uppercase}
+.mnone span{display:block;margin-top:8px;font:500 .95rem/1.5 var(--display);text-transform:none}
 /* popup */
 .rel .cover{width:100%;cursor:pointer;text-align:left;color:inherit;font-family:var(--display);border:4px solid var(--tinta)}
 .rel .cover:hover{outline:4px solid var(--rojo);outline-offset:0}
@@ -425,6 +443,11 @@ footer p.cf-msg{font:500 .95rem var(--display)}
     <div class="stage" tabindex="0"></div>
   </div>
 </div></section>
+<section id="merch"><div class="wrap">
+  <div class="hd"><h2>Merch</h2></div>
+  <span class="dash"></span>
+  <div class="mgrid" id="merch-grid"></div>
+</div></section>
 </main>
 
 <dialog id="dlg" aria-labelledby="dt">
@@ -479,6 +502,26 @@ footer p.cf-msg{font:500 .95rem var(--display)}
    .then(function(j){if(j.success==="true"||j.success===true){msg.textContent="¡Mensaje enviado! Gracias por escribir.";f.reset()}else throw 0})
    .catch(function(){msg.innerHTML='No se pudo enviar. Escribe a <a href="mailto:kbrekills@gmail.com">kbrekills@gmail.com</a>.'})
    .then(function(){b.disabled=false});
+ });
+})();
+/* Merch: añade productos aquí. imgs = lista de imágenes (la primera es la principal), url = enlace de compra, cta = texto del botón. */
+var MERCH_ENVIO="Envíos a todo el mundo · Entrega en mano en Madrid y Oviedo";
+var MERCH=[
+ {t:"CD «Taiga & Cazador»",p:"10 € + gastos de envío",d:"Arte Kills x Stxners Music · Formato físico.",url:"https://www.instagram.com/p/DUEbDSOgMn7/",cta:"Pedir por Instagram",imgs:["img/cd-taiga-cazador-1.jpg","img/cd-taiga-cazador-2.jpg","img/cd-taiga-cazador-3.jpg","img/cd-taiga-cazador-4.jpg","img/cd-taiga-cazador-5.jpg"]}
+ ,{t:"Vinilo «Spooky Cartoons»",p:"25 €",d:"Lev & Arte Kills · LP 12” negro, 180 g. Edición limitada de 100 unidades.",url:"https://www.instagram.com/p/DU-2Z9Lirou/",cta:"Pedir por Instagram",imgs:["img/vinilo-spooky-cartoons-1.jpg","img/vinilo-spooky-cartoons-2.jpg"]}
+ ,{t:"Camiseta «Spooky Cartoons»",p:"15 €",d:"Tallas S, M, L y XL · 100 % algodón, 180 GSM. Edición limitada de 50 unidades, serigrafiada por delante y por detrás.",url:"https://www.instagram.com/p/DU-1P_uiobz/",cta:"Pedir por Instagram",imgs:["img/camiseta-spooky-cartoons-1.jpg"]}
+];
+(function(){
+ var g=document.getElementById("merch-grid");
+ if(!MERCH.length){g.innerHTML='<div class="mnone">Próximamente<span>Muy pronto tendremos merch disponible.</span></div>';return}
+ g.innerHTML=MERCH.map(function(m,n){
+  var im=m.imgs||[];
+  var th=im.length>1?'<div class="mt">'+im.map(function(s,i){return '<button type="button" class="'+(i?'':'on')+'" data-s="'+s+'" aria-label="Ver foto '+(i+1)+' de '+im.length+'"><img src="'+s+'" alt="" loading="lazy"></button>'}).join("")+'</div>':"";
+  return '<article class="mi" data-n="'+n+'"><div class="mp">'+(im[0]?'<img src="'+im[0]+'" alt="'+m.t+'" loading="lazy">':'')+'</div>'+th+'<h3>'+m.t+'</h3>'+(m.p?'<div class="pr">'+m.p+'</div>':'')+(m.d?'<p class="md">'+m.d+'</p>':'')+'<p class="me">'+MERCH_ENVIO+'</p>'+(m.url?'<a class="abrir" href="'+m.url+'" target="_blank" rel="noopener">'+(m.cta||"Comprar")+'</a>':'')+'</article>'}).join("");
+ g.addEventListener("click",function(e){
+  var b=e.target.closest(".mt button");if(!b)return;
+  var c=b.closest(".mi");c.querySelector(".mp img").src=b.dataset.s;
+  [].forEach.call(c.querySelectorAll(".mt button"),function(x){x.classList.toggle("on",x===b)});
  });
 })();
 var ICON_GO='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12.5 8.5 16 12l-3.5 3.5"/></svg>';
