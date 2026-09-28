@@ -50,9 +50,11 @@
   </div>
 </div></section>
 <section id="merch"><div class="wrap">
-  <div class="hd"><h2>Merch</h2></div>
+  <div class="hd"><h2>Merch</h2><button class="vt" type="button">Ver todos</button></div>
   <span class="dash"></span>
-  <div class="mgrid" id="merch-grid"></div>
+  <div class="car" id="car-merch" role="region" aria-roledescription="carousel" aria-label="Merch">
+    <div class="stage" tabindex="0"></div>
+  </div>
 </div></section>
 </main>
 
@@ -71,6 +73,14 @@
     <div class="vp" id="vpv"></div>
   </div>
   <button class="nv nv-p" id="vprev" aria-label="Anterior">‹</button><button class="nv nv-n" id="vnext" aria-label="Siguiente">›</button>
+</dialog>
+
+<dialog id="mdlg" aria-labelledby="mt">
+  <div class="dbox">
+    <div class="dh"><div><h3 id="mt"></h3><p id="mm"></p></div><button class="dx" id="mx" aria-label="Cerrar">×</button></div>
+    <div class="mb" id="mbody"></div>
+  </div>
+  <button class="nv nv-p" id="mprev" aria-label="Anterior">‹</button><button class="nv nv-n" id="mnext" aria-label="Siguiente">›</button>
 </dialog>
 
 <footer id="contacto"><div class="wrap">

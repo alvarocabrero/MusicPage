@@ -52,7 +52,7 @@ body{overflow-x:clip}
 /* carrusel tipo escenario */
 @property --sbg{syntax:"<color>";inherits:true;initial-value:#fff}
 @property --sfg{syntax:"<color>";inherits:true;initial-value:#000}
-#lanzamientos,#videoclips{--tinta:var(--sfg);--fondo:var(--sbg);background:var(--sbg);color:var(--sfg);transition:--sbg .7s ease,--sfg .7s ease}
+#lanzamientos,#videoclips,#merch{--tinta:var(--sfg);--fondo:var(--sbg);background:var(--sbg);color:var(--sfg);transition:--sbg .7s ease,--sfg .7s ease}
 section .dash{background:var(--dash,var(--rojo))}
 .stage{position:relative;overflow:hidden;touch-action:pan-y;user-select:none;-webkit-user-select:none;outline-offset:-4px}
 .stage:focus-visible{outline:3px solid var(--tinta)}
@@ -84,4 +84,4 @@ section .dash{background:var(--dash,var(--rojo))}
 @keyframes drift{0%,100%{transform:translate3d(-1.5px,.5px,0)}50%{transform:translate3d(1.5px,-1px,0)}}
 .cd{animation:drift 7s ease-in-out infinite;animation-delay:calc(var(--j,0)*-1.7s)}
 .stage.dragging .cd{animation-play-state:paused}
-@media (prefers-reduced-motion:reduce){.cd{animation:none}.cd,.cd .tt{transition:none}#lanzamientos,#videoclips{transition:none}}
+@media (prefers-reduced-motion:reduce){.cd{animation:none}.cd,.cd .tt{transition:none}#lanzamientos,#videoclips,#merch{transition:none}}
