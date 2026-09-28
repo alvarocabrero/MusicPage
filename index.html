@@ -7,11 +7,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;800;900&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
 <style>
-:root{--rojo:#e22c14;--gris:#b6bbbf;--fondo:#fff;--tinta:#000;--panel:color-mix(in srgb,var(--gris) 30%,#fff);--sobre-rojo:#fff;--logo-l:block;--logo-d:none;
+:root{--rojo:#e22c14;--gris:#b6bbbf;--fondo:#fff;--tinta:#000;--sobre-rojo:#fff;--logo-l:block;--logo-d:none;
 --display:"Raleway","Helvetica Neue",Arial,sans-serif;--texto:"Merriweather",Georgia,"Times New Roman",serif;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--fondo:#000;--tinta:#fff;--panel:color-mix(in srgb,var(--gris) 14%,#000);--logo-l:none;--logo-d:block}}
-:root[data-theme="dark"]{--fondo:#000;--tinta:#fff;--panel:color-mix(in srgb,var(--gris) 14%,#000);--logo-l:none;--logo-d:block}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--fondo:#000;--tinta:#fff;--logo-l:none;--logo-d:block}}
+:root[data-theme="dark"]{--fondo:#000;--tinta:#fff;--logo-l:none;--logo-d:block}
 *,*:before,*:after{box-sizing:inherit}
 html{scroll-padding-top:calc(72px + env(safe-area-inset-top,0px));scroll-behavior:smooth}
 body{margin:0;background:var(--fondo);color:var(--tinta);font:300 1rem/1.75 var(--texto)}
@@ -38,7 +38,7 @@ nav a:hover{color:var(--rojo)}
 /* portada */
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 #lanzamientos{border-top:0}
-.hero .mark{background:color-mix(in srgb,var(--gris) 30%,#fff);border-bottom:10px solid var(--tinta);padding:128px 24px 56px}
+.hero .mark{background:#fff;border-bottom:10px solid var(--tinta);padding:128px 24px 56px}
 .hero .mk{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px clamp(24px,5vw,64px);align-items:center;max-width:1180px;margin:0 auto}
 .hero .mk .lg{display:block;width:100%;max-width:440px;height:auto;justify-self:center}
 .hrel{--tinta:#000;--fondo:#fff;color:#000}
@@ -72,7 +72,7 @@ section .sub{font-weight:300;font-style:italic;margin:0 0 40px;max-width:60ch}
 .rel .cover{width:100%}
 .rel .meta{margin-bottom:12px}
 .rel .abrir{margin-top:auto}
-.rel h3{font:700 1.1rem/1.3 var(--texto)}
+.rel h3{font:800 1.1rem/1.3 var(--display)}
 .rel .meta{font:500 .9rem/1.5 var(--display);margin-top:4px}
 .tipo{display:inline-block;border:2px solid var(--tinta);padding:0 10px;font:800 .8rem/1.6 var(--display);margin-bottom:8px}
 .lnk{display:inline-block;margin-top:8px;font:800 .95rem var(--display);color:var(--rojo);text-decoration-thickness:3px;text-underline-offset:4px}
@@ -134,7 +134,7 @@ body{overflow-x:clip}
 .rs{display:grid;grid-template-columns:1fr 1fr}
 .rs .cover{aspect-ratio:1;width:100%;margin:0;border:0;border-right:4px solid var(--tinta);cursor:pointer;text-align:left}
 .rs .info{padding:24px;display:flex;flex-direction:column;align-items:flex-start;min-width:0}
-.rs h3{font:700 1.35rem/1.25 var(--texto)}
+.rs h3{font:800 1.35rem/1.25 var(--display)}
 .rs .meta{font:500 .95rem/1.5 var(--display);margin:8px 0 18px}
 .rs .abrir,.rs .lnk{margin-top:auto}
 .vbtn{position:relative;display:block;width:100%;aspect-ratio:16/9;padding:0;border:0;background:#000;cursor:pointer;overflow:hidden}
