@@ -1,22 +1,28 @@
 /* Vista: discos (tarjetas del carrusel, filas de "ver todos", portada y pop up de preescucha). */
 import {ICON_GO,PICON} from "./icons.js";
 import {linksFor} from "../models/platforms.js";
+import {t,tr} from "../models/i18n.js";
 
 const $=id=>document.getElementById(id);
 const IMG_LOAD='onload="this.parentNode.classList.add(\'hasimg\')" onerror="this.remove()"';
 
-export const cardHTML=r=>'<img class="th" src="img/'+r.img+'.jpg" alt="Portada de '+r.t+'" loading="lazy" '+IMG_LOAD+'><div class="shade"></div><span class="tipo">'+r.k+'</span><div class="cc"><h3 class="tt">'+r.t+'</h3><div class="meta">'+r.a+' · '+r.y+'</div><button class="rm" aria-label="Escuchar '+r.t+'">'+ICON_GO+'<span>Escuchar</span></button></div>';
+const kind=r=>t("kind."+r.k);
+const info=r=>r.a+" · "+tr(r.y);
+/* "9 canciones" para números; los textos libres vienen ya traducidos. */
+const extra=r=>typeof r.n==="number"?t("tracks",{n:r.n}):tr(r.n);
 
-export const rowHTML=(r,i)=>'<article class="slide rs" role="listitem"><button class="cover c'+(i%4)+'" data-i="'+i+'" aria-label="Abrir '+r.t+': preescucha y plataformas"><img class="cv" src="img/'+r.img+'.jpg" alt="" loading="lazy" '+IMG_LOAD+'><span>'+r.t+'</span></button><div class="info"><span class="tipo">'+r.k+'</span><h3>'+r.t+'</h3><div class="meta">'+r.a+' · '+r.y+' · '+r.n+'</div><button class="abrir" data-i="'+i+'">Escuchar</button></div></article>';
+export const cardHTML=r=>'<img class="th" src="img/'+r.img+'.jpg" alt="'+t("release.cover",{t:r.t})+'" loading="lazy" '+IMG_LOAD+'><div class="shade"></div><span class="tipo">'+kind(r)+'</span><div class="cc"><h3 class="tt">'+r.t+'</h3><div class="meta">'+info(r)+'</div><button class="rm" aria-label="'+t("listen")+' '+r.t+'">'+ICON_GO+'<span>'+t("listen")+'</span></button></div>';
 
-const embedHTML=r=>r.sp?'<iframe src="https://open.spotify.com/embed/album/'+r.sp+'?utm_source=generator" title="Preescucha de '+r.t+'" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>':'';
+export const rowHTML=(r,i)=>'<article class="slide rs" role="listitem"><button class="cover c'+(i%4)+'" data-i="'+i+'" aria-label="'+t("release.open",{t:r.t})+'"><img class="cv" src="img/'+r.img+'.jpg" alt="" loading="lazy" '+IMG_LOAD+'><span>'+r.t+'</span></button><div class="info"><span class="tipo">'+kind(r)+'</span><h3>'+r.t+'</h3><div class="meta">'+info(r)+' · '+extra(r)+'</div><button class="abrir" data-i="'+i+'">'+t("listen")+'</button></div></article>';
 
-const linksHTML=r=>linksFor(r).map(x=>'<li><a class="dir" href="'+x.url+'" target="_blank" rel="noopener"><b>'+PICON[x.p.id]+x.p.n+'</b><span>'+(x.p.l||'Escuchar')+'</span></a></li>').join("");
+const embedHTML=r=>r.sp?'<iframe src="https://open.spotify.com/embed/album/'+r.sp+'?utm_source=generator" title="'+t("release.preview",{t:r.t})+'" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>':'';
+
+const linksHTML=r=>linksFor(r).map(x=>'<li><a class="dir" href="'+x.url+'" target="_blank" rel="noopener"><b>'+PICON[x.p.id]+x.p.n+'</b><span>'+t("listen")+'</span></a></li>').join("");
 
 /* Portada: logo + último lanzamiento con preescucha y enlaces. */
 export const heroView={
  render(r){
-  $("hrel").innerHTML='<span class="tipo">Último lanzamiento</span><h2>'+r.t+'</h2><p class="hm">'+r.a+' · '+r.k+' · '+r.y+'</p><div class="hp">'+embedHTML(r)+'</div><ul class="plats">'+linksHTML(r)+'</ul>';
+  $("hrel").innerHTML='<span class="tipo">'+t("release.latest")+'</span><h2>'+r.t+'</h2><p class="hm">'+r.a+' · '+kind(r)+' · '+tr(r.y)+'</p><div class="hp">'+embedHTML(r)+'</div><ul class="plats">'+linksHTML(r)+'</ul>';
  }
 };
 
@@ -25,7 +31,7 @@ export const releaseDialogView={
  el:$("dlg"),prev:$("dprev"),next:$("dnext"),close:$("dx"),
  render(r){
   $("dt").textContent=r.t;
-  $("dm").textContent=r.a+" · "+r.k+" · "+r.y;
+  $("dm").textContent=r.a+" · "+kind(r)+" · "+tr(r.y);
   $("dpv").innerHTML=embedHTML(r);
   $("dpl").innerHTML=linksHTML(r);
  },

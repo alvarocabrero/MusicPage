@@ -19,10 +19,10 @@
 </head>
 <body>
 <header class="top at-top" id="top-bar"><div class="wrap">
-  <a href="#top" class="brand" aria-label="Arte Kills, inicio">
+  <a href="#top" class="brand" data-i18n-attr="aria-label:brand.home" aria-label="Arte Kills, inicio">
     <svg class="lg l-l" style="--r:0.8782" viewBox="0 0 635.72 723.86" role="img" aria-label="Arte Kills"><use href="img/sprite.svg#lpv"/></svg><svg class="lg l-d" style="--r:0.8664" viewBox="0 0 652.8 753.5" role="img" aria-label="Arte Kills"><use href="img/sprite.svg#lvn"/></svg>
   </a>
-  <nav><a href="#contacto">Contacto</a></nav>
+  <nav><a href="#contacto" data-i18n="nav.contact">Contacto</a><button class="lang" id="lang" type="button" data-i18n="lang.label" data-i18n-attr="aria-label:lang.switch">EN</button></nav>
 </div></header>
 
 <main id="top">
@@ -35,24 +35,24 @@
 </div>
 
 <section id="lanzamientos"><div class="wrap">
-  <div class="hd"><h2>Lanzamientos</h2><button class="vt" type="button">Ver todos</button></div>
+  <div class="hd"><h2 data-i18n="sec.releases">Lanzamientos</h2><button class="vt" type="button" data-i18n="viewAll">Ver todos</button></div>
   <span class="dash"></span>
-  <div class="car" id="car-rel" role="region" aria-roledescription="carousel" aria-label="Lanzamientos">
+  <div class="car" id="car-rel" role="region" aria-roledescription="carousel" aria-label="Lanzamientos" data-i18n-attr="aria-roledescription:carousel;aria-label:sec.releases">
     <div class="stage" tabindex="0"></div>
   </div>
 </div></section>
 
 <section id="videoclips"><div class="wrap">
-  <div class="hd"><h2>Videoclips</h2><button class="vt" type="button">Ver todos</button></div>
+  <div class="hd"><h2 data-i18n="sec.videos">Videoclips</h2><button class="vt" type="button" data-i18n="viewAll">Ver todos</button></div>
   <span class="dash"></span>
-  <div class="car" id="car-vid" role="region" aria-roledescription="carousel" aria-label="Videoclips">
+  <div class="car" id="car-vid" role="region" aria-roledescription="carousel" aria-label="Videoclips" data-i18n-attr="aria-roledescription:carousel;aria-label:sec.videos">
     <div class="stage" tabindex="0"></div>
   </div>
 </div></section>
 <section id="merch"><div class="wrap">
-  <div class="hd"><h2>Merch</h2><button class="vt" type="button">Ver todos</button></div>
+  <div class="hd"><h2 data-i18n="sec.merch">Merch</h2><button class="vt" type="button" data-i18n="viewAll">Ver todos</button></div>
   <span class="dash"></span>
-  <div class="car" id="car-merch" role="region" aria-roledescription="carousel" aria-label="Merch">
+  <div class="car" id="car-merch" role="region" aria-roledescription="carousel" aria-label="Merch" data-i18n-attr="aria-roledescription:carousel;aria-label:sec.merch">
     <div class="stage" tabindex="0"></div>
   </div>
 </div></section>
@@ -60,42 +60,42 @@
 
 <dialog id="dlg" aria-labelledby="dt">
   <div class="dbox">
-    <div class="dh"><div><h3 id="dt"></h3><p id="dm"></p></div><button class="dx" id="dx" aria-label="Cerrar">×</button></div>
+    <div class="dh"><div><h3 id="dt"></h3><p id="dm"></p></div><button class="dx" id="dx" aria-label="Cerrar" data-i18n-attr="aria-label:dlg.close">×</button></div>
     <div class="dp" id="dpv"></div>
     <ul class="plats" id="dpl"></ul>
   </div>
-  <button class="nv nv-p" id="dprev" aria-label="Anterior">‹</button><button class="nv nv-n" id="dnext" aria-label="Siguiente">›</button>
+  <button class="nv nv-p" id="dprev" aria-label="Anterior" data-i18n-attr="aria-label:dlg.prev">‹</button><button class="nv nv-n" id="dnext" aria-label="Siguiente" data-i18n-attr="aria-label:dlg.next">›</button>
 </dialog>
 
 <dialog id="vdlg" aria-labelledby="vtt">
   <div class="dbox">
-    <div class="dh"><div><h3 id="vtt"></h3></div><button class="dx" id="vdx" aria-label="Cerrar">×</button></div>
+    <div class="dh"><div><h3 id="vtt"></h3></div><button class="dx" id="vdx" aria-label="Cerrar" data-i18n-attr="aria-label:dlg.close">×</button></div>
     <div class="vp" id="vpv"></div>
   </div>
-  <button class="nv nv-p" id="vprev" aria-label="Anterior">‹</button><button class="nv nv-n" id="vnext" aria-label="Siguiente">›</button>
+  <button class="nv nv-p" id="vprev" aria-label="Anterior" data-i18n-attr="aria-label:dlg.prev">‹</button><button class="nv nv-n" id="vnext" aria-label="Siguiente" data-i18n-attr="aria-label:dlg.next">›</button>
 </dialog>
 
 <dialog id="mdlg" aria-labelledby="mt">
   <div class="dbox">
-    <div class="dh"><div><h3 id="mt"></h3><p id="mm"></p></div><button class="dx" id="mx" aria-label="Cerrar">×</button></div>
+    <div class="dh"><div><h3 id="mt"></h3><p id="mm"></p></div><button class="dx" id="mx" aria-label="Cerrar" data-i18n-attr="aria-label:dlg.close">×</button></div>
     <div class="mb" id="mbody"></div>
   </div>
-  <button class="nv nv-p" id="mprev" aria-label="Anterior">‹</button><button class="nv nv-n" id="mnext" aria-label="Siguiente">›</button>
+  <button class="nv nv-p" id="mprev" aria-label="Anterior" data-i18n-attr="aria-label:dlg.prev">‹</button><button class="nv nv-n" id="mnext" aria-label="Siguiente" data-i18n-attr="aria-label:dlg.next">›</button>
 </dialog>
 
 <footer id="contacto"><div class="wrap">
   <form class="cf" id="cf" action="https://formsubmit.co/kbrekills@gmail.com" method="POST">
-    <h2>Contacto</h2>
+    <h2 data-i18n="contact.title">Contacto</h2>
     <div class="cf-row">
-      <label>Nombre<input type="text" name="name" autocomplete="name" required></label>
-      <label>Email<input type="email" name="email" autocomplete="email" required></label>
+      <label><span data-i18n="contact.name">Nombre</span><input type="text" name="name" autocomplete="name" required></label>
+      <label><span data-i18n="contact.email">Email</span><input type="email" name="email" autocomplete="email" required></label>
     </div>
-    <label>Mensaje<textarea name="message" rows="5" required></textarea></label>
+    <label><span data-i18n="contact.message">Mensaje</span><textarea name="message" rows="5" required></textarea></label>
     <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none">
-    <input type="hidden" name="_subject" value="Nuevo mensaje desde la web de Arte Kills">
+    <input type="hidden" name="_subject" value="Nuevo mensaje desde la web de Arte Kills" data-i18n-attr="value:contact.subject">
     <input type="hidden" name="_captcha" value="false">
     <input type="hidden" name="_template" value="table">
-    <div class="cf-foot"><button class="cf-btn" type="submit">Enviar mensaje</button><p class="cf-msg" id="cf-msg" role="status" aria-live="polite"></p></div>
+    <div class="cf-foot"><button class="cf-btn" type="submit" data-i18n="contact.send">Enviar mensaje</button><p class="cf-msg" id="cf-msg" role="status" aria-live="polite"></p></div>
   </form>
   <div class="fl"><svg class="lg" style="--r:1.8780" viewBox="0 0 692.42 368.7" role="img" aria-label="Arte Kills"><use href="img/sprite.svg#lfn"/></svg></div>
   <ul class="soc">

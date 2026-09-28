@@ -12,3 +12,7 @@
 nav{display:flex;gap:26px;align-items:center;font:800 .95rem var(--display)}
 nav a{text-decoration:none}
 nav a:hover{color:var(--rojo)}
+.lang{background:none;border:0;padding:0;color:inherit;font:800 .95rem var(--display);cursor:pointer}
+.lang:hover{color:var(--rojo)}
+.top.at-top nav .lang{color:#000}
+.top.at-top nav .lang:hover{color:var(--rojo)}

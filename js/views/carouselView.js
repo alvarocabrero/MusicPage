@@ -1,5 +1,6 @@
 /* Vista: carrusel tipo escenario (tarjetas en anillo + lista "ver todos"). Sólo pinta; no guarda estado. */
 import {stageColors} from "../models/theme.js";
+import {t} from "../models/i18n.js";
 
 export function createCarouselView(el,{n,m,card,row}){
  const stage=el.querySelector(".stage"),sec=el.closest("section"),vt=sec.querySelector(".vt");
@@ -10,7 +11,7 @@ export function createCarouselView(el,{n,m,card,row}){
  for(let j=0;j<m;j++){
   const i=j%n,c=document.createElement("article");
   c.className="cd c"+(i%4);c.dataset.j=j;c.style.setProperty("--j",j);c.dataset.idx=i;
-  c.setAttribute("role","group");c.setAttribute("aria-roledescription","slide");c.setAttribute("aria-label",(i+1)+" de "+n);
+  c.setAttribute("role","group");c.setAttribute("aria-roledescription",t("slide"));c.setAttribute("aria-label",t("slideOf",{i:i+1,n:n}));
   c.innerHTML=card(i);stage.appendChild(c);sl.push(c);
  }
  const lst=document.createElement("div");lst.className="lst";lst.setAttribute("role","list");
@@ -54,7 +55,7 @@ export function createCarouselView(el,{n,m,card,row}){
   },
   /* Alterna entre el carrusel y la lista completa. */
   setAll(all){
-   el.classList.toggle("all",all);vt.textContent=all?"Ver carrusel":"Ver todos";
+   el.classList.toggle("all",all);vt.textContent=all?t("viewCarousel"):t("viewAll");
    if(all){const cs=getComputedStyle(document.body);sec.style.setProperty("--sbg",cs.backgroundColor);sec.style.setProperty("--sfg",cs.color);sec.style.setProperty("--dash","")}
   },
   /* Tarjeta bajo el puntero, o null. */
