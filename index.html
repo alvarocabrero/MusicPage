@@ -218,6 +218,19 @@ footer .lg{display:block}
 footer p{margin:0;font:800 1.2rem var(--display)}
 footer p.cr{font:500 .95rem var(--display)}
 footer a{font-weight:800}
+.cf{flex:1 1 100%;max-width:640px;display:flex;flex-direction:column;gap:16px}
+.cf h2{font-size:clamp(2rem,5vw,3rem);text-transform:uppercase;letter-spacing:-.01em}
+.cf-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.cf label{display:flex;flex-direction:column;gap:6px;font:800 .9rem var(--display)}
+.cf input,.cf textarea{font:500 1rem var(--display);color:#000;background:#fff;border:3px solid #000;border-radius:0;padding:12px 14px;width:100%}
+.cf textarea{resize:vertical;min-height:120px}
+.cf input:focus-visible,.cf textarea:focus-visible{outline:3px solid #fff;outline-offset:2px}
+.cf-foot{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px}
+.cf-btn{background:#000;color:#fff;border:3px solid #000;padding:12px 26px;font:800 1rem var(--display);cursor:pointer}
+.cf-btn:hover{background:#fff;color:#000}
+.cf-btn:disabled{opacity:.6;cursor:wait}
+footer p.cf-msg{font:500 .95rem var(--display)}
+@media (max-width:600px){.cf-row{grid-template-columns:1fr}}
 @media (max-width:820px){.hero .mark{padding:100px 20px 28px}nav .l{display:none}.btn.alt{margin:10px 0 0}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
@@ -428,6 +441,19 @@ footer a{font-weight:800}
 </dialog>
 
 <footer id="contacto"><div class="wrap">
+  <form class="cf" id="cf" action="https://formsubmit.co/kbrekills@gmail.com" method="POST">
+    <h2>Contacto</h2>
+    <div class="cf-row">
+      <label>Nombre<input type="text" name="name" autocomplete="name" required></label>
+      <label>Email<input type="email" name="email" autocomplete="email" required></label>
+    </div>
+    <label>Mensaje<textarea name="message" rows="5" required></textarea></label>
+    <input type="text" name="_honey" tabindex="-1" autocomplete="off" style="display:none">
+    <input type="hidden" name="_subject" value="Nuevo mensaje desde la web de Arte Kills">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_template" value="table">
+    <div class="cf-foot"><button class="cf-btn" type="submit">Enviar mensaje</button><p class="cf-msg" id="cf-msg" role="status" aria-live="polite"></p></div>
+  </form>
   <div class="fl"><svg class="lg" style="--r:1.8780" viewBox="0 0 692.42 368.7" role="img" aria-label="Arte Kills"><use href="#lfn"/></svg></div>
   <p class="cr">© 2026 Arte Kills · <a href="mailto:kbrekills@gmail.com">kbrekills@gmail.com</a></p>
 </div></footer>
@@ -435,6 +461,18 @@ footer a{font-weight:800}
 <script>
 (function(){var h=document.getElementById("top-bar");function u(){h.classList.toggle("at-top",(window.pageYOffset||document.documentElement.scrollTop)<8)}window.addEventListener("scroll",u,{passive:true});u()})();
 
+(function(){
+ var f=document.getElementById("cf"),msg=document.getElementById("cf-msg");
+ f.addEventListener("submit",function(e){
+  e.preventDefault();var b=f.querySelector("button");b.disabled=true;msg.textContent="Enviando…";
+  var d={};new FormData(f).forEach(function(v,k){d[k]=v});
+  fetch("https://formsubmit.co/ajax/kbrekills@gmail.com",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(d)})
+   .then(function(r){return r.json()})
+   .then(function(j){if(j.success==="true"||j.success===true){msg.textContent="¡Mensaje enviado! Gracias por escribir.";f.reset()}else throw 0})
+   .catch(function(){msg.innerHTML='No se pudo enviar. Escribe a <a href="mailto:kbrekills@gmail.com">kbrekills@gmail.com</a>.'})
+   .then(function(){b.disabled=false});
+ });
+})();
 var ICON_GO='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12.5 8.5 16 12l-3.5 3.5"/></svg>';
 var ICON_PLAY='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M10 8.5v7l6-3.5z" fill="currentColor"/></svg>';
 var STAGE=[["#000","#fff"],["#e22c14","#fff"],["#000","#fff"],["#b6bbbf","#000"]];
