@@ -7,6 +7,7 @@ import {createCarouselView} from "../views/carouselView.js";
 const OMEGA_MANUAL=7;   /* rigidez al mover con clic, teclado o al soltar (≈ 0,6 s) */
 const OMEGA_AUTO=2.2;   /* rigidez del avance automático: muy lento (≈ 2 s) */
 const IDLE_MS=12000;    /* tiempo sin interacción antes de reanudar el avance automático */
+const TOUCH_GAIN=1.5;   /* con el dedo el carrusel avanza 1,5 veces lo que se desplaza el dedo (más sensible que el ratón) */
 
 /* dir: 1 avanza al siguiente, -1 al anterior. every: milisegundos entre avances automáticos. */
 export function initCarousel({el,n,card,row,onOpen,dir=1,every=6500}){
@@ -44,7 +45,7 @@ export function initCarousel({el,n,card,row,onOpen,dir=1,every=6500}){
  view.stage.addEventListener("pointerdown",e=>{
   if(e.button)return;
   touch();
-  drag={x:e.clientX,p:model.pos,moved:false,h:[[e.clientX,performance.now()]]};dragged=false;view.setRingDrag(true);
+  drag={x:e.clientX,p:model.pos,moved:false,gain:e.pointerType==="mouse"?1:TOUCH_GAIN,h:[[e.clientX,performance.now()]]};dragged=false;view.setRingDrag(true);
  });
  window.addEventListener("pointermove",e=>{
   if(!drag)return;
@@ -57,7 +58,7 @@ export function initCarousel({el,n,card,row,onOpen,dir=1,every=6500}){
    drag.p=spring.x;drag.x=e.clientX;drag.h=[[e.clientX,performance.now()]];dx=0;
   }
   touch();
-  const p=drag.p-dx/view.unit();
+  const p=drag.p-dx*drag.gain/view.unit();
   const changed=model.followPos(p);spring.snap(p);
   drag.h.push([e.clientX,performance.now()]);if(drag.h.length>6)drag.h.shift();
   view.layout(p);if(changed)view.state(model.act,model.all);
@@ -68,9 +69,9 @@ export function initCarousel({el,n,card,row,onOpen,dir=1,every=6500}){
   if(!d.moved)return;
   touch();
   /* Al soltar, el muelle sigue con la velocidad del gesto hasta la tarjeta más cercana. */
-  const h=d.h,a=h[0],b=h[h.length-1],v=b[1]>a[1]?(a[0]-b[0])/(b[1]-a[1])/view.unit():0;
+  const h=d.h,a=h[0],b=h[h.length-1],v=b[1]>a[1]?(a[0]-b[0])/(b[1]-a[1])/view.unit()*d.gain:0;
   view.setDragging(false);
-  spring.v=Math.max(-12,Math.min(12,v*1000));
+  spring.v=Math.max(-16,Math.min(16,v*1000));
   set(Math.round(model.pos+Math.max(-2,Math.min(2,v*220))),OMEGA_MANUAL);
  }));
  view.stage.addEventListener("pointermove",e=>view.moveRing(e.clientX,e.clientY));
