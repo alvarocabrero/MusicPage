@@ -4,6 +4,7 @@ export const LANGS=["es","en"];
 const DICT={
  es:{
   "title":"Arte Kills · Música",
+  "meta.description":"Arte Kills: música, videoclips y merch. Escucha los últimos lanzamientos en Spotify, Bandcamp, YouTube, Apple Music y Tidal.",
   "nav.contact":"Contacto","brand.home":"Arte Kills, inicio",
   "lang.label":"EN","lang.switch":"Switch to English",
   "sec.releases":"Lanzamientos","sec.videos":"Videoclips","sec.merch":"Merch",
@@ -19,6 +20,7 @@ const DICT={
  },
  en:{
   "title":"Arte Kills · Music",
+  "meta.description":"Arte Kills: music, music videos and merch. Listen to the latest releases on Spotify, Bandcamp, YouTube, Apple Music and Tidal.",
   "nav.contact":"Contact","brand.home":"Arte Kills, home",
   "lang.label":"ES","lang.switch":"Cambiar a español",
   "sec.releases":"Releases","sec.videos":"Music videos","sec.merch":"Merch",
