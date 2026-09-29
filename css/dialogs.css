@@ -34,11 +34,11 @@ dialog::backdrop{background:#000b}
 .dp iframe{display:block;width:100%;height:152px;border:0;border-radius:12px}
 @media (min-height:880px){.dp iframe{height:352px}}
 .dp small{display:block;margin:8px 0 0;font:italic 300 .8rem/1.5 var(--texto)}
-.plats{list-style:none;margin:0;padding:16px 20px 20px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.plats{list-style:none;margin:0;padding:16px 20px 20px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
 .plats li+li{margin:0}
-.plats a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;height:100%;padding:18px 8px 14px;border:3px solid var(--tinta);background:none;color:var(--tinta);text-decoration:none;text-align:center;font:800 .85rem/1.2 var(--display);transition:background-color .2s,border-color .2s,color .2s}
-.plats b{display:flex;flex-direction:column;align-items:center;gap:10px;font:inherit}
-.plats svg{width:44px;height:44px;flex:none;fill:currentColor}
+.plats a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;height:100%;padding:12px 6px 10px;border:3px solid var(--tinta);background:none;color:var(--tinta);text-decoration:none;text-align:center;font:800 .78rem/1.2 var(--display);transition:background-color .2s,border-color .2s,color .2s}
+.plats b{display:flex;flex-direction:column;align-items:center;gap:7px;font:inherit}
+.plats svg{width:32px;height:32px;flex:none;fill:currentColor}
 .plats a:hover,.plats a:focus-visible{background:var(--rojo);border-color:var(--rojo);color:#fff}
 .plats span{display:none}
 @media (max-width:380px){.plats{grid-template-columns:repeat(2,minmax(0,1fr))}}
