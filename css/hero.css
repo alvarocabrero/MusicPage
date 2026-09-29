@@ -12,6 +12,14 @@
 .hrel .plats a{padding:12px 6px 10px;gap:8px;font-size:.8rem}
 .hrel .plats svg{width:34px;height:34px}
 @media (max-width:820px){.hero .mk{grid-template-columns:1fr}.hero .mk .lg{max-width:300px}}
+/* ordenador: preview grande (reproductor con lista de canciones) y panel más ancho; en móvil se queda compacto */
+@media (min-width:821px){
+ .hrel{max-width:540px}
+ .hrel .hp iframe{height:352px}
+ .hrel .plats{gap:10px}
+ .hrel .plats a{padding:14px 8px 12px;font-size:.9rem}
+ .hrel .plats svg{width:40px;height:40px}
+}
 .hero .intro{display:flex;flex-wrap:wrap;gap:24px 48px;align-items:center;justify-content:space-between;padding-top:40px;padding-bottom:48px}
 .dash{display:block;width:44px;height:6px;background:var(--rojo);margin:0 0 18px}
 .hero p{max-width:46ch;margin:0}
