@@ -7,6 +7,9 @@ export const VIDEOS=[
  {id:"pCnuXTHBfGM",t:"Mesa Reservada"}
 ];
 
-export const videoThumb=id=>"https://i.ytimg.com/vi/"+id+"/hqdefault.jpg";
+/* Miniatura en la mayor resolución disponible (1280×720); si el vídeo no la tiene, se prueba con las siguientes. */
+const thumb=(id,f)=>"https://i.ytimg.com/vi/"+id+"/"+f+".jpg";
+export const videoThumb=id=>thumb(id,"maxresdefault");
+export const videoThumbFallbacks=id=>[thumb(id,"sddefault"),thumb(id,"hqdefault")];
 export const videoEmbedUrl=id=>"https://www.youtube-nocookie.com/embed/"+id+"?autoplay=1&rel=0";
 export const videoWatchUrl=id=>"https://www.youtube.com/watch?v="+id;
