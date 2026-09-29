@@ -8,7 +8,22 @@ dialog{border:0;background:none;color:var(--tinta);padding:0;width:min(560px,cal
 .nv{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:64px;border:4px solid var(--tinta);background:var(--fondo);color:var(--tinta);font:800 2.2rem/1 var(--display);padding:0 0 6px;cursor:pointer}
 .nv:hover{background:var(--rojo);border-color:var(--rojo);color:#fff}
 .nv-p{right:calc(100% + 12px)}.nv-n{left:calc(100% + 12px)}
-@media (max-width:700px){.nv{top:calc(100% + 12px);transform:none;width:64px;height:48px;padding:0 0 4px}.nv-p{right:auto;left:0}.nv-n{left:auto;right:0}}
+/* Cuando no caben a los lados, las flechas pasan a una fila propia justo debajo del pop up, dentro del diálogo
+   (que limita su altura a la pantalla), así nunca quedan fuera. Pop ups normales: hasta 700 px; el de vídeo, más ancho: hasta 1000 px. */
+@media (max-width:700px){
+ dialog[open]{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:minmax(0,1fr) auto;gap:10px;max-height:calc(100dvh - 24px)}
+ dialog[open] .dbox{grid-column:1/-1;max-height:none;min-height:0}
+ dialog[open] .nv{position:static;transform:none;width:64px;height:48px;padding:0 0 4px}
+ dialog[open] .nv-p{justify-self:start}
+ dialog[open] .nv-n{justify-self:end}
+}
+@media (min-width:701px) and (max-width:1000px){
+ #vdlg[open]{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:minmax(0,1fr) auto;gap:10px;max-height:calc(100dvh - 24px)}
+ #vdlg[open] .dbox{grid-column:1/-1;max-height:none;min-height:0}
+ #vdlg[open] .nv{position:static;transform:none;width:64px;height:48px;padding:0 0 4px}
+ #vdlg[open] .nv-p{justify-self:start}
+ #vdlg[open] .nv-n{justify-self:end}
+}
 dialog::backdrop{background:#000b}
 .dh{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;padding:20px 20px 16px;border-bottom:4px solid var(--tinta)}
 .dh h3{font-size:1.7rem;text-transform:uppercase;letter-spacing:-.01em}
