@@ -4,7 +4,6 @@ import {t} from "../models/i18n.js";
 
 export function createCarouselView(el,{n,m,card,row}){
  const stage=el.querySelector(".stage"),sec=el.closest("section"),vt=sec.querySelector(".vt");
- let moving=0;
 
  stage.innerHTML='<div class="ring" aria-hidden="true"></div>';
  const ring=stage.firstChild,sl=[];
@@ -24,22 +23,22 @@ export function createCarouselView(el,{n,m,card,row}){
  }
  const X=(k,M)=>k===0?M.x0:(k>0?M.x0+M.W+M.G+(k-1)*(M.N+M.G):M.x0+k*(M.N+M.G));
  const Wd=(k,M)=>k===0?M.W:M.N;
+ let lastH=-1;
 
  return {
   el,stage,vt,
-  /* Recoloca todas las tarjetas según la posición continua. anim=false salta sin transición. */
-  layout(pos,anim){
-   const M=metrics();stage.style.height=(M.H+64)+"px";
+  /* Recoloca todas las tarjetas según la posición continua. Se llama en cada fotograma de la animación,
+     así que no usa transiciones CSS: la suavidad la da la interpolación del controlador. */
+  layout(pos){
+   const M=metrics();
+   if(M.H!==lastH){stage.style.height=(M.H+64)+"px";lastH=M.H}
    sl.forEach((s,j)=>{
-    const r=(((j-pos+2)%m)+m)%m-2,k=Math.floor(r),t=r-k,
-     x=X(k,M)+(X(k+1,M)-X(k,M))*t,w=Wd(k,M)+(Wd(k+1,M)-Wd(k,M))*t,
-     old=s._r,jump=!anim||old===undefined||Math.abs(r-old)>m/2;
+    const r=(((j-pos+2)%m)+m)%m-2,k=Math.floor(r),f=r-k,
+     x=X(k,M)+(X(k+1,M)-X(k,M))*f,w=Wd(k,M)+(Wd(k+1,M)-Wd(k,M))*f;
     s._r=r;
-    if(jump)s.style.transition="none";
-    s.style.left=x.toFixed(1)+"px";s.style.width=w.toFixed(1)+"px";s.style.height=M.H+"px";
+    s.style.left=x.toFixed(2)+"px";s.style.width=w.toFixed(2)+"px";s.style.height=M.H+"px";
     s.style.setProperty("--k",Math.max(0,1-Math.abs(r)).toFixed(3));
     s.classList.toggle("on",Math.abs(r)<.5);
-    if(jump){void s.offsetWidth;s.style.transition=""}
    });
   },
   /* Distancia (en px) que equivale a una tarjeta al arrastrar. */
@@ -62,10 +61,7 @@ export function createCarouselView(el,{n,m,card,row}){
   cardAt(target){const c=target.closest(".cd");return c?{j:+c.dataset.j}:null},
   /* Posición relativa (respecto al centro) de la tarjeta j. */
   offsetOf(j){return sl[j]._r},
-  setSlow(on){stage.classList.toggle("slow",on)},
   setDragging(on){stage.classList.toggle("dragging",on)},
-  flashMoving(){stage.classList.add("moving");clearTimeout(moving);moving=setTimeout(()=>stage.classList.remove("moving"),380)},
-  clearMoving(){clearTimeout(moving);stage.classList.remove("moving")},
   setRingDrag(on){ring.classList.toggle("drag",on)},
   moveRing(clientX,clientY){const r=stage.getBoundingClientRect();ring.style.transform="translate("+(clientX-r.left)+"px,"+(clientY-r.top)+"px) translate(-50%,-50%)"},
   /* Restaura las miniaturas de vídeo que se hubieran sustituido por el reproductor. */

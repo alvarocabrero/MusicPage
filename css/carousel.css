@@ -56,12 +56,8 @@ body{overflow-x:clip}
 section .dash{background:var(--dash,var(--rojo))}
 .stage{position:relative;overflow:hidden;touch-action:pan-y;user-select:none;-webkit-user-select:none;outline-offset:-4px}
 .stage:focus-visible{outline:3px solid var(--tinta)}
-.cd{position:absolute;top:30px;overflow:hidden;border-radius:14px;border:3px solid var(--tinta);box-shadow:0 18px 32px -16px rgba(0,0,0,.55);transition:left .7s cubic-bezier(.65,.05,.25,1),width .7s cubic-bezier(.65,.05,.25,1),filter .35s;will-change:left,width}
+.cd{position:absolute;top:30px;overflow:hidden;border-radius:14px;border:3px solid var(--tinta);box-shadow:0 18px 32px -16px rgba(0,0,0,.55);will-change:transform}
 .cd:before{content:"";position:absolute;inset:0;background:radial-gradient(circle,currentColor 1.6px,#0000 2.2px) 0 0/9px 9px;opacity:.2;-webkit-mask:linear-gradient(200deg,#000 0,#0000 60%);mask:linear-gradient(200deg,#000 0,#0000 60%)}
-.stage.moving .cd{filter:blur(2px)}
-.stage.slow .cd{transition:left 2.2s ease-in-out,width 2.2s ease-in-out,filter .35s}
-.stage.slow .cd .tt,.stage.slow .cd .meta{transition-duration:2.2s}
-.stage.dragging .cd,.stage.dragging .cd .tt,.stage.dragging .cd .meta{transition:none}
 .cd .th{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .cd .shade{position:absolute;inset:0;background:linear-gradient(#0000 35%,rgba(0,0,0,.72));opacity:0;transition:opacity .3s}
 .cd.hasimg{color:#fff}
@@ -70,8 +66,8 @@ section .dash{background:var(--dash,var(--rojo))}
 .cd .tipo{position:absolute;left:20px;top:20px;margin:0;border:2px solid currentColor;background:none;color:inherit;z-index:1}
 .cd .cc{position:absolute;left:0;right:0;bottom:0;padding:22px 22px 24px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;z-index:1}
 .cd{--fs-s:1.05rem;--fs-b:clamp(1.8rem,3.6vw,2.7rem)}
-.cd .tt{font:900 1rem/1 var(--display);font-size:calc(var(--fs-s) + (var(--fs-b) - var(--fs-s)) * var(--k,0));text-transform:uppercase;letter-spacing:-.01em;transition:font-size .7s cubic-bezier(.65,.05,.25,1);overflow-wrap:break-word}
-.cd .meta{font:500 .8rem/1.4 var(--display);font-size:calc(.8rem + .15rem * var(--k,0));opacity:.9;transition:font-size .7s cubic-bezier(.65,.05,.25,1)}
+.cd .tt{font:900 1rem/1 var(--display);font-size:calc(var(--fs-s) + (var(--fs-b) - var(--fs-s)) * var(--k,0));text-transform:uppercase;letter-spacing:-.01em;overflow-wrap:break-word}
+.cd .meta{font:500 .8rem/1.4 var(--display);font-size:calc(.8rem + .15rem * var(--k,0));opacity:.9}
 .cd .rm{display:inline-flex;align-items:center;gap:8px;margin-top:8px;padding:0;border:0;background:none;color:inherit;font:800 .85rem var(--display);cursor:pointer;white-space:nowrap}
 .cd .rm svg{width:22px;height:22px;flex:none}
 .cd .rm:focus-visible{outline:3px solid currentColor;outline-offset:4px}
@@ -81,7 +77,10 @@ section .dash{background:var(--dash,var(--rojo))}
 .vp iframe{display:block;width:100%;aspect-ratio:16/9;border:0}
 @media (hover:hover) and (pointer:fine){.stage{cursor:none}.stage:hover .ring{opacity:1}.ring.drag{width:96px}}
 @media (max-width:820px){.cd .cc{padding:16px 16px 18px}.cd .tipo{left:14px;top:14px}.cd{--fs-s:.85rem;--fs-b:1.6rem}}
-@keyframes drift{0%,100%{transform:translate3d(-1.5px,.5px,0)}50%{transform:translate3d(1.5px,-1px,0)}}
-.cd{animation:drift 7s ease-in-out infinite;animation-delay:calc(var(--j,0)*-1.7s)}
-.stage.dragging .cd{animation-play-state:paused}
+/* flotar en el mar: cada tarjeta sube y baja (heave), se balancea (roll) y se desliza (sway) con periodos distintos,
+   y el desfase depende de su posición en el anillo (--j) para que parezca una ola que va pasando de una a otra */
+@keyframes sea-bob{from{translate:0 -6px}to{translate:0 6px}}
+@keyframes sea-roll{from{rotate:-.6deg}to{rotate:.6deg}}
+@keyframes sea-sway{from{transform:translateX(-4px)}to{transform:translateX(4px)}}
+.cd{transform-origin:50% 62%;animation:sea-bob 6.4s cubic-bezier(.37,0,.63,1) infinite alternate,sea-roll 8.6s cubic-bezier(.37,0,.63,1) infinite alternate,sea-sway 11.3s cubic-bezier(.37,0,.63,1) infinite alternate;animation-delay:calc(var(--j,0)*-.9s),calc(var(--j,0)*-.9s - 1.7s),calc(var(--j,0)*-1.3s)}
 @media (prefers-reduced-motion:reduce){.cd{animation:none}.cd,.cd .tt{transition:none}#lanzamientos,#videoclips,#merch{transition:none}}
