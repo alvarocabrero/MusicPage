@@ -1,6 +1,7 @@
 /* Vista: carrusel tipo escenario (tarjetas en anillo + lista "ver todos"). Sólo pinta; no guarda estado. */
 import {stageColors} from "../models/theme.js";
 import {t} from "../models/i18n.js";
+import {ICON_LIST,ICON_CAROUSEL} from "./icons.js";
 
 export function createCarouselView(el,{n,m,card,row}){
  const stage=el.querySelector(".stage"),sec=el.closest("section"),vt=sec.querySelector(".vt");
@@ -54,7 +55,7 @@ export function createCarouselView(el,{n,m,card,row}){
   },
   /* Alterna entre el carrusel y la lista completa. */
   setAll(all){
-   el.classList.toggle("all",all);vt.textContent=all?t("viewCarousel"):t("viewAll");
+   el.classList.toggle("all",all);const l=all?t("viewCarousel"):t("viewAll");vt.innerHTML=all?ICON_CAROUSEL:ICON_LIST;vt.setAttribute("aria-label",l);vt.title=l;
    if(all){const cs=getComputedStyle(document.body);sec.style.setProperty("--sbg",cs.backgroundColor);sec.style.setProperty("--sfg",cs.color);sec.style.setProperty("--dash","")}
   },
   /* Tarjeta bajo el puntero, o null. */
