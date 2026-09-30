@@ -1,6 +1,7 @@
 /* Vista: discos (tarjetas del carrusel, filas de "ver todos", portada y pop up de preescucha). */
 import {ICON_GO,PICON} from "./icons.js";
 import {linksFor} from "../models/platforms.js";
+import {linkAttrs} from "../models/appLinks.js";
 import {t,tr} from "../models/i18n.js";
 
 const $=id=>document.getElementById(id);
@@ -17,7 +18,9 @@ export const rowHTML=(r,i)=>'<article class="slide rs" role="listitem"><button c
 
 const embedHTML=r=>r.sp?'<iframe src="https://open.spotify.com/embed/album/'+r.sp+'?utm_source=generator" title="'+t("release.preview",{t:r.t})+'" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>':'';
 
-const linksHTML=r=>linksFor(r).map(x=>'<li><a class="dir" href="'+x.url+'" target="_blank" rel="noopener"><b>'+PICON[x.p.id]+x.p.n+'</b><span>'+t("listen")+'</span></a></li>').join("");
+/* data-p y data-web los usa el controlador de apps para abrir la app de escritorio. */
+const linkHTML=x=>{const l=linkAttrs(x.p.id,x.url);return '<a class="dir" href="'+l.href+'" data-p="'+x.p.id+'" data-web="'+x.url+'"'+(l.blank?' target="_blank"':'')+' rel="noopener">'};
+const linksHTML=r=>linksFor(r).map(x=>'<li>'+linkHTML(x)+'<b>'+PICON[x.p.id]+x.p.n+'</b><span>'+t("listen")+'</span></a></li>').join("");
 
 /* Portada: logo + último lanzamiento con preescucha y enlaces. */
 export const heroView={
