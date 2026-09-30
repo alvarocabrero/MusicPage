@@ -32,7 +32,7 @@ export function createCarouselView(el,{n,m,card,row}){
      así que no usa transiciones CSS: la suavidad la da la interpolación del controlador. */
   layout(pos){
    const M=metrics();
-   if(M.H!==lastH){stage.style.height=(M.H+64)+"px";lastH=M.H}
+   if(M.H!==lastH){stage.style.height=(M.H+84)+"px";lastH=M.H}
    sl.forEach((s,j)=>{
     const r=(((j-pos+2)%m)+m)%m-2,k=Math.floor(r),f=r-k,
      x=X(k,M)+(X(k+1,M)-X(k,M))*f,w=Wd(k,M)+(Wd(k+1,M)-Wd(k,M))*f;

@@ -8,7 +8,8 @@
 .top.at-top nav a:hover{color:var(--rojo)}
 @media (prefers-reduced-motion:reduce){.top,.top .brand,.top nav a{transition:none}}
 .top .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
-.top .brand{height:54px;display:block}
+.top .brand{height:30px;display:block}
+.top .brand img{display:block;height:100%;width:auto}
 nav{display:flex;gap:26px;align-items:center;font:800 .95rem var(--display)}
 nav a{text-decoration:none}
 nav a:hover{color:var(--rojo)}
