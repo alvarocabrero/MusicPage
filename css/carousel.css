@@ -64,8 +64,9 @@ section .dash{background:var(--dash,var(--rojo))}
 .cd.hasimg{color:#fff}
 .cd.hasimg:before{display:none}
 .cd.hasimg .shade{opacity:1}
-/* etiqueta del tipo: pastilla aparte, negro al 45 % y bordes totalmente redondeados, legible sobre cualquier fondo */
-.cd .tipo{position:absolute;left:20px;top:20px;margin:0;border:0;border-radius:999px;background:rgba(0,0,0,.45);color:#fff;padding:3px 13px;font:800 .7rem/1.5 var(--display);letter-spacing:.06em;text-transform:uppercase;z-index:1}
+/* etiqueta del tipo: pastilla aparte, negro al 45 % y bordes totalmente redondeados, legible sobre cualquier fondo.
+   Siempre en una línea: en las tarjetas laterales, más estrechas, se recorta por el borde (como "Ver vídeo") en vez de partirse */
+.cd .tipo{position:absolute;left:20px;top:20px;margin:0;border:0;border-radius:999px;background:rgba(0,0,0,.45);color:#fff;padding:3px 13px;font:800 .7rem/1.5 var(--display);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;z-index:1}
 .cd .cc{position:absolute;left:0;right:0;bottom:0;padding:22px 22px 24px;display:flex;flex-direction:column;align-items:flex-start;gap:6px;z-index:1}
 .cd{--fs-s:1.05rem;--fs-b:clamp(1.8rem,3.6vw,2.7rem)}
 .cd .tt{font:900 1rem/1 var(--display);font-size:calc(var(--fs-s) + (var(--fs-b) - var(--fs-s)) * var(--k,0));text-transform:uppercase;letter-spacing:-.01em;overflow-wrap:break-word}
