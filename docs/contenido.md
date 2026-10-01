@@ -20,7 +20,7 @@ Archivo: `js/models/releases.js`, lista `RELEASES`.
 
 | Campo | Obligatorio | Qué es |
 |-------|:-----------:|--------|
-| `img` | sí | Nombre de la portada en `img/`, **sin** `.jpg`. La web carga `img/<img>.jpg`. |
+| `img` | sí | Nombre de la portada en `img/`, **sin** `.webp`. La web carga `img/<img>.webp`. |
 | `t` | sí | Título, escrito normal (las tarjetas lo ponen en mayúsculas). |
 | `a` | sí | Artista principal (`"Arte Kills"`) o, si hay varios, una lista en orden de crédito (`["Arte Kills","Silver J"]`). Se muestran como "A & B" o "A, B & C". Los artistas invitados ("feat.") no van aquí. |
 | `k` | sí | Tipo: `"album"` o `"ep"`. Para otro tipo (p. ej. sencillo) hay que añadir la clave `kind.<tipo>` en `i18n.js`, en los dos idiomas. |
@@ -29,7 +29,7 @@ Archivo: `js/models/releases.js`, lista `RELEASES`.
 | `sp` | no | ID del álbum en Spotify: activa la preescucha y el botón de Spotify. Es lo que va tras `/album/` en el enlace del álbum: `https://open.spotify.com/album/`**`6VGBkOI87jrnjTRuvFNyJG`**. |
 | `links` | sí | Enlaces directos al disco en cada plataforma. Claves: `bandcamp`, `yt` (YouTube), `apple` (Apple Music), `ytm` (YouTube Music) y `tidal`. Spotify no hace falta (sale de `sp`). Si falta una plataforma, simplemente no se muestra su botón. |
 
-**Portada**: JPG cuadrado de **600×600 px**, idealmente por debajo de 200 KB, en `img/` con un nombre en minúsculas y con guiones (`img/nombre-del-disco.jpg`). Si la imagen no carga, la tarjeta se ve de color con el título.
+**Portada**: imagen WebP cuadrada de **600×600 px**, idealmente por debajo de 150 KB, en `img/` con un nombre en minúsculas y con guiones (`img/nombre-del-disco.webp`). Para convertir un JPG o PNG a WebP sirve [Squoosh](https://squoosh.app) (gratis, en el navegador): calidad entre 75 y 85, y comprobar con su comparador que no se nota la diferencia. Si la imagen no carga, la tarjeta se ve de color con el título.
 
 **Enlaces de Apple Music y Tidal**: usa el enlace web normal del álbum (`https://music.apple.com/es/album/…/123456` y `https://tidal.com/album/123456`); la web lo convierte en el enlace de la app cuando hace falta.
 
@@ -57,7 +57,7 @@ Archivo: `js/models/videos.js`, lista `VIDEOS`.
 Archivo: `js/models/merch.js`, lista `MERCH`. El orden de la lista es el del carrusel.
 
 ```js
-{k:"cd",t:{es:"CD «Taiga & Cazador»",en:"«Taiga & Cazador» CD"},p:{es:"10 € + gastos de envío",en:"€10 + shipping"},d:{es:"…",en:"…"},url:"https://www.instagram.com/p/…/",cta:"cta.instagram",imgs:["img/cd-taiga-cazador-1.jpg","img/cd-taiga-cazador-2.jpg"]},
+{k:"cd",t:{es:"CD «Taiga & Cazador»",en:"«Taiga & Cazador» CD"},p:{es:"10 € + gastos de envío",en:"€10 + shipping"},d:{es:"…",en:"…"},url:"https://www.instagram.com/p/…/",cta:"cta.instagram",imgs:["img/cd-taiga-cazador-1.webp","img/cd-taiga-cazador-2.webp"]},
 ```
 
 | Campo | Obligatorio | Qué es |
@@ -70,7 +70,7 @@ Archivo: `js/models/merch.js`, lista `MERCH`. El orden de la lista es el del car
 | `cta` | no | Texto del botón: `"cta.instagram"` ("Pedir por Instagram") o, si se omite, "Comprar". Se pueden añadir más textos en `i18n.js`. |
 | `imgs` | sí | Rutas de las fotos. La primera es la principal (tarjeta y lista); si hay más de una, el pop up muestra miniaturas para cambiar de foto. |
 
-- **Fotos**: JPG cuadrado de **900×900 px** (las tarjetas recortan un poco por encima del centro). Una foto vertical también funciona (la de la camiseta es de 720×900).
+- **Fotos**: WebP cuadrado de **900×900 px**, convertido igual que las portadas (las tarjetas recortan un poco por encima del centro). Una foto vertical también funciona (la de la camiseta es de 720×900).
 - El texto de envíos (`MERCH_ENVIO`, al principio del archivo) es común a todos los productos.
 
 ## Textos de la interfaz

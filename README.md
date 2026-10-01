@@ -50,7 +50,7 @@ js/
     cursor.js           posición en una lista circular (pop ups)
   views/              Generan y actualizan el HTML
   controllers/        Conectan eventos, modelos y vistas
-img/                  Portadas, fotos de merch, logotipos y sprite SVG
+img/                  Portadas y fotos de merch (WebP), logotipos y sprite SVG
 fonts/                Fuentes Raleway y Merriweather (alfabeto latino) y sus licencias OFL
 tools/portada.mjs     Escribe en index.html la portada del último lanzamiento (no se publica)
 icons/                Iconos de la web (Android y manifiesto)
@@ -69,9 +69,9 @@ Todo el contenido está en tres archivos de datos; no hace falta tocar el HTML:
 
 | Para…                          | Edita                  | Y añade                                   |
 |--------------------------------|------------------------|-------------------------------------------|
-| Añadir o cambiar un disco      | `js/models/releases.js`| la portada en `img/` (JPG 600×600)        |
+| Añadir o cambiar un disco      | `js/models/releases.js`| la portada en `img/` (WebP 600×600)       |
 | Añadir un videoclip            | `js/models/videos.js`  | nada: la miniatura viene de YouTube       |
-| Añadir o cambiar un producto   | `js/models/merch.js`   | las fotos en `img/` (JPG 900×900)         |
+| Añadir o cambiar un producto   | `js/models/merch.js`   | las fotos en `img/` (WebP 900×900)        |
 | Cambiar un texto de la interfaz| `js/models/i18n.js`    | el texto en español **y** en inglés       |
 
 El primer disco de la lista es el que aparece en la portada como "Último lanzamiento"; si cambia, ejecuta `node tools/portada.mjs` para que la portada de `index.html` se actualice. Paso a paso, con ejemplos: [docs/contenido.md](docs/contenido.md).

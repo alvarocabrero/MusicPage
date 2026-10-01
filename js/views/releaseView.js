@@ -35,7 +35,7 @@ const extra=r=>typeof r.n==="number"?nb(t("tracks",{n:r.n})):tr(r.n);
  * @param {import("../models/releases.js").Release} r
  * @returns {string} HTML.
  */
-export const cardHTML=r=>'<img class="th" src="img/'+r.img+'.jpg" alt="'+t("release.cover",{t:r.t})+'" loading="lazy" '+IMG_LOAD+'><div class="shade"></div><span class="tipo">'+kind(r)+'</span><div class="cc"><h3 class="tt">'+r.t+'</h3><div class="meta">'+info(r)+'</div><button class="rm" aria-label="'+t("listen")+' '+r.t+'">'+ICON_GO+'<span>'+t("listen")+'</span></button></div>';
+export const cardHTML=r=>'<img class="th" src="img/'+r.img+'.webp" alt="'+t("release.cover",{t:r.t})+'" loading="lazy" '+IMG_LOAD+'><div class="shade"></div><span class="tipo">'+kind(r)+'</span><div class="cc"><h3 class="tt">'+r.t+'</h3><div class="meta">'+info(r)+'</div><button class="rm" aria-label="'+t("listen")+' '+r.t+'">'+ICON_GO+'<span>'+t("listen")+'</span></button></div>';
 
 /**
  * Fila de la vista de lista: portada (botón que abre el pop up), tipo, título, "Artistas · Año · canciones"
@@ -44,7 +44,7 @@ export const cardHTML=r=>'<img class="th" src="img/'+r.img+'.jpg" alt="'+t("rele
  * @param {number} i Índice del disco en RELEASES.
  * @returns {string} HTML.
  */
-export const rowHTML=(r,i)=>'<article class="slide rs" role="listitem"><button class="cover c'+(i%4)+'" data-i="'+i+'" aria-label="'+t("release.open",{t:r.t})+'"><img class="cv" src="img/'+r.img+'.jpg" alt="" loading="lazy" '+IMG_LOAD+'><span>'+r.t+'</span></button><div class="info"><span class="tipo">'+kind(r)+'</span><h3>'+r.t+'</h3><div class="meta">'+info(r)+SEP+extra(r)+'</div><button class="abrir" data-i="'+i+'">'+t("listen")+'</button></div></article>';
+export const rowHTML=(r,i)=>'<article class="slide rs" role="listitem"><button class="cover c'+(i%4)+'" data-i="'+i+'" aria-label="'+t("release.open",{t:r.t})+'"><img class="cv" src="img/'+r.img+'.webp" alt="" loading="lazy" '+IMG_LOAD+'><span>'+r.t+'</span></button><div class="info"><span class="tipo">'+kind(r)+'</span><h3>'+r.t+'</h3><div class="meta">'+info(r)+SEP+extra(r)+'</div><button class="abrir" data-i="'+i+'">'+t("listen")+'</button></div></article>';
 
 /**
  * Reproductor de Spotify incrustado (preescucha del álbum), sólo si el disco tiene sp.

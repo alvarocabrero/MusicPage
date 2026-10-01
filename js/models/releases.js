@@ -7,7 +7,7 @@
 /**
  * Un disco (álbum o EP).
  * @typedef {Object} Release
- * @property {string} img Nombre de la portada en img/, sin extensión (se carga img/<img>.jpg; cuadrada, 600×600).
+ * @property {string} img Nombre de la portada en img/, sin extensión (se carga img/<img>.webp; cuadrada, 600×600).
  * @property {string} t Título, tal cual se escribe (las tarjetas lo pasan a mayúsculas con CSS).
  * @property {string|string[]} a Artista principal o, si hay varios, la lista en orden de crédito.
  *   Se muestran unidos como "A & B" o "A, B & C".
