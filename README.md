@@ -51,10 +51,11 @@ js/
   views/              Generan y actualizan el HTML
   controllers/        Conectan eventos, modelos y vistas
 img/                  Portadas, fotos de merch, logotipos y sprite SVG
+tools/portada.mjs     Escribe en index.html la portada del último lanzamiento (no se publica)
 icons/                Iconos de la web (Android y manifiesto)
 docs/                 Documentación (no se publica en la web)
 CNAME                 Dominio propio para GitHub Pages
-_config.yml           Configuración de GitHub Pages (excluye la documentación)
+_config.yml           Configuración de GitHub Pages (no publica la documentación ni tools/)
 site.webmanifest      Nombre, iconos y colores al añadir la web a la pantalla de inicio
 robots.txt, sitemap.xml, googlee6362dc18ecc5a4a.html   Buscadores (no borrar el de Google)
 ```
@@ -72,7 +73,7 @@ Todo el contenido está en tres archivos de datos; no hace falta tocar el HTML:
 | Añadir o cambiar un producto   | `js/models/merch.js`   | las fotos en `img/` (JPG 900×900)         |
 | Cambiar un texto de la interfaz| `js/models/i18n.js`    | el texto en español **y** en inglés       |
 
-El primer disco de la lista es el que aparece en la portada como "Último lanzamiento". Paso a paso, con ejemplos: [docs/contenido.md](docs/contenido.md).
+El primer disco de la lista es el que aparece en la portada como "Último lanzamiento"; si cambia, ejecuta `node tools/portada.mjs` para que la portada de `index.html` se actualice. Paso a paso, con ejemplos: [docs/contenido.md](docs/contenido.md).
 
 ## Publicar
 

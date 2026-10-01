@@ -1,6 +1,7 @@
 # Configuración de GitHub Pages (Jekyll).
-# La web es HTML estático y no usa Jekyll para nada. Este archivo sólo evita que la documentación del
-# repositorio se publique en artekills.com: GitHub Pages convierte los archivos .md en páginas web.
+# La web es HTML estático y no usa Jekyll para nada. Este archivo sólo evita que la documentación y las
+# herramientas del repositorio se publiquen en artekills.com (GitHub Pages convierte los .md en páginas web).
 exclude:
   - README.md
   - docs
+  - tools

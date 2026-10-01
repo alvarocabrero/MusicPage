@@ -67,16 +67,23 @@ const linkHTML=x=>{const l=linkAttrs(x.p.id,x.url);return '<a href="'+l.href+'" 
  */
 const linksHTML=r=>linksFor(r).map(x=>'<li>'+linkHTML(x)+'<b>'+PICON[x.p.id]+x.p.n+'</b></a></li>').join("");
 
-/* Portada: logo + último lanzamiento con preescucha y enlaces. */
+/* Portada: logo + último lanzamiento con preescucha y enlaces. index.html ya trae este bloque escrito (lo genera
+   tools/portada.mjs con esta misma función), para que la portada salga completa sin esperar a JavaScript. */
 export const heroView={
  /**
-  * Pinta en #hrel el bloque del último lanzamiento: etiqueta, título, "Artistas · Tipo · Año",
-  * preescucha de Spotify y botones de plataformas.
+  * Pinta en #hrel el bloque del último lanzamiento: etiqueta, título, "Artistas · Tipo · Año", hueco de la
+  * preescucha (.hp; con .sp si el disco tiene Spotify, para reservar su alto) y botones de plataformas.
+  * El reproductor no va aquí: lo pone loadPlayer().
   * @param {import("../models/releases.js").Release} r
   */
  render(r){
-  $("hrel").innerHTML='<span class="tipo">'+t("release.latest")+'</span><h2>'+r.t+'</h2><p class="hm">'+artists(r)+SEP+kind(r)+SEP+date(r)+'</p><div class="hp">'+embedHTML(r)+'</div><ul class="plats">'+linksHTML(r)+'</ul>';
- }
+  $("hrel").innerHTML='<span class="tipo">'+t("release.latest")+'</span><h2>'+r.t+'</h2><p class="hm">'+artists(r)+SEP+kind(r)+SEP+date(r)+'</p><div class="hp'+(r.sp?' sp':'')+'"></div><ul class="plats">'+linksHTML(r)+'</ul>';
+ },
+ /**
+  * Pone el reproductor de Spotify en el hueco reservado de la portada.
+  * @param {import("../models/releases.js").Release} r
+  */
+ loadPlayer(r){const h=$("hrel").querySelector(".hp");if(h&&!h.firstChild)h.innerHTML=embedHTML(r)}
 };
 
 /* Pop up de preescucha de un disco. */

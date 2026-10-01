@@ -11,6 +11,7 @@ Después de cualquier cambio: [comprueba la web en local](../README.md#verla-en-
 Archivo: `js/models/releases.js`, lista `RELEASES`.
 
 - El orden es **del más reciente al más antiguo**. **El primero es el "Último lanzamiento"** de la portada; el orden de la lista es también el del carrusel y la vista de lista.
+- **Si cambia el primer disco** (uno nuevo, o un dato del que ya estaba), ejecuta `node tools/portada.mjs` desde la carpeta del repositorio (hace falta [Node.js](https://nodejs.org) 18 o posterior). Actualiza la portada que viene escrita en `index.html`, para que se vea al instante. Si no lo haces, la web funciona igual, pero al entrar se verá un momento la portada anterior hasta que JavaScript ponga la nueva.
 - Cada disco es un objeto en una sola línea:
 
 ```js
@@ -93,6 +94,7 @@ Los enlaces a Instagram y Bandcamp y el texto de copyright están escritos direc
 ## Comprobación rápida
 
 - [ ] La página carga sin errores en la consola del navegador.
+- [ ] Si cambió el primer disco, se ha ejecutado `node tools/portada.mjs` (vuelve a ejecutarlo: debe decir que la portada ya estaba al día).
 - [ ] El disco, vídeo o producto aparece en el carrusel y en la vista de lista ("Ver lista").
 - [ ] El pop up se abre y muestra lo esperado (preescucha, plataformas, fotos…).
 - [ ] Se ve bien en español y en inglés (botón ES/EN).

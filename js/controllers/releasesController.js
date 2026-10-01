@@ -9,7 +9,9 @@ import {initDialog} from "./dialogController.js";
  * que se abre desde la tarjeta activa del carrusel o desde los botones de la vista de lista.
  */
 export function initReleases(){
- heroView.render(latestRelease());
+ const latest=latestRelease();
+ heroView.render(latest);
+ heroView.loadPlayer(latest);
 
  const abrir=initDialog({items:RELEASES,view:releaseDialogView,show:r=>releaseDialogView.render(r)});
  const el=document.getElementById("car-rel");

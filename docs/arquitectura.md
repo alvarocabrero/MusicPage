@@ -6,7 +6,8 @@ La web es una única página (`index.html`) con JavaScript en módulos ES y CSS 
 
 ```
 index.html  ── estructura fija: cabecera, portada, 3 secciones, 3 pop ups, pie
-   │           (textos en español, marcados con data-i18n para traducirlos)
+   │           (textos en español, marcados con data-i18n para traducirlos; la portada
+   │            trae ya escrito el último lanzamiento, generado por tools/portada.mjs)
    │
    └─ js/main.js  ── arranca, en orden, los controladores:
          languageController  → idioma y textos del HTML (tiene que ir primero)
@@ -23,6 +24,8 @@ El código sigue el patrón **modelo-vista-controlador**:
 - **Modelos** (`js/models/`): los datos (discos, vídeos, productos, textos) y la lógica que no toca la página (estado del carrusel, el muelle de las animaciones, cómo construir los enlaces a las apps…). No crean ni modifican HTML.
 - **Vistas** (`js/views/`): convierten los datos en HTML y actualizan la página. No guardan estado ni escuchan eventos.
 - **Controladores** (`js/controllers/`): escuchan lo que hace la persona (clics, arrastres, teclas, scroll, envíos) y coordinan modelos y vistas.
+
+**La portada no espera a JavaScript.** El bloque del último lanzamiento viene escrito en `index.html`, entre las marcas `<!-- portada -->`: lo genera `tools/portada.mjs` con la misma función que lo pinta en el navegador (`heroView.render`), así que se ve en el primer pintado y la página no salta al arrancar. Al arrancar, JavaScript lo vuelve a pintar igual, en el idioma de la visita y con los enlaces de su dispositivo (en Android, los que abren la app), y pone el reproductor de Spotify en su hueco, que ya tiene el alto reservado. Si el primer disco de `releases.js` cambia y no se ejecuta el script, la web sigue funcionando: JavaScript corrige la portada al arrancar, aunque se vea un instante la antigua.
 
 ## Archivos
 
