@@ -13,7 +13,8 @@
 .hero .mk .lg{display:block;width:100%;max-width:380px;height:auto;justify-self:center}
 .hrel{--tinta:#000;--fondo:#fff;color:#000;width:100%;max-width:440px;justify-self:center}
 .hrel h2{font-size:clamp(1.8rem,4vw,2.6rem);text-transform:uppercase;letter-spacing:-.01em}
-.hrel .hm{margin:8px 0 14px;font:500 .95rem/1.4 var(--display)}
+/* Línea "Artistas · Tipo · Año": como mucho 46 caracteres de ancho. */
+.hrel .hm{max-width:46ch;margin:8px 0 14px;font:500 .95rem/1.4 var(--display)}
 /* Preescucha de Spotify: 152 px es la altura del reproductor compacto (en ordenador, 352: con lista de canciones). */
 .hrel .hp iframe{display:block;width:100%;height:152px;border:0;border-radius:12px}
 /* Botones de plataformas: la rejilla base está en dialogs.css (.plats); aquí se hacen más pequeños. */
@@ -30,14 +31,6 @@
  .hrel .plats a{padding:11px 8px 9px;font-size:.8rem}
  .hrel .plats svg{width:30px;height:30px}
 }
-/* Sin uso actualmente (de una versión anterior de la portada): .hero .intro y .hero p. */
-.hero .intro{display:flex;flex-wrap:wrap;gap:24px 48px;align-items:center;justify-content:space-between;padding-top:40px;padding-bottom:48px}
 /* Rayita roja bajo los títulos de sección (en las secciones con carrusel toma el color de --dash, ver carousel.css). */
 .dash{display:block;width:44px;height:6px;background:var(--rojo);margin:0 0 18px}
-.hero p{max-width:46ch;margin:0}
 section .dash{margin:22px 0}
-/* Botones .btn y .btn.alt: sin uso actualmente (de una versión anterior). */
-.btn{display:inline-block;background:var(--rojo);color:var(--sobre-rojo);border:3px solid var(--rojo);padding:12px 26px;font:800 1rem var(--display);text-decoration:none}
-.btn:hover{background:var(--tinta);border-color:var(--tinta);color:var(--fondo)}
-.btn.alt{background:none;color:var(--tinta);border-color:var(--tinta);margin-left:10px}
-.btn.alt:hover{background:var(--tinta);color:var(--fondo)}

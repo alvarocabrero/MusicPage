@@ -14,10 +14,9 @@ Se cargan en este orden desde `index.html`. Cuando dos reglas son igual de espec
 | 4 | `sections.css` | Secciones y su título; portadas de la vista de lista (`.cover`); colores `.c0`–`.c3`; etiqueta `.tipo` |
 | 5 | `merch.css` | Pop up de producto (foto, miniaturas, textos) |
 | 6 | `dialogs.css` | Pop ups (`<dialog>`, caja, cabecera, flechas), botón `.abrir`, botones de plataformas `.plats` |
-| 7 | `videos.css` | Restos de la antigua cuadrícula de vídeos (ver [Reglas sin uso](#reglas-sin-uso)) |
-| 8 | `carousel.css` | Carruseles, vista de lista, colores animados de las secciones, pop up de vídeo, animación de las tarjetas |
-| 9 | `footer.css` | Pie: formulario de contacto, logotipo, redes |
-| 10 | `ajustes.css` | Últimos ajustes para móvil y "reducir movimiento" |
+| 7 | `carousel.css` | Carruseles, vista de lista, colores animados de las secciones, pop up de vídeo, animación de las tarjetas |
+| 8 | `footer.css` | Pie: formulario de contacto, logotipo, redes |
+| 9 | `ajustes.css` | Últimos ajustes para móvil y "reducir movimiento" |
 
 ## Variables de diseño
 
@@ -29,7 +28,6 @@ Definidas en `:root` (`base.css`):
 | `--gris` | `#b6bbbf` | Gris de la paleta de identidad |
 | `--fondo` | `#fff` (`#000` en oscuro) | Fondo de la página |
 | `--tinta` | `#000` (`#fff` en oscuro) | Texto, bordes y contornos |
-| `--sobre-rojo` | `#fff` | Texto sobre fondo rojo |
 | `--display` | Raleway | Títulos, menú, botones, datos |
 | `--texto` | Merriweather | Textos largos (descripciones) |
 
@@ -60,7 +58,7 @@ La columna de contenido (`.wrap`) mide como máximo **1180 px** con 24 px de mar
 
 ## Modo oscuro
 
-Sigue la preferencia del sistema (`prefers-color-scheme: dark`): `--fondo` pasa a negro y `--tinta` a blanco. Está preparado un atributo `data-theme="light"` / `"dark"` en `<html>` para forzar un tema, aunque ahora nada lo pone.
+Sigue la preferencia del sistema (`prefers-color-scheme: dark`): `--fondo` pasa a negro y `--tinta` a blanco.
 
 ## Movimiento reducido
 
@@ -80,19 +78,4 @@ Con `prefers-reduced-motion: reduce` se quitan el vaivén de las tarjetas, las t
 - Una regla por línea; las media queries cortas también en una línea.
 - Comentarios en español: uno al principio de cada archivo y otro antes de cada bloque o regla con algo que explicar.
 - Colores siempre con las variables cuando dependen del tema; fijos (`#000`, `#fff`) sólo donde el fondo no cambia (portada, pie, etiquetas sobre imagen).
-
-## Reglas sin uso
-
-Algunas reglas vienen de versiones anteriores de la web y ya no las usa ningún elemento. Están marcadas con "Sin uso actualmente" en los comentarios y se pueden borrar sin efecto visible:
-
-| Archivo | Selectores |
-|---------|-----------|
-| `base.css` | `.l-l`, `.l-d` (y las variables `--logo-l`, `--logo-d`) |
-| `hero.css` | `.hero .intro`, `.hero p`, `.btn`, `.btn.alt` |
-| `sections.css` | `section .sub`, `.releases`, `.rel …`, `.lnk`, `.vids …` |
-| `dialogs.css` | `.rel .cover`, `.dp small` |
-| `videos.css` | `.vgrid`, `.vid …` (las reglas de `.vbtn` y `.vcap` están repetidas en `carousel.css`) |
-| `carousel.css` | `.track …`, `.ctrl`, `.count`, `.btns …`, la clase `.active` de `.slide` |
-| `ajustes.css` | `nav .l`, `.btn.alt` |
-
-Además, el escenario recibe la clase `.dragging` durante el arrastre, pero ninguna regla la usa todavía; está disponible por si se quiere dar estilo al arrastre.
+- Sin reglas sin uso: al quitar un elemento o una clase, borra también su CSS. Antes de dar una regla por muerta, comprueba que no la usa ningún estado de la página: muchas clases sólo existen mientras algo pasa (la vista de lista `.all`, la tarjeta activa `.on`, el cursor al arrastrar `.drag`, las portadas cargadas `.hasimg`, la cabecera transparente `.at-top`) o en un tamaño de pantalla concreto.

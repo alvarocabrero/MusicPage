@@ -37,7 +37,6 @@ css/                  Estilos, uno por zona; se cargan en este orden:
   sections.css          secciones, portadas de la vista de lista, etiquetas
   merch.css             pop up de producto
   dialogs.css           pop ups, botones de plataformas
-  videos.css            restos de la antigua cuadrícula de vídeos
   carousel.css          carruseles, vista de lista y pop up de vídeo
   footer.css            pie y formulario de contacto
   ajustes.css           últimos ajustes (se carga la última)
@@ -86,7 +85,7 @@ Cada `push` a `main` lanza el flujo "pages build and deployment" de GitHub Pages
 | [docs/arquitectura.md](docs/arquitectura.md) | Cómo está organizado el código, qué hace cada archivo, flujo de arranque y convenciones |
 | [docs/contenido.md](docs/contenido.md) | Guía para añadir discos, vídeos, productos y textos |
 | [docs/carrusel.md](docs/carrusel.md) | Funcionamiento interno de los carruseles (geometría, muelle, gestos, avance automático) |
-| [docs/estilos.md](docs/estilos.md) | Hojas de estilo, variables, cortes de diseño, modo oscuro y reglas sin uso |
+| [docs/estilos.md](docs/estilos.md) | Hojas de estilo, variables, cortes de diseño y modo oscuro |
 | [docs/despliegue.md](docs/despliegue.md) | GitHub Pages, dominio, buscadores, servicios externos |
 | [docs/pruebas.md](docs/pruebas.md) | Cómo probar la web, tamaños de pantalla comprobados y compatibilidad |
 

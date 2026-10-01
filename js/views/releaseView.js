@@ -59,13 +59,13 @@ const embedHTML=r=>r.sp?'<iframe src="https://open.spotify.com/embed/album/'+r.s
  * @param {{p:import("../models/platforms.js").Platform,url:string}} x Plataforma y URL web.
  * @returns {string} HTML de la etiqueta <a …> (sin cerrar).
  */
-const linkHTML=x=>{const l=linkAttrs(x.p.id,x.url);return '<a class="dir" href="'+l.href+'" data-p="'+x.p.id+'" data-web="'+x.url+'"'+(l.blank?' target="_blank"':'')+' rel="noopener">'};
+const linkHTML=x=>{const l=linkAttrs(x.p.id,x.url);return '<a href="'+l.href+'" data-p="'+x.p.id+'" data-web="'+x.url+'"'+(l.blank?' target="_blank"':'')+' rel="noopener">'};
 /**
  * Botones de las plataformas del disco (logo y nombre), como elementos <li> de la lista .plats.
  * @param {import("../models/releases.js").Release} r
  * @returns {string} HTML.
  */
-const linksHTML=r=>linksFor(r).map(x=>'<li>'+linkHTML(x)+'<b>'+PICON[x.p.id]+x.p.n+'</b><span>'+t("listen")+'</span></a></li>').join("");
+const linksHTML=r=>linksFor(r).map(x=>'<li>'+linkHTML(x)+'<b>'+PICON[x.p.id]+x.p.n+'</b></a></li>').join("");
 
 /* Portada: logo + último lanzamiento con preescucha y enlaces. */
 export const heroView={

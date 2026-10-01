@@ -94,7 +94,7 @@ export function initCarousel({el,n,card,row,onOpen,dir=1,every=6500}){
   if(!drag.moved){
    if(Math.abs(dx)<5)return;
    /* Empieza el arrastre: se agarra el carrusel donde esté ahora mismo (aunque se esté moviendo) sin dar saltos. */
-   drag.moved=true;dragged=true;view.setDragging(true);
+   drag.moved=true;dragged=true;
    spring.stop();model.followPos(spring.x);
    drag.p=spring.x;drag.x=e.clientX;drag.h=[[e.clientX,performance.now()]];dx=0;
   }
@@ -115,7 +115,6 @@ export function initCarousel({el,n,card,row,onOpen,dir=1,every=6500}){
      El muelle la recibe en tarjetas por segundo (como mucho 16) y el destino se adelanta hasta dos tarjetas
      según lo rápido que haya sido el gesto. */
   const h=d.h,a=h[0],b=h[h.length-1],v=b[1]>a[1]?(a[0]-b[0])/(b[1]-a[1])/view.unit()*d.gain:0;
-  view.setDragging(false);
   spring.v=Math.max(-16,Math.min(16,v*1000));
   set(Math.round(model.pos+Math.max(-2,Math.min(2,v*220))),OMEGA_MANUAL);
  }));

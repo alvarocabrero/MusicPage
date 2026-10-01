@@ -1,23 +1,19 @@
 /* Base: variables de diseño (colores y fuentes de la marca), modo oscuro, reglas generales y utilidades.
    Es la primera hoja que se carga; el resto (index.html, en este orden): header, hero, sections, merch, dialogs,
-   videos, carousel, footer y ajustes. Cuando dos reglas empatan, gana la de la hoja que se carga después. */
+   carousel, footer y ajustes. Cuando dos reglas empatan, gana la de la hoja que se carga después. */
 
 /* Variables:
    --rojo         rojo de la marca (#e22c14): pie, botones, rayita bajo los títulos.
    --gris         gris de la paleta de identidad.
    --fondo/--tinta  color de fondo y de texto/bordes de la página; cambian en modo oscuro, y las secciones con
                   carrusel los sustituyen por los colores de la tarjeta activa (ver carousel.css).
-   --sobre-rojo   texto sobre fondo rojo.
-   --logo-l/--logo-d  mostrar la versión clara u oscura de un logotipo (clases .l-l y .l-d; ahora sin uso).
    --display      Raleway: títulos, menú, botones y datos.  --texto  Merriweather: textos largos.
    El relleno con env(safe-area-inset-*) evita que la muesca o la barra de inicio del móvil tapen el contenido. */
-:root{--rojo:#e22c14;--gris:#b6bbbf;--fondo:#fff;--tinta:#000;--sobre-rojo:#fff;--logo-l:block;--logo-d:none;
+:root{--rojo:#e22c14;--gris:#b6bbbf;--fondo:#fff;--tinta:#000;
 --display:"Raleway","Helvetica Neue",Arial,sans-serif;--texto:"Merriweather",Georgia,"Times New Roman",serif;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-/* Modo oscuro: sigue al sistema. El atributo data-theme="light"/"dark" en <html> forzaría un tema
-   (preparado, pero ahora no lo pone nada). */
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--fondo:#000;--tinta:#fff;--logo-l:none;--logo-d:block}}
-:root[data-theme="dark"]{--fondo:#000;--tinta:#fff;--logo-l:none;--logo-d:block}
+/* Modo oscuro: sigue a la preferencia del sistema. */
+@media (prefers-color-scheme:dark){:root{--fondo:#000;--tinta:#fff}}
 *,*:before,*:after{box-sizing:inherit}
 /* Los enlaces internos (#contacto) se detienen por debajo de la cabecera fija (68 px + margen). */
 html{scroll-padding-top:calc(72px + env(safe-area-inset-top,0px));scroll-behavior:smooth}
@@ -30,5 +26,3 @@ a{color:inherit}
 .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
 /* Logotipos SVG que se dimensionan por la altura; --r es la proporción ancho/alto (ver el logo del pie). */
 .lg{height:100%;width:auto;aspect-ratio:var(--r)}
-/* Mostrar sólo en tema claro / sólo en tema oscuro (sin uso actualmente). */
-.l-l{display:var(--logo-l)}.l-d{display:var(--logo-d)}

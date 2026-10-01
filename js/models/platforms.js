@@ -1,6 +1,6 @@
 /* Modelo: plataformas de escucha, en el orden en que se muestran.
-   d = enlace directo derivado del disco; s = URL de búsqueda (ya no se usa en la web);
-   and = paquete de la app de Android; app(url,so) = enlace que abre la app de escritorio ("" si no hay).
+   d = enlace directo derivado del disco; and = paquete de la app de Android;
+   app(url,so) = enlace que abre la app de escritorio ("" si no hay).
    Lo usan la portada y el pop up de cada disco (botones "Escuchar en…") y appLinks.js (abrir en la app). */
 
 /**
@@ -8,7 +8,6 @@
  * @typedef {Object} Platform
  * @property {string} id Identificador; es también la clave del enlace en Release.links y del icono en PICON.
  * @property {string} n Nombre que se muestra en el botón.
- * @property {string} s URL de búsqueda en la plataforma (se conserva, pero la web ya no la usa).
  * @property {function(import("./releases.js").Release):string} [d] Enlace directo calculado a partir del disco
  *   cuando no viene en links (Spotify, a partir de sp). "" si no se puede.
  * @property {string} and Paquete de la app de Android (para los enlaces intent:// de appLinks.js).
@@ -31,12 +30,12 @@ const idDe=(u,re,pre)=>{const m=u.match(re);return m?pre+m[1]:""};
  * @type {Platform[]}
  */
 export const PLATS=[
- {id:"bandcamp",n:"Bandcamp",s:"https://bandcamp.com/search?q=",and:"com.bandcamp.android"},
- {id:"spotify",n:"Spotify",s:"https://open.spotify.com/search/",d:r=>r.sp?"https://open.spotify.com/album/"+r.sp:"",and:"com.spotify.music",app:u=>idDe(u,/\/album\/(\w+)/,"spotify:album:")},
- {id:"yt",n:"YouTube",s:"https://www.youtube.com/results?search_query=",and:"com.google.android.youtube"},
- {id:"apple",n:"Apple Music",s:"https://music.apple.com/es/search?term=",and:"com.apple.android.music",app:(u,so)=>so==="mac"?u.replace(/^https:/,"music:"):""},
- {id:"ytm",n:"YouTube Music",s:"https://music.youtube.com/search?q=",and:"com.google.android.apps.youtube.music"},
- {id:"tidal",n:"Tidal",s:"https://tidal.com/search?q=",and:"com.aspiro.tidal",app:u=>idDe(u,/\/album\/(\d+)/,"tidal://album/")}
+ {id:"bandcamp",n:"Bandcamp",and:"com.bandcamp.android"},
+ {id:"spotify",n:"Spotify",d:r=>r.sp?"https://open.spotify.com/album/"+r.sp:"",and:"com.spotify.music",app:u=>idDe(u,/\/album\/(\w+)/,"spotify:album:")},
+ {id:"yt",n:"YouTube",and:"com.google.android.youtube"},
+ {id:"apple",n:"Apple Music",and:"com.apple.android.music",app:(u,so)=>so==="mac"?u.replace(/^https:/,"music:"):""},
+ {id:"ytm",n:"YouTube Music",and:"com.google.android.apps.youtube.music"},
+ {id:"tidal",n:"Tidal",and:"com.aspiro.tidal",app:u=>idDe(u,/\/album\/(\d+)/,"tidal://album/")}
 ];
 
 /* Sólo las plataformas con enlace para ese disco. */

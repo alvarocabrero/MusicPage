@@ -68,8 +68,8 @@ export function createCarouselView(el,{n,m,card,row}){
  let lastH=-1;
 
  return {
-  /** Contenedor .car, escenario .stage y botón "Ver lista" de la sección (los usa el controlador para los eventos). */
-  el,stage,vt,
+  /** Escenario .stage y botón "Ver lista" de la sección (el controlador escucha sus eventos). */
+  stage,vt,
   /* Recoloca todas las tarjetas según la posición continua. Se llama en cada fotograma de la animación,
      así que no usa transiciones CSS: la suavidad la da la interpolación del controlador. */
   /**
@@ -134,8 +134,6 @@ export function createCarouselView(el,{n,m,card,row}){
    * @returns {number} Huecos de distancia a la activa en el último layout (negativo = a la izquierda).
    */
   offsetOf(j){return sl[j]._r},
-  /** Marca el escenario con .dragging mientras se arrastra (enganche para estilos; ahora no tiene reglas CSS). @param {boolean} on */
-  setDragging(on){stage.classList.toggle("dragging",on)},
   /** Agranda el cursor circular mientras se arrastra. @param {boolean} on */
   setRingDrag(on){ring.classList.toggle("drag",on)},
   /**
