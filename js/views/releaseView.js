@@ -14,8 +14,8 @@ const nb=s=>s.replace(/ /g,"\u00a0"),SEP="\u00a0· ";
 const artists=r=>{const a=[].concat(r.a).map(nb);return a.length>1?a.slice(0,-1).join(", ")+"\u00a0& "+a[a.length-1]:a[0]};
 const date=r=>nb(tr(r.y));
 const info=r=>artists(r)+SEP+date(r);
-/* "9 canciones" para números; los textos libres vienen ya traducidos. */
-const extra=r=>typeof r.n==="number"?t("tracks",{n:r.n}):tr(r.n);
+/* "9 canciones" (sin partir) para números; los textos libres vienen ya traducidos. */
+const extra=r=>typeof r.n==="number"?nb(t("tracks",{n:r.n})):tr(r.n);
 
 export const cardHTML=r=>'<img class="th" src="img/'+r.img+'.jpg" alt="'+t("release.cover",{t:r.t})+'" loading="lazy" '+IMG_LOAD+'><div class="shade"></div><span class="tipo">'+kind(r)+'</span><div class="cc"><h3 class="tt">'+r.t+'</h3><div class="meta">'+info(r)+'</div><button class="rm" aria-label="'+t("listen")+' '+r.t+'">'+ICON_GO+'<span>'+t("listen")+'</span></button></div>';
 
