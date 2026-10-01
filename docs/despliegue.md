@@ -47,7 +47,6 @@ La web no tiene servidor propio; depende de estos servicios:
 
 | Servicio | Uso | Notas |
 |----------|-----|-------|
-| Google Fonts | Fuentes Raleway y Merriweather | Si falla, se usan fuentes del sistema. |
 | Spotify | Reproductor de preescucha (`open.spotify.com/embed/album/<id>`) | Necesita el campo `sp` del disco. |
 | YouTube | Reproductor (`youtube-nocookie.com`, que no pone cookies hasta reproducir) y miniaturas (`i.ytimg.com`) | |
 | FormSubmit | Reenvía al correo los mensajes del formulario de contacto | El correo está en `js/models/contact.js` y en el `action` del formulario de `index.html`. FormSubmit pide confirmar el correo la primera vez que se usa con una dirección nueva. |

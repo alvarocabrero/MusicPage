@@ -28,12 +28,12 @@ Definidas en `:root` (`base.css`):
 | `--gris` | `#b6bbbf` | Gris de la paleta de identidad |
 | `--fondo` | `#fff` (`#000` en oscuro) | Fondo de la página |
 | `--tinta` | `#000` (`#fff` en oscuro) | Texto, bordes y contornos |
-| `--display` | Raleway | Títulos, menú, botones, datos |
-| `--texto` | Merriweather | Textos largos (descripciones) |
+| `--display` | Raleway | Títulos, menú, botones, datos y texto base |
+| `--texto` | Merriweather | Textos largos (descripciones de los productos) |
 
 En las secciones con carrusel, `--fondo` y `--tinta` se sustituyen por `--sbg` y `--sfg`, los colores de la tarjeta activa, que cambian con una transición (ver [carrusel.md](carrusel.md#colores-de-la-sección)). La portada es siempre blanca y el pie siempre rojo, también en modo oscuro.
 
-**Fuentes** (Google Fonts): Raleway 300, 500, 800 y 900; Merriweather 300, 400, 700 y 300 cursiva.
+**Fuentes**: Raleway y Merriweather, servidas desde `fonts/` (no desde Google): son los archivos que da Google Fonts para el alfabeto latino, sin modificar, con su licencia OFL al lado (`fonts/OFL-*.txt`). Son fuentes variables (un archivo por familia con todos los pesos) y se declaran al principio de `base.css`. Raleway se precarga desde `index.html`; Merriweather sólo la usan las descripciones de los productos, así que se descarga al abrir uno (mientras llega, el texto se ve en Georgia). Si se añade un texto con caracteres fuera del alfabeto latino (por ejemplo, cirílico), se verá con la fuente del sistema.
 
 ## Cortes de diseño
 

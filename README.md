@@ -51,6 +51,7 @@ js/
   views/              Generan y actualizan el HTML
   controllers/        Conectan eventos, modelos y vistas
 img/                  Portadas, fotos de merch, logotipos y sprite SVG
+fonts/                Fuentes Raleway y Merriweather (alfabeto latino) y sus licencias OFL
 tools/portada.mjs     Escribe en index.html la portada del último lanzamiento (no se publica)
 icons/                Iconos de la web (Android y manifiesto)
 docs/                 Documentación (no se publica en la web)

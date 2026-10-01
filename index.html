@@ -20,9 +20,9 @@
 <!-- Buscadores: descripción (se traduce con el idioma) y dirección canónica de la página. -->
 <meta name="description" content="Arte Kills: música, videoclips y merch. Escucha los últimos lanzamientos en Spotify, Bandcamp, YouTube, Apple Music y Tidal." data-i18n-attr="content:meta.description">
 <link rel="canonical" href="https://artekills.com/">
-<!-- Fuentes de Google: Raleway (títulos, menú, botones y datos) y Merriweather (textos largos). -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;500;800;900&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+<!-- Fuentes (declaradas en css/base.css y servidas desde fonts/): se precarga Raleway, la de toda la interfaz, para que
+     llegue a la vez que las hojas de estilo. Merriweather sólo se usa en las descripciones de los productos. -->
+<link rel="preload" href="fonts/raleway-latin.woff2" as="font" type="font/woff2" crossorigin>
 <!-- Hojas de estilo. El orden importa: ante dos reglas igual de específicas gana la de la hoja posterior
      (ajustes.css va la última a propósito). Qué hay en cada una: docs/estilos.md. -->
 <link rel="stylesheet" href="css/base.css">

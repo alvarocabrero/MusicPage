@@ -101,7 +101,6 @@ Si el clic es en una tarjeta lateral, el paso 2 cambia: el controlador llama a `
 
 | Servicio | Para qué | Si no está disponible |
 |----------|----------|-----------------------|
-| Google Fonts | Fuentes Raleway y Merriweather | Se usan Helvetica/Arial y Georgia |
 | Spotify (`open.spotify.com/embed`) | Preescucha en la portada y en el pop up de disco | El hueco del reproductor queda vacío |
 | YouTube (`youtube-nocookie.com`, `i.ytimg.com`) | Reproductor de vídeo y miniaturas | Las tarjetas quedan de color, con el título |
 | FormSubmit | Envío del formulario de contacto | Se muestra un aviso con el correo directo |
