@@ -1,14 +1,28 @@
 /* Modelo: muelle críticamente amortiguado. Interpola una posición hacia un objetivo sin rebotes,
-   arrancando y frenando de forma suave; conserva la velocidad si se cambia de objetivo en pleno movimiento. */
+   arrancando y frenando de forma suave; conserva la velocidad si se cambia de objetivo en pleno movimiento.
+   Lo usa carouselController para mover los carruseles: cada fotograma llama a step() y pinta la posición x.
+   Con amortiguamiento crítico la solución exacta es x(t) = objetivo + (d + B·t)·e^(−ω·t), con d = x − objetivo
+   y B = v + ω·d; por eso el resultado no depende de cuántos fotogramas haya ni de su duración. */
 export class Spring{
+ /* x: posición actual; v: velocidad (unidades por segundo); target: posición a la que va; omega: rigidez. */
  constructor(){this.x=0;this.v=0;this.target=0;this.omega=7}
  /* omega: rigidez (rad/s). Más alto = más rápido; ~7 ≈ 0,6 s, ~2 ≈ 2 s. */
+ /**
+  * Cambia el objetivo (y, si se indica, la rigidez) sin perder la velocidad actual.
+  * @param {number} target Nueva posición objetivo.
+  * @param {number} [omega] Nueva rigidez en rad/s; si no se pasa, se mantiene la anterior.
+  */
  to(target,omega){this.target=target;if(omega)this.omega=omega}
  /* Coloca el muelle en x, sin movimiento. */
+ /** @param {number} x Posición (también pasa a ser el objetivo). */
  snap(x){this.x=x;this.target=x;this.v=0}
  /* Detiene el movimiento donde esté ahora. */
  stop(){this.target=this.x;this.v=0}
  /* Avanza dt segundos con la solución exacta del muelle (estable para cualquier dt). Devuelve true si sigue moviéndose. */
+ /**
+  * @param {number} dt Tiempo transcurrido, en segundos.
+  * @returns {boolean} false cuando ya ha llegado (casi quieto y casi en el objetivo); entonces se coloca exactamente en él.
+  */
  step(dt){
   const w=this.omega,d=this.x-this.target,B=this.v+w*d,e=Math.exp(-w*dt);
   this.x=this.target+(d+B*dt)*e;

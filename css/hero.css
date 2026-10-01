@@ -1,16 +1,26 @@
 /* portada */
+/* Portada (.hero): bloque blanco con el logotipo grande y el último lanzamiento (#hrel, lo pinta heroView):
+   título, datos, preescucha de Spotify y botones de plataformas. En ordenador (≥ 821 px) van en dos columnas;
+   en móvil, una debajo de otra. Es blanca también en modo oscuro (por eso .hrel fija sus propios colores). */
+
+/* Texto sólo para lectores de pantalla (el <h1> "Arte Kills"): invisible pero accesible. */
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* La portada ya termina con su propio borde inferior, así que la primera sección no lleva borde superior. */
 #lanzamientos{border-top:0}
+/* El relleno superior (140 px) deja sitio a la cabecera fija; en móvil se reduce en ajustes.css. */
 .hero .mark{background:#fff;border-bottom:10px solid var(--tinta);padding:140px 24px 68px}
 .hero .mk{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:36px clamp(32px,6vw,80px);align-items:center;max-width:1180px;margin:0 auto}
 .hero .mk .lg{display:block;width:100%;max-width:380px;height:auto;justify-self:center}
 .hrel{--tinta:#000;--fondo:#fff;color:#000;width:100%;max-width:440px;justify-self:center}
 .hrel h2{font-size:clamp(1.8rem,4vw,2.6rem);text-transform:uppercase;letter-spacing:-.01em}
 .hrel .hm{margin:8px 0 14px;font:500 .95rem/1.4 var(--display)}
+/* Preescucha de Spotify: 152 px es la altura del reproductor compacto (en ordenador, 352: con lista de canciones). */
 .hrel .hp iframe{display:block;width:100%;height:152px;border:0;border-radius:12px}
+/* Botones de plataformas: la rejilla base está en dialogs.css (.plats); aquí se hacen más pequeños. */
 .hrel .plats{padding:12px 0 0;gap:6px}
 .hrel .plats a{padding:9px 5px 8px;gap:6px;font-size:.72rem}
 .hrel .plats svg{width:26px;height:26px}
+/* 820 px es el corte entre el diseño de móvil y el de ordenador en toda la web (también en el carrusel, en JS). */
 @media (max-width:820px){.hero .mk{grid-template-columns:1fr;gap:44px}.hero .mk .lg{max-width:230px}}
 /* ordenador: preview grande (reproductor con lista de canciones) y panel más ancho; en móvil se queda compacto */
 @media (min-width:821px){
@@ -20,10 +30,13 @@
  .hrel .plats a{padding:11px 8px 9px;font-size:.8rem}
  .hrel .plats svg{width:30px;height:30px}
 }
+/* Sin uso actualmente (de una versión anterior de la portada): .hero .intro y .hero p. */
 .hero .intro{display:flex;flex-wrap:wrap;gap:24px 48px;align-items:center;justify-content:space-between;padding-top:40px;padding-bottom:48px}
+/* Rayita roja bajo los títulos de sección (en las secciones con carrusel toma el color de --dash, ver carousel.css). */
 .dash{display:block;width:44px;height:6px;background:var(--rojo);margin:0 0 18px}
 .hero p{max-width:46ch;margin:0}
 section .dash{margin:22px 0}
+/* Botones .btn y .btn.alt: sin uso actualmente (de una versión anterior). */
 .btn{display:inline-block;background:var(--rojo);color:var(--sobre-rojo);border:3px solid var(--rojo);padding:12px 26px;font:800 1rem var(--display);text-decoration:none}
 .btn:hover{background:var(--tinta);border-color:var(--tinta);color:var(--fondo)}
 .btn.alt{background:none;color:var(--tinta);border-color:var(--tinta);margin-left:10px}

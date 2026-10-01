@@ -1,6 +1,17 @@
-/* Modelo: idioma de la web y textos traducidos (español / inglés). */
+/* Modelo: idioma de la web y textos traducidos (español / inglés).
+   Guarda el idioma activo y los textos de la interfaz. Los textos del HTML se marcan con data-i18n / data-i18n-attr
+   (los aplica i18nView) y los que pinta JavaScript se piden con t(). Los datos de discos, merch, etc. pueden traer
+   su propio texto traducido como {es,en}, que se resuelve con tr(). Para añadir un texto, se añade la misma clave
+   en es y en en (ver docs/contenido.md). Cambiar de idioma recarga la página (languageController). */
+
+/** Idiomas disponibles, en orden; el primero es el de referencia si a otro le falta un texto. */
 export const LANGS=["es","en"];
 
+/**
+ * Textos de la interfaz por idioma. Las claves llevan un prefijo por zona (nav., sec., contact., release., video.,
+ * merch., kind., dlg.…) y pueden tener variables entre llaves, como {t} (título) o {n} (número), que rellena t().
+ * @type {Object<string,Object<string,string>>}
+ */
 const DICT={
  es:{
   "title":"Arte Kills · Música",
@@ -36,10 +47,16 @@ const DICT={
  }
 };
 
+/** Idioma activo ("es" o "en"); lo fija setLang() al arrancar. */
 let lang="es";
+/** Clave de localStorage donde se recuerda el idioma elegido con el botón ES/EN. */
 const KEY="lang";
 
 /* Idioma por defecto: el elegido antes por la persona; si no, el primero de los idiomas del navegador que soportemos; si ninguno, inglés. */
+/**
+ * Decide el idioma con el que arranca la web.
+ * @returns {string} "es" o "en".
+ */
 export function detectLang(){
  try{const s=localStorage.getItem(KEY);if(LANGS.includes(s))return s}catch(e){}
  for(const l of (navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||""])){
@@ -48,16 +65,50 @@ export function detectLang(){
  }
  return "en";
 }
+/**
+ * Idioma activo.
+ * @returns {string}
+ */
 export const getLang=()=>lang;
+
+/**
+ * El otro idioma (al que lleva el botón ES/EN).
+ * @returns {string}
+ */
 export const otherLang=()=>LANGS.find(l=>l!==lang);
+
+/**
+ * Fija el idioma activo; si no es uno de LANGS, se usa inglés.
+ * @param {string} l Código de idioma.
+ */
 export function setLang(l){lang=LANGS.includes(l)?l:"en"}
+
+/**
+ * Recuerda el idioma elegido para las próximas visitas (si el navegador no deja usar localStorage, no pasa nada).
+ * @param {string} l Código de idioma.
+ */
 export function rememberLang(l){try{localStorage.setItem(KEY,l)}catch(e){}}
 
 /* Texto traducido con variables {x}. */
+/**
+ * Texto de la interfaz en el idioma activo. Si falta en ese idioma se usa el español y, si tampoco existe,
+ * se devuelve la propia clave (así un texto olvidado se ve en pantalla en vez de romper nada).
+ * @param {string} key Clave del texto, p. ej. "video.watch".
+ * @param {Object<string,string|number>} [vars] Valores para las variables {nombre} del texto.
+ * @returns {string}
+ * @example t("tracks",{n:9}) // "9 canciones"
+ */
 export function t(key,vars){
  let s=(DICT[lang]&&DICT[lang][key])||DICT.es[key]||key;
  if(vars)for(const k in vars)s=s.split("{"+k+"}").join(vars[k]);
  return s;
 }
 /* Valor de un dato que puede venir ya traducido: "texto" o {es:"…",en:"…"}. */
+/**
+ * Resuelve un dato que puede estar traducido: un texto se devuelve tal cual y un objeto {es,en} da el texto
+ * del idioma activo (o el español si falta).
+ * @template T
+ * @param {T|{es:T,en:T}} v
+ * @returns {T}
+ */
 export function tr(v){return v&&typeof v==="object"?(v[lang]||v.es):v}

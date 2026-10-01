@@ -1,15 +1,20 @@
 /* pie */
+/* Pie (#contacto), en rojo: formulario de contacto, logotipo, enlaces a Instagram y Bandcamp y copyright.
+   Los elementos se reparten en filas que se ajustan al ancho (flex-wrap): el formulario ocupa una fila entera. */
 footer{background:var(--rojo);color:#fff;padding:48px 0}
 footer .wrap{display:flex;flex-wrap:wrap;gap:24px 40px;align-items:center;justify-content:space-between}
+/* Logotipo del pie (un <use> del sprite img/sprite.svg): 96 px de alto; el ancho sale de --r (ver .lg en base.css). */
 footer .fl{height:96px}
 footer .lg{display:block}
 footer p{margin:0;font:800 1.2rem var(--display)}
 footer p.cr{font:500 .95rem var(--display)}
 footer a{font-weight:800}
+/* Enlaces a redes (.soc): botones con borde blanco que se rellenan al pasar el ratón. */
 .soc{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:12px}
 .soc a{display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border:3px solid #fff;text-decoration:none;font:800 .95rem var(--display)}
 .soc svg{width:22px;height:22px;fill:currentColor;flex:none}
 .soc a:hover{background:#fff;color:var(--rojo)}
+/* Formulario de contacto (#cf): hasta 640 px de ancho; nombre y email en dos columnas (una en ≤ 600 px). */
 .cf{flex:1 1 100%;max-width:640px;display:flex;flex-direction:column;gap:16px}
 .cf h2{font-size:clamp(2rem,5vw,3rem);text-transform:uppercase;letter-spacing:-.01em}
 .cf-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
@@ -17,6 +22,7 @@ footer a{font-weight:800}
 .cf input,.cf textarea{font:500 1rem var(--display);color:#000;background:#fff;border:3px solid #000;border-radius:0;padding:12px 14px;width:100%}
 .cf textarea{resize:vertical;min-height:120px}
 .cf input:focus-visible,.cf textarea:focus-visible{outline:3px solid #fff;outline-offset:2px}
+/* Pie del formulario: botón de enviar y mensaje de estado (#cf-msg). El botón queda desactivado mientras se envía. */
 .cf-foot{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px}
 .cf-btn{background:#000;color:#fff;border:3px solid #000;padding:12px 26px;font:800 1rem var(--display);cursor:pointer}
 .cf-btn:hover{background:#fff;color:#000}

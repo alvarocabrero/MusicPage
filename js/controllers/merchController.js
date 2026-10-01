@@ -4,6 +4,10 @@ import {cardHTML,rowHTML,merchDialogView} from "../views/merchView.js";
 import {initCarousel} from "./carouselController.js";
 import {initDialog} from "./dialogController.js";
 
+/**
+ * Monta el carrusel #car-merch y el pop up de producto, que se abre desde la tarjeta activa o desde la vista
+ * de lista; dentro del pop up, las miniaturas cambian la foto principal.
+ */
 export function initMerch(){
  const abrir=initDialog({items:MERCH,view:merchDialogView,show:m=>merchDialogView.render(m)});
  const el=document.getElementById("car-merch");

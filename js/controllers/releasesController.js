@@ -4,6 +4,10 @@ import {cardHTML,rowHTML,heroView,releaseDialogView} from "../views/releaseView.
 import {initCarousel} from "./carouselController.js";
 import {initDialog} from "./dialogController.js";
 
+/**
+ * Pinta la portada con el último lanzamiento, monta el carrusel #car-rel y conecta el pop up de preescucha,
+ * que se abre desde la tarjeta activa del carrusel o desde los botones de la vista de lista.
+ */
 export function initReleases(){
  heroView.render(latestRelease());
 

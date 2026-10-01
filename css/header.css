@@ -1,18 +1,24 @@
 /* cabecera */
+/* Cabecera fija (#top-bar): logotipo horizontal a la izquierda y, a la derecha, "Contacto" y el botón de idioma.
+   Mide 68 px de alto (más la muesca del móvil). Arriba del todo lleva la clase .at-top (la pone headerController):
+   transparente, sin borde y sin logotipo, sobre la portada blanca; al bajar aparece con fondo y borde. */
 .top{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:5;background:var(--fondo);border-bottom:4px solid var(--tinta);transition:background-color .25s,border-color .25s}
 .top .brand{transition:opacity .25s,visibility .25s}
 .top nav a{transition:color .25s}
+/* Estado .at-top: los textos se fuerzan a negro porque la portada es siempre blanca (también en modo oscuro). */
 .top.at-top{background:transparent;border-bottom-color:transparent}
 .top.at-top .brand{opacity:0;visibility:hidden}
 .top.at-top nav a{color:#000}
 .top.at-top nav a:hover{color:var(--rojo)}
 @media (prefers-reduced-motion:reduce){.top,.top .brand,.top nav a{transition:none}}
 .top .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+/* Logotipo: se dimensiona por la altura (30 px). */
 .top .brand{height:30px;display:block}
 .top .brand img{display:block;height:100%;width:auto}
 nav{display:flex;gap:26px;align-items:center;font:800 .95rem var(--display)}
 nav a{text-decoration:none}
 nav a:hover{color:var(--rojo)}
+/* Botón de idioma (#lang): muestra el idioma al que se cambia ("EN" / "ES"). */
 .lang{background:none;border:0;padding:0;color:inherit;font:800 .95rem var(--display);cursor:pointer}
 .lang:hover{color:var(--rojo)}
 .top.at-top nav .lang{color:#000}

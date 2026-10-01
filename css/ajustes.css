@@ -1,2 +1,6 @@
+/* Ajustes finales: se carga la última, así que estas reglas ganan a las anteriores cuando empatan.
+   - Móvil (≤ 820 px): la portada tiene menos relleno (la cabecera fija sigue cabiendo encima).
+     nav .l y .btn.alt son restos de versiones anteriores, sin uso actualmente.
+   - Si la persona pide menos movimiento, los enlaces internos saltan sin desplazamiento suave. */
 @media (max-width:820px){.hero .mark{padding:116px 20px 44px}nav .l{display:none}.btn.alt{margin:10px 0 0}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
