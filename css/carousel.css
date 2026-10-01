@@ -76,7 +76,9 @@ section .dash{background:var(--dash,var(--rojo))}
 .cd .rm:focus-visible{outline:3px solid currentColor;outline-offset:4px}
 .c0{background:var(--rojo);color:#fff}.c1{background:#000;color:#fff}.c2{background:var(--gris);color:#000}.c3{background:#fff;color:var(--rojo)}
 .ring{position:absolute;left:0;top:0;width:54px;height:54px;border:3px solid #fff;border-radius:30px;pointer-events:none;opacity:0;z-index:9;mix-blend-mode:difference;transition:width .25s,opacity .2s}
-#vdlg{width:min(860px,calc(100% - 24px))}
+/* El ancho también depende del alto, para que el vídeo (16:9) y la cabecera del pop up quepan siempre en pantalla
+   (la primera declaración es para navegadores sin unidades dvh). */
+#vdlg{width:min(860px,calc(100% - 24px));width:min(860px,calc(100% - 24px),calc((100dvh - 130px)*16/9 + 8px))}
 .vp iframe{display:block;width:100%;aspect-ratio:16/9;border:0}
 @media (hover:hover) and (pointer:fine){.stage{cursor:none}.stage:hover .ring{opacity:1}.ring.drag{width:96px}}
 @media (max-width:820px){.cd .cc{padding:16px 16px 18px}.cd .tipo{left:14px;top:14px}.cd{--fs-s:.85rem;--fs-b:1.6rem}}

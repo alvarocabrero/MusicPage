@@ -1,8 +1,9 @@
 /* Modelo: estado de un carrusel circular (posición continua, tarjeta activa, modo "ver todos"). */
 export class CarouselModel{
- constructor(n){
+ /* slots: huecos mínimos del anillo (los que hacen falta para cubrir el ancho de la pantalla). */
+ constructor(n,slots=8){
   this.n=n;
-  this.m=n*Math.ceil(8/n); /* tarjetas totales, repitiendo la lista hasta llenar el anillo */
+  this.m=n*Math.ceil(slots/n); /* tarjetas totales, repitiendo la lista hasta llenar el anillo */
   this.pos=0;this.act=0;this.all=false;
  }
  mod(k){return ((k%this.m)+this.m)%this.m}

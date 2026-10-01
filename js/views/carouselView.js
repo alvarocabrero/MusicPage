@@ -19,7 +19,9 @@ export function createCarouselView(el,{n,m,card,row}){
  el.appendChild(lst);
 
  function metrics(){
-  const cw=el.clientWidth,mob=cw<=820,H=mob?Math.min(400,Math.round(cw*1.02)):Math.min(460,Math.round(cw*.36));
+  /* En pantallas bajas (móvil en horizontal) la tarjeta no pasa del alto que queda bajo la cabecera, para verse entera. */
+  const cw=el.clientWidth,mob=cw<=820,vh=document.documentElement.clientHeight,
+   H=Math.min(mob?Math.min(400,Math.round(cw*1.02)):Math.min(460,Math.round(cw*.36)),Math.max(180,vh-108));
   return {H:H,W:mob?Math.round(cw*.6):Math.round(H*1.55),N:mob?Math.round(cw*.3):Math.round(H*.55),G:mob?12:24,x0:Math.round(cw*(mob?.09:.08))};
  }
  const X=(k,M)=>k===0?M.x0:(k>0?M.x0+M.W+M.G+(k-1)*(M.N+M.G):M.x0+k*(M.N+M.G));

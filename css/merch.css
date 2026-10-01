@@ -10,3 +10,6 @@
 .mb .md{margin:0;font:300 .95rem/1.55 var(--texto)}
 .mb .me{margin:0;font:800 .85rem/1.4 var(--display)}
 .mb .abrir{text-decoration:none;margin-top:6px}
+/* Tablet y ordenador: la foto (y la fila de miniaturas, que la acompaña) también se ajusta al alto que queda tras
+   la cabecera y los textos (~310 px), para que el pop up quepa entero sin scroll y el botón de compra quede a la vista. */
+@media (min-width:701px){.mb .mp,.mb .mt{width:min(100%,52dvh,max(200px,calc((100dvh - 310px)/1.2)))}}

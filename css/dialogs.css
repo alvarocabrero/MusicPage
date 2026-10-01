@@ -24,6 +24,13 @@ dialog{border:0;background:none;color:var(--tinta);padding:0;width:min(560px,cal
  #vdlg[open] .nv-p{justify-self:start}
  #vdlg[open] .nv-n{justify-self:end}
 }
+/* Móvil en horizontal (pantalla baja): en el pop up de vídeo las flechas vuelven a los lados para dejarle todo el alto
+   al reproductor, que se ajusta a la altura y se ve entero. */
+@media (orientation:landscape) and (max-height:500px){
+ #vdlg[open]{display:block;width:min(860px,calc(100% - 144px));width:min(860px,calc(100% - 144px),calc((100dvh - 130px)*16/9 + 8px))}
+ #vdlg[open] .dbox{max-height:calc(100dvh - 24px)}
+ #vdlg[open] .nv{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:64px;padding:0 0 6px}
+}
 dialog::backdrop{background:#000b}
 .dh{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;padding:20px 20px 16px;border-bottom:4px solid var(--tinta)}
 .dh h3{font-size:1.7rem;text-transform:uppercase;letter-spacing:-.01em}

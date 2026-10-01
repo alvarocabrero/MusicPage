@@ -8,10 +8,13 @@ const OMEGA_MANUAL=7;   /* rigidez al mover con clic, teclado o al soltar (≈ 0
 const OMEGA_AUTO=2.2;   /* rigidez del avance automático: muy lento (≈ 2 s) */
 const IDLE_MS=12000;    /* tiempo sin interacción antes de reanudar el avance automático */
 const TOUCH_GAIN=1.5;   /* con el dedo el carrusel avanza 1,5 veces lo que se desplaza el dedo (más sensible que el ratón) */
+/* Huecos del anillo: los que hacen falta para cubrir la pantalla (≈ uno cada 280 px, más los de los lados), mínimo 8.
+   En el móvil se quedan en 8; sólo crecen en monitores muy anchos, para que no quede un hueco vacío a la derecha. */
+const SLOTS=Math.max(8,Math.ceil(Math.max(screen.width,innerWidth)/280)+2);
 
 /* dir: 1 avanza al siguiente, -1 al anterior. every: milisegundos entre avances automáticos. */
 export function initCarousel({el,n,card,row,onOpen,dir=1,every=6500}){
- const model=new CarouselModel(n);
+ const model=new CarouselModel(n,SLOTS);
  const spring=new Spring();
  const view=createCarouselView(el,{n,m:model.m,card,row});
  let drag=null,dragged=false,lastUser=-Infinity;
