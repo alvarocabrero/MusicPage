@@ -23,8 +23,9 @@ box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:en
 /* Modo oscuro: sigue a la preferencia del sistema. */
 @media (prefers-color-scheme:dark){:root{--fondo:#000;--tinta:#fff}}
 *,*:before,*:after{box-sizing:inherit}
-/* Los enlaces internos (#contacto) se detienen por debajo de la cabecera fija (68 px + margen). */
-html{scroll-padding-top:calc(72px + env(safe-area-inset-top,0px));scroll-behavior:smooth}
+/* Los enlaces internos (#contacto) se detienen por debajo de la cabecera fija (68 px + margen). scrollbar-gutter reserva
+   siempre el hueco de la barra de desplazamiento, para que nada se mueva de lado cuando un pop up la quita. */
+html{scroll-padding-top:calc(72px + env(safe-area-inset-top,0px));scroll-behavior:smooth;scrollbar-gutter:stable}
 /* Texto base en Raleway: así Merriweather no se descarga hasta que se ve una descripción de producto. */
 body{margin:0;background:var(--fondo);color:var(--tinta);font:300 1rem/1.75 var(--display)}
 h1,h2,h3{font-family:var(--display);font-weight:900;margin:0;line-height:1}

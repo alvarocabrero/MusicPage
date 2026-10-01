@@ -70,6 +70,7 @@ Con `prefers-reduced-motion: reduce` se quitan el vaivén de las tarjetas, las t
 - **Muesca y barra de inicio del móvil**: `env(safe-area-inset-*)` en `:root` y en la cabecera.
 - **`body { overflow-x: clip }`**: los carruseles miden `100vw`, que incluye la barra de desplazamiento; sin esto habría unos píxeles de scroll horizontal.
 - **Unidades `dvh`** (alto dinámico de la ventana) en los pop ups, para que no queden tapados por las barras del navegador del móvil. El ancho del pop up de vídeo lleva una declaración anterior sin `dvh` como alternativa para navegadores antiguos.
+- **Pop ups en el móvil**: con las flechas debajo, se maquetan con flex y no con rejilla, porque Safari estira un `<dialog>` en rejilla hasta su altura máxima (la caja quedaba con un hueco vacío). Mientras hay uno abierto, `html:has(dialog[open])` quita el desplazamiento de la página, y `scrollbar-gutter: stable` evita que la página se mueva de lado al desaparecer la barra de desplazamiento.
 - **`@property --sbg / --sfg`**: sin ella, los colores de las secciones cambiarían de golpe. En navegadores sin soporte cambian igual, pero sin transición.
 - **Texto que no se parte**: la etiqueta de las tarjetas (`white-space: nowrap`) y, desde JavaScript, los nombres de artistas, fechas y "9 canciones" (espacios de no separación) no se cortan entre líneas.
 

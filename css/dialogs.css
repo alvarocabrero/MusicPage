@@ -16,20 +16,20 @@ dialog{border:0;background:none;color:var(--tinta);padding:0;width:min(560px,cal
 .nv:hover{background:var(--rojo);border-color:var(--rojo);color:#fff}
 .nv-p{right:calc(100% + 12px)}.nv-n{left:calc(100% + 12px)}
 /* Cuando no caben a los lados, las flechas pasan a una fila propia justo debajo del pop up, dentro del diálogo
-   (que limita su altura a la pantalla), así nunca quedan fuera. Pop ups normales: hasta 700 px; el de vídeo, más ancho: hasta 1000 px. */
+   (que limita su altura a la pantalla), así nunca quedan fuera. Pop ups normales: hasta 700 px; el de vídeo, más ancho: hasta 1000 px.
+   Se maqueta con flex: la caja a todo el ancho y, debajo, una flecha en cada extremo. (Con rejilla, Safari estira el
+   <dialog> hasta su altura máxima y la caja quedaba con un hueco vacío debajo del contenido.) La caja no pasa del alto
+   que deja libre la fila de las flechas (100dvh − 24 px de margen − 10 de separación − 48 de flecha); si su contenido
+   no cabe, se desplaza por dentro. */
 @media (max-width:700px){
- dialog[open]{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:minmax(0,1fr) auto;gap:10px;max-height:calc(100dvh - 24px)}
- dialog[open] .dbox{grid-column:1/-1;max-height:none;min-height:0}
+ dialog[open]{display:flex;flex-wrap:wrap;justify-content:space-between;align-content:flex-start;gap:10px;max-height:calc(100dvh - 24px)}
+ dialog[open] .dbox{flex:1 0 100%;min-width:0;max-height:calc(100dvh - 82px)}
  dialog[open] .nv{position:static;transform:none;width:64px;height:48px;padding:0 0 4px}
- dialog[open] .nv-p{justify-self:start}
- dialog[open] .nv-n{justify-self:end}
 }
 @media (min-width:701px) and (max-width:1000px){
- #vdlg[open]{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:minmax(0,1fr) auto;gap:10px;max-height:calc(100dvh - 24px)}
- #vdlg[open] .dbox{grid-column:1/-1;max-height:none;min-height:0}
+ #vdlg[open]{display:flex;flex-wrap:wrap;justify-content:space-between;align-content:flex-start;gap:10px;max-height:calc(100dvh - 24px)}
+ #vdlg[open] .dbox{flex:1 0 100%;min-width:0;max-height:calc(100dvh - 82px)}
  #vdlg[open] .nv{position:static;transform:none;width:64px;height:48px;padding:0 0 4px}
- #vdlg[open] .nv-p{justify-self:start}
- #vdlg[open] .nv-n{justify-self:end}
 }
 /* Móvil en horizontal (pantalla baja): en el pop up de vídeo las flechas vuelven a los lados para dejarle todo el alto
    al reproductor, que se ajusta a la altura y se ve entero. */
@@ -40,6 +40,10 @@ dialog{border:0;background:none;color:var(--tinta);padding:0;width:min(560px,cal
 }
 /* Fondo oscuro tras el pop up (negro al 73 %); un clic en él cierra el pop up (dialogController). */
 dialog::backdrop{background:#000b}
+/* Con un pop up abierto, la página de debajo no se desplaza: en el móvil se podía arrastrar y, al esconderse o aparecer
+   la barra del navegador, el pop up cambiaba de tamaño. (scrollbar-gutter, en base.css, evita que la página se mueva de
+   lado al quitar la barra de desplazamiento.) */
+html:has(dialog[open]){overflow:hidden;overscroll-behavior:none}
 /* Cabecera del pop up: título (h3), datos (p) y botón de cerrar (.dx). */
 .dh{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;padding:20px 20px 16px;border-bottom:4px solid var(--tinta)}
 .dh h3{font-size:1.7rem;text-transform:uppercase;letter-spacing:-.01em}

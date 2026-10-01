@@ -99,6 +99,7 @@ Navegadores actuales, de 2022 en adelante: **Chrome y Edge 108+, Safari 15.4+ (i
 | Unidades `dvh` | Alto de los pop ups y de la foto de merch | Hay una alternativa para el ancho del pop up de vídeo; en el resto, la regla no se aplica |
 | `@property` | Transición de color de las secciones | El color cambia sin transición (Safari < 16.4, Firefox < 128) |
 | `overflow-x: clip` | Evitar scroll horizontal | Puede aparecer un poco de scroll lateral (Safari < 16) |
+| `:has()` | Que la página no se desplace con un pop up abierto | La página de fondo se puede desplazar (Firefox < 121) |
 | `aspect-ratio`, `inset`, `min()/max()/clamp()`, `:focus-visible` | Maquetación y foco | Ampliamente soportadas en esas versiones |
 
 Las pruebas automáticas se hicieron con Chromium (el motor de Chrome, Edge y Android). Conviene repasar de vez en cuando en Safari (iPhone) y Firefox.
