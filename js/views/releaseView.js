@@ -8,13 +8,18 @@ const $=id=>document.getElementById(id);
 const IMG_LOAD='onload="this.parentNode.classList.add(\'hasimg\')" onerror="this.remove()"';
 
 const kind=r=>t("kind."+r.k);
-const info=r=>r.a+" · "+tr(r.y);
+/* Espacios de no separación: los nombres y las fechas no se parten entre líneas y ninguna línea empieza por "&" o "·". */
+const nb=s=>s.replace(/ /g,"\u00a0"),SEP="\u00a0· ";
+/* Todos los artistas principales: "A", "A & B", "A, B & C". */
+const artists=r=>{const a=[].concat(r.a).map(nb);return a.length>1?a.slice(0,-1).join(", ")+"\u00a0& "+a[a.length-1]:a[0]};
+const date=r=>nb(tr(r.y));
+const info=r=>artists(r)+SEP+date(r);
 /* "9 canciones" para números; los textos libres vienen ya traducidos. */
 const extra=r=>typeof r.n==="number"?t("tracks",{n:r.n}):tr(r.n);
 
 export const cardHTML=r=>'<img class="th" src="img/'+r.img+'.jpg" alt="'+t("release.cover",{t:r.t})+'" loading="lazy" '+IMG_LOAD+'><div class="shade"></div><span class="tipo">'+kind(r)+'</span><div class="cc"><h3 class="tt">'+r.t+'</h3><div class="meta">'+info(r)+'</div><button class="rm" aria-label="'+t("listen")+' '+r.t+'">'+ICON_GO+'<span>'+t("listen")+'</span></button></div>';
 
-export const rowHTML=(r,i)=>'<article class="slide rs" role="listitem"><button class="cover c'+(i%4)+'" data-i="'+i+'" aria-label="'+t("release.open",{t:r.t})+'"><img class="cv" src="img/'+r.img+'.jpg" alt="" loading="lazy" '+IMG_LOAD+'><span>'+r.t+'</span></button><div class="info"><span class="tipo">'+kind(r)+'</span><h3>'+r.t+'</h3><div class="meta">'+info(r)+' · '+extra(r)+'</div><button class="abrir" data-i="'+i+'">'+t("listen")+'</button></div></article>';
+export const rowHTML=(r,i)=>'<article class="slide rs" role="listitem"><button class="cover c'+(i%4)+'" data-i="'+i+'" aria-label="'+t("release.open",{t:r.t})+'"><img class="cv" src="img/'+r.img+'.jpg" alt="" loading="lazy" '+IMG_LOAD+'><span>'+r.t+'</span></button><div class="info"><span class="tipo">'+kind(r)+'</span><h3>'+r.t+'</h3><div class="meta">'+info(r)+SEP+extra(r)+'</div><button class="abrir" data-i="'+i+'">'+t("listen")+'</button></div></article>';
 
 const embedHTML=r=>r.sp?'<iframe src="https://open.spotify.com/embed/album/'+r.sp+'?utm_source=generator" title="'+t("release.preview",{t:r.t})+'" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>':'';
 
@@ -25,7 +30,7 @@ const linksHTML=r=>linksFor(r).map(x=>'<li>'+linkHTML(x)+'<b>'+PICON[x.p.id]+x.p
 /* Portada: logo + último lanzamiento con preescucha y enlaces. */
 export const heroView={
  render(r){
-  $("hrel").innerHTML='<span class="tipo">'+t("release.latest")+'</span><h2>'+r.t+'</h2><p class="hm">'+r.a+' · '+kind(r)+' · '+tr(r.y)+'</p><div class="hp">'+embedHTML(r)+'</div><ul class="plats">'+linksHTML(r)+'</ul>';
+  $("hrel").innerHTML='<span class="tipo">'+t("release.latest")+'</span><h2>'+r.t+'</h2><p class="hm">'+artists(r)+SEP+kind(r)+SEP+date(r)+'</p><div class="hp">'+embedHTML(r)+'</div><ul class="plats">'+linksHTML(r)+'</ul>';
  }
 };
 
@@ -34,7 +39,7 @@ export const releaseDialogView={
  el:$("dlg"),prev:$("dprev"),next:$("dnext"),close:$("dx"),
  render(r){
   $("dt").textContent=r.t;
-  $("dm").textContent=r.a+" · "+kind(r)+" · "+tr(r.y);
+  $("dm").textContent=artists(r)+SEP+kind(r)+SEP+date(r);
   $("dpv").innerHTML=embedHTML(r);
   $("dpl").innerHTML=linksHTML(r);
  },
