@@ -1,4 +1,4 @@
-/* Modelo: discos. a = artista principal, o lista de artistas principales si hay varios;
+/* Modelo: discos. a = artista principal, o lista de artistas principales si hay varios; y = año (solo el año);
    links = enlaces directos por plataforma; sp = ID del álbum en Spotify (activa la preescucha). */
 export const RELEASES=[
  {img:"michelin-star-desserts",t:"Michelin Star Desserts",a:["Arte Kills","DigitalDust"],k:"album",y:"2026",n:9,sp:"6VGBkOI87jrnjTRuvFNyJG",links:{yt:"https://www.youtube.com/watch?v=2Kiz_oEALVk",tidal:"https://tidal.com/album/538871911",apple:"https://music.apple.com/es/album/michelin-star-desserts/6786133651",bandcamp:"https://artekills.bandcamp.com/album/michelin-star-desserts",ytm:"https://music.youtube.com/browse/MPREb_lQqqAcaSpCi"}},
@@ -6,7 +6,7 @@ export const RELEASES=[
  {img:"grand-chelem",t:"Grand Chelem",a:"Arte Kills",k:"album",y:"2026",n:7,sp:"3q17McxpH6L8qiCZq6v7vR",links:{yt:"https://www.youtube.com/watch?v=NYuIrof_Kdk",tidal:"https://tidal.com/album/519731498",apple:"https://music.apple.com/es/album/grand-chelem/1896072366",bandcamp:"https://artekills.bandcamp.com/album/grand-chelem",ytm:"https://music.youtube.com/browse/MPREb_AsrZoK5XdVb"}},
  {img:"spooky-cartoons",t:"Spooky Cartoons",a:["Lev","Arte Kills"],k:"album",y:"2026",n:14,sp:"3xe8jjaywxo0SjHLDoxghX",links:{yt:"https://www.youtube.com/watch?v=0zGLNakfXVk",tidal:"https://tidal.com/album/492636246",apple:"https://music.apple.com/es/album/spooky-cartoons/1871916493",bandcamp:"https://artekills.bandcamp.com/album/spooky-cartoons",ytm:"https://music.youtube.com/browse/MPREb_X8baN6Liulr"}},
  {img:"taiga-cazador",t:"Taiga & Cazador",a:["Arte Kills","Stxners Music"],k:"album",y:"2025",n:16,sp:"7nswazETv9nz5oFonH3uUk",links:{yt:"https://www.youtube.com/watch?v=JPGars0CKHw",tidal:"https://tidal.com/album/470415446",apple:"https://music.apple.com/es/album/taiga-cazador/1850392570",bandcamp:"https://artekills.bandcamp.com/album/taiga-cazador",ytm:"https://music.youtube.com/browse/MPREb_hHwWOLSk3El"}},
- {img:"nuevo-vesuvio",t:"Nuevo Vesuvio",a:["Arte Kills","Silver J"],k:"ep",y:{es:"Mayo 2025",en:"May 2025"},n:5,sp:"2uzyz2LG2ciQuzBWbs9PFD",links:{yt:"https://www.youtube.com/watch?v=hWyTrBePr7k",tidal:"https://tidal.com/album/432040998",apple:"https://music.apple.com/es/album/nuevo-vesuvio-ep/1810583619",bandcamp:"https://artekills.bandcamp.com/album/nuevo-vesuvio",ytm:"https://music.youtube.com/browse/MPREb_jU58RUmJGZI"}}
+ {img:"nuevo-vesuvio",t:"Nuevo Vesuvio",a:["Arte Kills","Silver J"],k:"ep",y:"2025",n:5,sp:"2uzyz2LG2ciQuzBWbs9PFD",links:{yt:"https://www.youtube.com/watch?v=hWyTrBePr7k",tidal:"https://tidal.com/album/432040998",apple:"https://music.apple.com/es/album/nuevo-vesuvio-ep/1810583619",bandcamp:"https://artekills.bandcamp.com/album/nuevo-vesuvio",ytm:"https://music.youtube.com/browse/MPREb_jU58RUmJGZI"}}
 ];
 
 /* El último lanzamiento es el primero de la lista. */
