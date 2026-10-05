@@ -69,7 +69,7 @@ Todo el contenido está en tres archivos de datos; no hace falta tocar el HTML:
 
 | Para…                          | Edita                  | Y añade                                   |
 |--------------------------------|------------------------|-------------------------------------------|
-| Añadir o cambiar un disco      | `js/models/releases.js`| la portada en `img/` (WebP 600×600)       |
+| Añadir o cambiar un disco      | `js/models/releases.js`| la portada en `img/` (WebP 600×600 y 1200×1200) |
 | Añadir un videoclip            | `js/models/videos.js`  | nada: la miniatura viene de YouTube       |
 | Añadir o cambiar un producto   | `js/models/merch.js`   | las fotos en `img/` (WebP 900×900)        |
 | Cambiar un texto de la interfaz| `js/models/i18n.js`    | el texto en español **y** en inglés       |

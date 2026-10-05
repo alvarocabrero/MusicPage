@@ -8,9 +8,9 @@ import {t,tr} from "../models/i18n.js";
 
 /** Atajo de document.getElementById. @param {string} id @returns {HTMLElement} */
 const $=id=>document.getElementById(id);
-/** Atributos de las portadas: al cargar, el contenedor recibe .hasimg (oculta el fondo de color);
- *  si la imagen falla se quita y queda la tarjeta de color con el título. */
-const IMG_LOAD='onload="this.parentNode.classList.add(\'hasimg\')" onerror="this.remove()"';
+/** Atributos de las portadas: al cargar, la tarjeta o la portada de la lista (.cd / .cover) recibe .hasimg (oculta el
+ *  fondo de color); si la imagen falla se quita y queda la tarjeta de color con el título. */
+const IMG_LOAD='onload="this.closest(\'.cd,.cover\').classList.add(\'hasimg\')" onerror="this.remove()"';
 
 /** Tipo de disco traducido ("Álbum", "EP"). @param {import("../models/releases.js").Release} r @returns {string} */
 const kind=r=>t("kind."+r.k);
@@ -32,10 +32,12 @@ const extra=r=>typeof r.n==="number"?nb(t("tracks",{n:r.n})):tr(r.n);
 /**
  * Interior de la tarjeta del carrusel: portada de fondo, degradado (.shade), etiqueta del tipo, título,
  * "Artistas · Año" y botón "Escuchar" (abre el pop up; ver carouselController).
+ * La portada tiene dos tamaños: en el ordenador (más de 820 px de ancho) la tarjeta activa mide unos 714 px y se usa
+ * la de 1200 px (<name>-1200.webp), para que no se vea estirada; en el móvil basta la de 600 px, que pesa mucho menos.
  * @param {import("../models/releases.js").Release} r
  * @returns {string} HTML.
  */
-export const cardHTML=r=>'<img class="th" src="img/'+r.img+'.webp" alt="'+t("release.cover",{t:r.t})+'" loading="lazy" '+IMG_LOAD+'><div class="shade"></div><span class="tipo">'+kind(r)+'</span><div class="cc"><h3 class="tt">'+r.t+'</h3><div class="meta">'+info(r)+'</div><button class="rm" aria-label="'+t("listen")+' '+r.t+'">'+ICON_GO+'<span>'+t("listen")+'</span></button></div>';
+export const cardHTML=r=>'<picture><source media="(min-width:821px)" srcset="img/'+r.img+'-1200.webp"><img class="th" src="img/'+r.img+'.webp" alt="'+t("release.cover",{t:r.t})+'" loading="lazy" '+IMG_LOAD+'></picture><div class="shade"></div><span class="tipo">'+kind(r)+'</span><div class="cc"><h3 class="tt">'+r.t+'</h3><div class="meta">'+info(r)+'</div><button class="rm" aria-label="'+t("listen")+' '+r.t+'">'+ICON_GO+'<span>'+t("listen")+'</span></button></div>';
 
 /**
  * Fila de la vista de lista: portada (botón que abre el pop up), tipo, título, "Artistas · Año · canciones"
