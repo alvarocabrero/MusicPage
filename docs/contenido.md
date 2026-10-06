@@ -20,7 +20,7 @@ Archivo: `js/models/releases.js`, lista `RELEASES`.
 
 | Campo | Obligatorio | Qué es |
 |-------|:-----------:|--------|
-| `img` | sí | Nombre de la portada en `img/`, **sin** `.webp`. La web carga `img/<img>.webp` (600×600) y, en las tarjetas del carrusel en el ordenador, `img/<img>-1200.webp` (1200×1200). |
+| `img` | sí | Nombre de la portada en `img/`, **sin** `.webp`. La web carga `img/<img>.webp` (1200×1200). |
 | `t` | sí | Título, escrito normal (las tarjetas lo ponen en mayúsculas). |
 | `a` | sí | Artista principal (`"Arte Kills"`) o, si hay varios, una lista en orden de crédito (`["Arte Kills","Silver J"]`). Se muestran como "A & B" o "A, B & C". Los artistas invitados ("feat.") no van aquí. |
 | `k` | sí | Tipo: `"album"` o `"ep"`. Para otro tipo (p. ej. sencillo) hay que añadir la clave `kind.<tipo>` en `i18n.js`, en los dos idiomas. |
@@ -29,7 +29,7 @@ Archivo: `js/models/releases.js`, lista `RELEASES`.
 | `sp` | no | ID del álbum en Spotify: activa la preescucha y el botón de Spotify. Es lo que va tras `/album/` en el enlace del álbum: `https://open.spotify.com/album/`**`6VGBkOI87jrnjTRuvFNyJG`**. |
 | `links` | sí | Enlaces directos al disco en cada plataforma. Claves: `bandcamp`, `yt` (YouTube), `apple` (Apple Music), `ytm` (YouTube Music) y `tidal`. Spotify no hace falta (sale de `sp`). Si falta una plataforma, simplemente no se muestra su botón. |
 
-**Portada**: dos imágenes WebP cuadradas en `img/`, con el nombre en minúsculas y con guiones: `img/nombre-del-disco.webp` de **600×600 px** (móvil y vista de lista; idealmente por debajo de 150 KB) e `img/nombre-del-disco-1200.webp` de **1200×1200 px** (tarjetas del carrusel en el ordenador, donde la tarjeta mide unos 714 px de ancho y la de 600 se vería estirada). Las dos se sacan de la portada original en alta resolución (la que se sube a las tiendas), no ampliando la de 600. Para convertir a WebP sirve [Squoosh](https://squoosh.app) (gratis, en el navegador): calidad entre 75 y 85 para la de 600 y entre 80 y 90 para la de 1200, y comprobar con su comparador que no se nota la diferencia. Si la imagen no carga, la tarjeta se ve de color con el título.
+**Portada**: imagen WebP cuadrada de **1200×1200 px** en `img/`, con el nombre en minúsculas y con guiones (`img/nombre-del-disco.webp`). Esa resolución hace falta para que se vea nítida en la tarjeta grande del carrusel, tanto en el ordenador (unos 714 px de ancho) como en los móviles con pantalla de alta densidad. Se saca de la portada original en alta resolución (la que se sube a las tiendas), no ampliando una más pequeña. Para convertir a WebP sirve [Squoosh](https://squoosh.app) (gratis, en el navegador): calidad entre 80 y 90, y comprobar con su comparador que no se nota la diferencia; idealmente, que no pase de 400 KB. Si la imagen no carga, la tarjeta se ve de color con el título.
 
 **Enlaces de Apple Music y Tidal**: usa el enlace web normal del álbum (`https://music.apple.com/es/album/…/123456` y `https://tidal.com/album/123456`); la web lo convierte en el enlace de la app cuando hace falta.
 
