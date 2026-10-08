@@ -4,7 +4,7 @@
 
 /** Destino en FormSubmit: el identificador aleatorio que da FormSubmit al confirmar el correo, para que el correo
  *  no aparezca en la página. Es el mismo que va en el action del formulario de index.html. */
-const FORM_ID="kbrekills@gmail.com";
+const FORM_ID="e411eb6634bd50c9a54e0395a87dd11e";
 /** Dirección de la API de FormSubmit para ese destino. */
 const ENDPOINT="https://formsubmit.co/ajax/"+FORM_ID;
 /** Alternativa que se ofrece si el envío falla. */
