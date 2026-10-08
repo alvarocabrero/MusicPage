@@ -89,7 +89,7 @@ Para usar un texto nuevo:
 
 ## Enlaces del pie
 
-Los enlaces a Instagram y Bandcamp y el texto de copyright están escritos directamente en el pie de `index.html`. El correo que recibe los mensajes del formulario está en `js/models/contact.js` (`CONTACT_EMAIL`) **y** en el atributo `action` del formulario de `index.html`; si cambia, hay que cambiarlo en los dos sitios.
+Los enlaces a Instagram y Bandcamp y el texto de copyright están escritos directamente en el pie de `index.html`. Los mensajes del formulario llegan al correo de la banda a través de FormSubmit. En el código no está el correo, sino el identificador aleatorio que FormSubmit da para él, en `js/models/contact.js` (`FORM_ID`) **y** en el atributo `action` del formulario de `index.html`. Para cambiar el correo: pon el correo nuevo en esos dos sitios, publica, envía un mensaje de prueba desde la web, confirma el correo con el enlace que manda FormSubmit y sustituye el correo por el identificador que llega en el correo de confirmación (en los dos sitios).
 
 ## Comprobación rápida
 

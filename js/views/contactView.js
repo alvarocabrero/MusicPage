@@ -1,7 +1,7 @@
 /* Vista: formulario de contacto.
    Lee los campos del formulario #cf y muestra el estado del envío en #cf-msg (una zona aria-live, que los
    lectores de pantalla anuncian). La lógica del envío está en contactController y contact.js. */
-import {CONTACT_EMAIL} from "../models/contact.js";
+import {CONTACT_FALLBACK} from "../models/contact.js";
 import {t} from "../models/i18n.js";
 
 /** @returns {HTMLFormElement} El formulario de contacto. */
@@ -18,8 +18,8 @@ export const contactView={
  sending(){form().querySelector("button").disabled=true;msg().textContent=t("contact.sending")},
  /** Mensaje enviado: avisa y vacía el formulario. */
  sent(){msg().textContent=t("contact.sent");form().reset()},
- /** Error al enviar: avisa y ofrece el correo directo como alternativa. */
- failed(){msg().innerHTML=t("contact.failed")+' <a href="mailto:'+CONTACT_EMAIL+'">'+CONTACT_EMAIL+'</a>.'},
+ /** Error al enviar: avisa y ofrece Instagram como alternativa. */
+ failed(){msg().innerHTML=t("contact.failed")+' <a href="'+CONTACT_FALLBACK+'" target="_blank" rel="noopener">Instagram</a>.'},
  /** Vuelve a activar el botón (tanto si el envío salió bien como si no). */
  idle(){form().querySelector("button").disabled=false}
 };

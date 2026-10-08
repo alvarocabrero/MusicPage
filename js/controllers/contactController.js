@@ -4,7 +4,7 @@ import {contactView} from "../views/contactView.js";
 
 /**
  * Envía el formulario sin recargar la página: muestra "Enviando…", manda los datos a FormSubmit y avisa
- * del resultado (si falla, ofrece el correo directo). El navegador ya valida los campos obligatorios y el
+ * del resultado (si falla, ofrece escribir por Instagram). El navegador ya valida los campos obligatorios y el
  * formato del email antes de que llegue el evento submit.
  */
 export function initContact(){

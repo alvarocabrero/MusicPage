@@ -49,7 +49,7 @@ La web no tiene servidor propio; depende de estos servicios:
 |----------|-----|-------|
 | Spotify | Reproductor de preescucha (`open.spotify.com/embed/album/<id>`) | Necesita el campo `sp` del disco. |
 | YouTube | Reproductor (`youtube-nocookie.com`, que no pone cookies hasta reproducir) y miniaturas (`i.ytimg.com`) | |
-| FormSubmit | Reenvía al correo los mensajes del formulario de contacto | El correo está en `js/models/contact.js` y en el `action` del formulario de `index.html`. FormSubmit pide confirmar el correo la primera vez que se usa con una dirección nueva. |
+| FormSubmit | Reenvía al correo los mensajes del formulario de contacto | En vez del correo se usa el identificador aleatorio que FormSubmit manda al confirmar el correo, para que no se vea en la página: está en `js/models/contact.js` (`FORM_ID`) y en el `action` del formulario de `index.html`. Ver [contenido.md](contenido.md) para cambiar el correo. |
 | Instagram | Enlaces de compra de merch y del pie | |
 | Plataformas de música | Enlaces de escucha | Ver `js/models/platforms.js`. |
 

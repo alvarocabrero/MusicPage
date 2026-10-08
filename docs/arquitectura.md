@@ -103,7 +103,7 @@ Si el clic es en una tarjeta lateral, el paso 2 cambia: el controlador llama a `
 |----------|----------|-----------------------|
 | Spotify (`open.spotify.com/embed`) | Preescucha en la portada y en el pop up de disco | El hueco del reproductor queda vacío |
 | YouTube (`youtube-nocookie.com`, `i.ytimg.com`) | Reproductor de vídeo y miniaturas | Las tarjetas quedan de color, con el título |
-| FormSubmit | Envío del formulario de contacto | Se muestra un aviso con el correo directo |
+| FormSubmit | Envío del formulario de contacto | Se muestra un aviso con el enlace a Instagram |
 | Instagram | Compra de merch (enlace del botón) | — |
 
 La web no usa cookies propias. Sólo guarda en `localStorage` el idioma elegido (`lang`) y las plataformas que no abrieron la app de escritorio (`appLinks`).
