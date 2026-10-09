@@ -32,9 +32,9 @@ const idDe=(u,re,pre)=>{const m=u.match(re);return m?pre+m[1]:""};
 export const PLATS=[
  {id:"bandcamp",n:"Bandcamp",and:"com.bandcamp.android"},
  {id:"spotify",n:"Spotify",d:r=>r.sp?"https://open.spotify.com/album/"+r.sp:"",and:"com.spotify.music",app:u=>idDe(u,/\/album\/(\w+)/,"spotify:album:")},
- {id:"yt",n:"YouTube",and:"com.google.android.youtube"},
+ {id:"yt",n:"YouTube"},
  {id:"apple",n:"Apple Music",and:"com.apple.android.music",app:(u,so)=>so==="mac"?u.replace(/^https:/,"music:"):""},
- {id:"ytm",n:"YouTube Music",and:"com.google.android.apps.youtube.music"},
+ {id:"ytm",n:"YouTube Music"},
  {id:"tidal",n:"Tidal",and:"com.aspiro.tidal",app:u=>idDe(u,/\/album\/(\d+)/,"tidal://album/")}
 ];
 
