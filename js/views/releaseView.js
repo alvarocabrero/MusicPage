@@ -53,7 +53,7 @@ export const rowHTML=(r,i)=>'<article class="slide rs" role="listitem"><button c
  * @param {import("../models/releases.js").Release} r
  * @returns {string} HTML del iframe, o "" si no hay ID de Spotify.
  */
-const embedHTML=r=>r.sp?'<iframe src="https://open.spotify.com/embed/album/'+r.sp+'?utm_source=generator" title="'+t("release.preview",{t:r.t})+'" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>':'';
+const embedHTML=r=>r.sp?'<iframe src="https://open.spotify.com/embed/album/'+r.sp+'?utm_source=generator" title="'+t("release.preview",{t:r.t})+'" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="eager"></iframe>':'';
 
 /* data-p y data-web los usa el controlador de apps para abrir la app de escritorio. */
 /**
