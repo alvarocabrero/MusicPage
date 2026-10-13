@@ -27,10 +27,12 @@ const idDe=(u,re,pre)=>{const m=u.match(re);return m?pre+m[1]:""};
 /**
  * Plataformas, en el orden de los botones. Spotify abre la app de escritorio con spotify:album:<id>, Tidal con
  * tidal://album/<id> y Apple Music sólo en Mac (cambiando https: por music:). El resto abre la web.
+ * Bandcamp no lleva paquete de Android (and): con la app instalada, los enlaces a páginas de artista
+ * (artista.bandcamp.com) no llegaban a abrirse; así que siempre abre la web.
  * @type {Platform[]}
  */
 export const PLATS=[
- {id:"bandcamp",n:"Bandcamp",and:"com.bandcamp.android"},
+ {id:"bandcamp",n:"Bandcamp"},
  {id:"spotify",n:"Spotify",d:r=>r.sp?"https://open.spotify.com/album/"+r.sp:"",and:"com.spotify.music",app:u=>idDe(u,/\/album\/(\w+)/,"spotify:album:")},
  {id:"yt",n:"YouTube",and:"com.google.android.youtube"},
  {id:"apple",n:"Apple Music",and:"com.apple.android.music",app:(u,so)=>so==="mac"?u.replace(/^https:/,"music:"):""},
