@@ -18,7 +18,9 @@
 /* Preescucha de Spotify: 152 px es la altura del reproductor compacto (en ordenador, 352: con lista de canciones).
    .sp reserva ese alto antes de que llegue el reproductor, para que nada salte al aparecer. */
 .hrel .hp iframe{display:block;width:100%;height:152px;border:0;border-radius:12px}
-.hrel .hp.sp{min-height:152px}
+.hrel .hp.sp{min-height:152px;border-radius:12px;background:linear-gradient(100deg,rgba(0,0,0,.04) 30%,rgba(0,0,0,.09) 50%,rgba(0,0,0,.04) 70%) 0 0/200% 100%;animation:hpsk 1.4s linear infinite}
+@keyframes hpsk{to{background-position:-200% 0}}
+@media (prefers-reduced-motion:reduce){.hrel .hp.sp{animation:none}}
 /* Botones de plataformas: la rejilla base está en dialogs.css (.plats); aquí se hacen más pequeños. */
 .hrel .plats{padding:12px 0 0;gap:6px}
 .hrel .plats a{padding:9px 5px 8px;gap:6px;font-size:.72rem}
