@@ -58,10 +58,11 @@ const embedHTML=r=>r.sp?'<iframe src="https://open.spotify.com/embed/album/'+r.s
 /* data-p y data-web los usa el controlador de apps para abrir la app de escritorio. */
 /**
  * Etiqueta de apertura del enlace a una plataforma (el href depende del dispositivo; ver appLinks.js).
- * @param {{p:import("../models/platforms.js").Platform,url:string}} x Plataforma y URL web.
+ * @param {{p:import("../models/platforms.js").Platform,url:string,andUrl:string}} x Plataforma, URL web y enlace de la app
+ *   de Android (ver linksFor).
  * @returns {string} HTML de la etiqueta <a …> (sin cerrar).
  */
-const linkHTML=x=>{const l=linkAttrs(x.p.id,x.url);return '<a href="'+l.href+'" data-p="'+x.p.id+'" data-web="'+x.url+'"'+(l.blank?' target="_blank"':'')+' rel="noopener">'};
+const linkHTML=x=>{const l=linkAttrs(x.p.id,x.url,x.andUrl);return '<a href="'+l.href+'" data-p="'+x.p.id+'" data-web="'+x.url+'"'+(l.blank?' target="_blank"':'')+' rel="noopener">'};
 /**
  * Botones de las plataformas del disco (logo y nombre), como elementos <li> de la lista .plats.
  * @param {import("../models/releases.js").Release} r

@@ -17,11 +17,12 @@ export const esMovil=SO==="android"||SO==="ios";
 /**
  * @param {string} url URL web (https) del disco en la plataforma.
  * @param {string} pkg Paquete de la app de Android.
+ * @param {string} [target] Enlace que se pasa a la app, si no es la URL web (p. ej. x-bandcamp://…).
  * @returns {string} Enlace intent:// equivalente.
  */
-function intentUrl(url,pkg){
- const u=new URL(url);
- return "intent://"+u.host+u.pathname+u.search+"#Intent;scheme=https;package="+pkg+";S.browser_fallback_url="+encodeURIComponent(url)+";end";
+function intentUrl(url,pkg,target){
+ const u=new URL(target||url);
+ return "intent://"+u.host+u.pathname+u.search+"#Intent;scheme="+u.protocol.slice(0,-1)+";package="+pkg+";S.browser_fallback_url="+encodeURIComponent(url)+";end";
 }
 
 /* Atributos del enlace según el dispositivo. En iOS la URL web ya abre la app (enlace universal),
@@ -29,11 +30,12 @@ function intentUrl(url,pkg){
 /**
  * @param {string} id Plataforma (ver PLATS).
  * @param {string} url URL web del disco en esa plataforma.
+ * @param {string} [andUrl] Enlace propio de la app de Android (ver andUrl en platforms.js).
  * @returns {{href:string,blank:boolean}} href que lleva el enlace y si se abre en pestaña nueva (sólo en escritorio).
  */
-export function linkAttrs(id,url){
+export function linkAttrs(id,url,andUrl){
  const p=platform(id);
- if(SO==="android"&&p&&p.and)return {href:intentUrl(url,p.and),blank:false};
+ if(SO==="android"&&p&&p.and&&(!p.andUrl||andUrl))return {href:intentUrl(url,p.and,andUrl),blank:false};
  return {href:url,blank:!esMovil};
 }
 

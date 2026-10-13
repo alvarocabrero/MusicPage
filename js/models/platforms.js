@@ -10,7 +10,9 @@
  * @property {string} n Nombre que se muestra en el botón.
  * @property {function(import("./releases.js").Release):string} [d] Enlace directo calculado a partir del disco
  *   cuando no viene en links (Spotify, a partir de sp). "" si no se puede.
- * @property {string} and Paquete de la app de Android (para los enlaces intent:// de appLinks.js).
+ * @property {string} [and] Paquete de la app de Android (para los enlaces intent:// de appLinks.js).
+ * @property {function(import("./releases.js").Release):string} [andUrl] Enlace propio de la app de Android, si no
+ *   abre los enlaces web ("" si el disco no tiene el dato necesario: entonces se abre la web).
  * @property {function(string,string):string} [app] A partir de la URL web y del sistema ("mac", "pc"…),
  *   devuelve el enlace que abre la app de escritorio, o "" si no hay app para ese caso.
  */
@@ -27,12 +29,12 @@ const idDe=(u,re,pre)=>{const m=u.match(re);return m?pre+m[1]:""};
 /**
  * Plataformas, en el orden de los botones. Spotify abre la app de escritorio con spotify:album:<id>, Tidal con
  * tidal://album/<id> y Apple Music sólo en Mac (cambiando https: por music:). El resto abre la web.
- * Bandcamp no lleva paquete de Android (and): con la app instalada, los enlaces a páginas de artista
- * (artista.bandcamp.com) no llegaban a abrirse; así que siempre abre la web.
+ * La app de Bandcamp no abre enlaces web, sólo los suyos (x-bandcamp://), que necesitan el ID del disco (bc):
+ * en Android se usa andUrl; sin ID, el botón abre la web.
  * @type {Platform[]}
  */
 export const PLATS=[
- {id:"bandcamp",n:"Bandcamp"},
+ {id:"bandcamp",n:"Bandcamp",and:"com.bandcamp.android",andUrl:r=>r.bc?"x-bandcamp://show_tralbum?tralbum_type=a&tralbum_id="+r.bc:""},
  {id:"spotify",n:"Spotify",d:r=>r.sp?"https://open.spotify.com/album/"+r.sp:"",and:"com.spotify.music",app:u=>idDe(u,/\/album\/(\w+)/,"spotify:album:")},
  {id:"yt",n:"YouTube",and:"com.google.android.youtube"},
  {id:"apple",n:"Apple Music",and:"com.apple.android.music",app:(u,so)=>so==="mac"?u.replace(/^https:/,"music:"):""},
@@ -45,10 +47,11 @@ export const PLATS=[
  * Enlaces de escucha de un disco: para cada plataforma, el enlace de links o, si no hay, el que se deriva
  * del disco (d). Las plataformas sin enlace se quitan, así que cada disco muestra sólo las suyas.
  * @param {import("./releases.js").Release} r Disco.
- * @returns {{p:Platform,url:string}[]} Plataforma y URL web, en el orden de PLATS.
+ * @returns {{p:Platform,url:string,andUrl:string}[]} Plataforma, URL web y enlace de la app de Android ("" si no
+ *   hace falta), en el orden de PLATS.
  */
 export function linksFor(r){
- return PLATS.map(p=>({p:p,url:(r.links&&r.links[p.id])||(p.d?p.d(r):"")})).filter(x=>x.url);
+ return PLATS.map(p=>({p:p,url:(r.links&&r.links[p.id])||(p.d?p.d(r):""),andUrl:p.andUrl?p.andUrl(r):""})).filter(x=>x.url);
 }
 
 /**
