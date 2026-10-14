@@ -15,7 +15,7 @@ Archivo: `js/models/releases.js`, lista `RELEASES`.
 - Cada disco es un objeto en una sola línea:
 
 ```js
-{img:"nombre-portada",bc:"ID_DE_BANDCAMP",t:"Título",a:"Arte Kills",k:"album",y:"2026",n:9,sp:"ID_DE_SPOTIFY",links:{yt:"…",tidal:"…",apple:"…",bandcamp:"…",ytm:"…"}},
+{img:"nombre-portada",t:"Título",a:"Arte Kills",k:"album",y:"2026",n:9,sp:"ID_DE_SPOTIFY",links:{yt:"…",tidal:"…",apple:"…",bandcamp:"…",ytm:"…"}},
 ```
 
 | Campo | Obligatorio | Qué es |
@@ -27,7 +27,6 @@ Archivo: `js/models/releases.js`, lista `RELEASES`.
 | `y` | sí | Año de salida, sólo el año: `"2026"`. |
 | `n` | sí | Número de canciones (`9` → "9 canciones" / "9 tracks"). Excepcionalmente puede ser un texto libre: `{es:"…",en:"…"}`. Sólo se ve en la vista de lista. |
 | `sp` | no | ID del álbum en Spotify: activa la preescucha y el botón de Spotify. Es lo que va tras `/album/` en el enlace del álbum: `https://open.spotify.com/album/`**`6VGBkOI87jrnjTRuvFNyJG`**. |
-| `bc` | no | ID del álbum en Bandcamp: en Android, el botón de Bandcamp abre el disco en la app (si está instalada; si no, la web). Sin él, abre siempre la web. Para sacarlo: abre la página del disco en Bandcamp en el ordenador, "Ver código fuente" y busca `item_id` (en `bc-page-properties`): `"item_id":`**`1279852155`**. |
 | `links` | sí | Enlaces directos al disco en cada plataforma. Claves: `bandcamp`, `yt` (YouTube), `apple` (Apple Music), `ytm` (YouTube Music) y `tidal`. Spotify no hace falta (sale de `sp`). Si falta una plataforma, simplemente no se muestra su botón. |
 
 **Portada**: imagen WebP cuadrada de **1200×1200 px** en `img/`, con el nombre en minúsculas y con guiones (`img/nombre-del-disco.webp`). Esa resolución hace falta para que se vea nítida en la tarjeta grande del carrusel, tanto en el ordenador (unos 714 px de ancho) como en los móviles con pantalla de alta densidad. Se saca de la portada original en alta resolución (la que se sube a las tiendas), no ampliando una más pequeña. Para convertir a WebP sirve [Squoosh](https://squoosh.app) (gratis, en el navegador): calidad entre 80 y 90, y comprobar con su comparador que no se nota la diferencia; idealmente, que no pase de 400 KB. Si la imagen no carga, la tarjeta se ve de color con el título.
