@@ -29,12 +29,14 @@ function intentUrl(url,pkg){
 /**
  * @param {string} id Plataforma (ver PLATS).
  * @param {string} url URL web del disco en esa plataforma.
+ * @param {string} [so] Sistema para el que se hace el enlace (por defecto, el de la visita; la portada de index.html
+ *   y la página de administración lo generan para "pc").
  * @returns {{href:string,blank:boolean}} href que lleva el enlace y si se abre en pestaña nueva (sólo en escritorio).
  */
-export function linkAttrs(id,url){
+export function linkAttrs(id,url,so=SO){
  const p=platform(id);
- if(SO==="android"&&p&&p.and)return {href:intentUrl(url,p.and),blank:false};
- return {href:url,blank:!esMovil};
+ if(so==="android"&&p&&p.and)return {href:intentUrl(url,p.and),blank:false};
+ return {href:url,blank:so!=="android"&&so!=="ios"};
 }
 
 /* Escritorio: enlace que abre la app de la plataforma ("" si no tiene app o esquema). */

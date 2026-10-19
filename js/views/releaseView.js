@@ -59,28 +59,37 @@ const embedHTML=r=>r.sp?'<iframe src="https://open.spotify.com/embed/album/'+r.s
 /**
  * Etiqueta de apertura del enlace a una plataforma (el href depende del dispositivo; ver appLinks.js).
  * @param {{p:import("../models/platforms.js").Platform,url:string}} x Plataforma y URL web.
+ * @param {string} [so] Sistema para el que se hace el enlace (por defecto, el de la visita; ver linkAttrs).
  * @returns {string} HTML de la etiqueta <a …> (sin cerrar).
  */
-const linkHTML=x=>{const l=linkAttrs(x.p.id,x.url);return '<a href="'+l.href+'" data-p="'+x.p.id+'" data-web="'+x.url+'"'+(l.blank?' target="_blank"':'')+' rel="noopener">'};
+const linkHTML=(x,so)=>{const l=linkAttrs(x.p.id,x.url,so);return '<a href="'+l.href+'" data-p="'+x.p.id+'" data-web="'+x.url+'"'+(l.blank?' target="_blank"':'')+' rel="noopener">'};
 /**
  * Botones de las plataformas del disco (logo y nombre), como elementos <li> de la lista .plats.
  * @param {import("../models/releases.js").Release} r
+ * @param {string} [so] Sistema para el que se hacen los enlaces (por defecto, el de la visita).
  * @returns {string} HTML.
  */
-const linksHTML=r=>linksFor(r).map(x=>'<li>'+linkHTML(x)+'<b>'+PICON[x.p.id]+x.p.n+'</b></a></li>').join("");
+const linksHTML=(r,so)=>linksFor(r).map(x=>'<li>'+linkHTML(x,so)+'<b>'+PICON[x.p.id]+x.p.n+'</b></a></li>').join("");
 
-/* Portada: logo + último lanzamiento con preescucha y enlaces. index.html ya trae este bloque escrito (lo genera
-   tools/portada.mjs con esta misma función), para que la portada salga completa sin esperar a JavaScript. */
+/**
+ * Bloque del último lanzamiento de la portada: etiqueta, título, "Artistas · Tipo · Año", hueco de la preescucha
+ * (.hp; con .sp si el disco tiene Spotify, para reservar su alto) y botones de plataformas.
+ * index.html ya trae este bloque escrito (lo generan tools/portada.mjs y la página de administración con esta misma
+ * función, para so="pc"), para que la portada salga completa sin esperar a JavaScript.
+ * @param {import("../models/releases.js").Release} r
+ * @param {string} [so] Sistema para el que se hacen los enlaces (por defecto, el de la visita).
+ * @returns {string} HTML.
+ */
+export const heroHTML=(r,so)=>'<span class="tipo">'+t("release.latest")+'</span><h2>'+r.t+'</h2><p class="hm">'+artists(r)+SEP+kind(r)+SEP+date(r)+'</p><div class="hp'+(r.sp?' sp':'')+'"></div><ul class="plats">'+linksHTML(r,so)+'</ul>';
+
+/* Portada: logo + último lanzamiento con preescucha y enlaces. */
 export const heroView={
  /**
-  * Pinta en #hrel el bloque del último lanzamiento: etiqueta, título, "Artistas · Tipo · Año", hueco de la
-  * preescucha (.hp; con .sp si el disco tiene Spotify, para reservar su alto) y botones de plataformas.
+  * Pinta en #hrel el bloque del último lanzamiento (ver heroHTML), con los enlaces del dispositivo de la visita.
   * El reproductor no va aquí: lo pone loadPlayer().
   * @param {import("../models/releases.js").Release} r
   */
- render(r){
-  $("hrel").innerHTML='<span class="tipo">'+t("release.latest")+'</span><h2>'+r.t+'</h2><p class="hm">'+artists(r)+SEP+kind(r)+SEP+date(r)+'</p><div class="hp'+(r.sp?' sp':'')+'"></div><ul class="plats">'+linksHTML(r)+'</ul>';
- },
+ render(r){$("hrel").innerHTML=heroHTML(r)},
  /**
   * Pone el reproductor de Spotify en el hueco reservado de la portada.
   * @param {import("../models/releases.js").Release} r
