@@ -33,9 +33,11 @@ El código sigue el patrón **modelo-vista-controlador**:
 
 | Archivo | Responsabilidad |
 |---------|-----------------|
-| `releases.js` | Lista de discos (`RELEASES`), del más reciente al más antiguo; `latestRelease()` devuelve el de la portada. Campos en [contenido.md](contenido.md#discos). |
-| `videos.js` | Lista de videoclips (`VIDEOS`), que se ordena sola por fecha; URLs de miniatura, reproductor incrustado y página de YouTube. |
-| `merch.js` | Lista de productos (`MERCH`) y el texto común de envíos (`MERCH_ENVIO`). |
+| `releases.js` | Lista de discos (`RELEASES`, que viene de `js/data/releases.js`), del más reciente al más antiguo; `latestRelease()` devuelve el de la portada. Campos en [contenido.md](contenido.md#discos). |
+| `videos.js` | Lista de videoclips (`VIDEOS`, de `js/data/videos.js`), que se ordena sola por fecha; URLs de miniatura, reproductor incrustado y página de YouTube. |
+| `merch.js` | Lista de productos (`MERCH`, de `js/data/merch.js`) y el texto común de envíos (`MERCH_ENVIO`). |
+
+Los datos en sí (discos, vídeos y productos) están en `js/data/`, separados de los modelos: son JSON tras `export default`, para que la [página de administración](admin.md) pueda leerlos y escribirlos sin tocar código.
 | `i18n.js` | Idioma activo y diccionario de textos en español e inglés. `t(clave, variables)` da un texto de la interfaz; `tr(dato)` resuelve un dato que viene como `{es, en}`. Detecta el idioma y lo recuerda en `localStorage` (clave `lang`). |
 | `platforms.js` | Plataformas de escucha, en el orden de los botones (`PLATS`), y `linksFor(disco)`, que da sólo las que tienen enlace para ese disco. |
 | `appLinks.js` | Detecta el sistema (`SO`: android, ios, mac, pc) y prepara los enlaces para abrir la app: `intent://` en Android, enlace web en iOS (enlace universal) y esquemas propios en escritorio. Recuerda una semana las plataformas que no abrieron app (`localStorage`, clave `appLinks`). |

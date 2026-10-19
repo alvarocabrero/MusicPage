@@ -1,0 +1,93 @@
+<!doctype html>
+<!-- Página de administración de artekills.com: editar lanzamientos, videoclips y merch y publicarlos.
+     No está enlazada desde la web y los buscadores no la indexan. Sin la clave de GitHub de alguien con permiso
+     para publicar en el repositorio no se puede cambiar nada. Cómo funciona: docs/admin.md. -->
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Administración · Arte Kills</title>
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="admin.css">
+<script type="module" src="admin.js"></script>
+</head>
+<body>
+
+<header class="top">
+  <h1><img src="../img/logo-principal-vertical.svg" alt="" width="28" height="32"> Administración</h1>
+  <a class="ver" href="../" target="_blank" rel="noopener">Ver la web ↗</a>
+  <button class="salir" id="salir" type="button" hidden>Salir</button>
+</header>
+
+<!-- Entrada: clave de GitHub. -->
+<section class="login" id="login" hidden>
+  <h2>Entrar</h2>
+  <p>Para publicar cambios hace falta una <b>clave de GitHub</b> (token) con permiso para escribir en el repositorio de la web. Se guarda sólo en este navegador.</p>
+  <details>
+    <summary>Cómo conseguir la clave</summary>
+    <ol>
+      <li>Entra en GitHub con la cuenta dueña del repositorio y abre <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">Settings → Developer settings → Fine-grained tokens → Generate new token</a>.</li>
+      <li>Nombre: «Admin web». Caducidad: la que quieras (cuando caduque, crea otra).</li>
+      <li><b>Repository access</b>: «Only select repositories» → <code>alvarocabrero/MusicPage</code>.</li>
+      <li><b>Permissions</b> → Repository permissions → <b>Contents: Read and write</b>.</li>
+      <li>Pulsa «Generate token», cópiala y pégala aquí.</li>
+    </ol>
+    <p>Si tu cuenta no es la dueña del repositorio (sólo colaboradora), crea en su lugar una <a href="https://github.com/settings/tokens/new?scopes=public_repo&amp;description=Admin%20web" target="_blank" rel="noopener">clave clásica</a> con el permiso <code>public_repo</code>.</p>
+  </details>
+  <form id="loginf">
+    <label>Clave de GitHub<input type="password" id="token" autocomplete="off" spellcheck="false" required></label>
+    <label class="check"><input type="checkbox" id="recordar" checked> Recordar en este dispositivo</label>
+    <button class="btn prim" type="submit">Entrar</button>
+    <p class="err" id="loginerr" role="alert"></p>
+  </form>
+</section>
+
+<!-- Editor: pestañas por sección, lista de elementos y barra de publicar. -->
+<main id="app" hidden>
+  <nav class="tabs" role="tablist">
+    <button role="tab" data-tab="releases" aria-selected="true">Lanzamientos</button>
+    <button role="tab" data-tab="videos" aria-selected="false">Videoclips</button>
+    <button role="tab" data-tab="merch" aria-selected="false">Merch</button>
+  </nav>
+  <p class="hint" id="hint"></p>
+  <button class="btn add" id="add" type="button">+ Añadir</button>
+  <ul class="list" id="list"></ul>
+</main>
+
+<div class="bar" id="bar" hidden>
+  <span id="cambios"></span>
+  <button class="btn" id="descartar" type="button">Descartar</button>
+  <button class="btn" id="previa" type="button">Vista previa</button>
+  <button class="btn prim" id="publicar" type="button">Publicar</button>
+</div>
+
+<!-- Formulario de edición de un elemento (lo rellena admin.js según la sección). -->
+<dialog id="editor" aria-labelledby="edtitle">
+  <form id="edform" method="dialog" novalidate>
+    <div class="dhead"><h2 id="edtitle"></h2><button class="x" type="button" id="edx" aria-label="Cerrar">×</button></div>
+    <div id="edbody"></div>
+    <p class="err" id="ederr" role="alert"></p>
+    <div class="dfoot"><button class="btn" type="button" id="edcancel">Cancelar</button><button class="btn prim" type="submit">Guardar</button></div>
+  </form>
+</dialog>
+
+<!-- Confirmación antes de publicar: resumen de los cambios. -->
+<dialog id="confirm" aria-labelledby="cftitle">
+  <div class="dhead"><h2 id="cftitle">Publicar en la web</h2><button class="x" type="button" id="cfx" aria-label="Cerrar">×</button></div>
+  <p>Se publicarán estos cambios; la web se actualiza en 1-2 minutos:</p>
+  <ul class="resumen" id="resumen"></ul>
+  <p class="err" id="cferr" role="alert"></p>
+  <div class="dfoot"><button class="btn" type="button" id="cfcancel">Cancelar</button><button class="btn prim" type="button" id="cfok">Publicar</button></div>
+</dialog>
+
+<!-- Vista previa: la web completa con los cambios sin publicar. -->
+<div class="preview" id="preview" hidden>
+  <div class="pbar"><b>Vista previa</b> · los cambios aún no están publicados<button class="btn" type="button" id="pclose">Cerrar</button></div>
+  <iframe id="pframe" title="Vista previa de la web"></iframe>
+</div>
+
+<p class="toast" id="toast" role="status" aria-live="polite"></p>
+</body>
+</html>

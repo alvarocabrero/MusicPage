@@ -4,13 +4,13 @@
 
 La web se publica con **GitHub Pages** desde la raíz de la rama **`main`**, con el dominio propio **artekills.com** (archivo `CNAME`).
 
-1. Se hace `push` a `main` (directamente o fusionando una rama).
+1. Se hace `push` a `main` (directamente, fusionando una rama o con el botón «Publicar» de la [página de administración](admin.md), que hace un commit en `main`).
 2. GitHub lanza el flujo **"pages build and deployment"** (pestaña *Actions* del repositorio): construye el sitio y lo publica. Suele tardar alrededor de un minuto.
 3. En cuanto termina en verde, los cambios están en artekills.com. GitHub Pages deja que los navegadores guarden los archivos unos minutos, así que puede hacer falta recargar la página para ver la versión nueva.
 
 Si el flujo falla, el sitio sigue mostrando la última versión publicada correctamente.
 
-No hay nada que compilar: GitHub Pages publica los archivos tal cual. El paso de Jekyll que aparece en el flujo sólo copia los archivos; `_config.yml` le indica que **no publique la documentación** (`README.md` y `docs/`), para que no aparezca como páginas de artekills.com.
+No hay nada que compilar: GitHub Pages publica los archivos tal cual. El paso de Jekyll que aparece en el flujo sólo copia los archivos; `_config.yml` le indica que **no publique la documentación** (`README.md`, `docs/`, `tools/` y el README del codificador de `admin/vendor/webp/`), para que no aparezca como páginas de artekills.com.
 
 ### Dominio
 
@@ -52,6 +52,7 @@ La web no tiene servidor propio; depende de estos servicios:
 | FormSubmit | Reenvía al correo los mensajes del formulario de contacto | En vez del correo se usa el identificador aleatorio que FormSubmit manda al confirmar el correo, para que no se vea en la página: está en `js/models/contact.js` (`FORM_ID`) y en el `action` del formulario de `index.html`. Ver [contenido.md](contenido.md) para cambiar el correo. |
 | Instagram | Enlaces de compra de merch y del pie | |
 | Plataformas de música | Enlaces de escucha | Ver `js/models/platforms.js`. |
+| API de GitHub | Sólo la página de administración: leer los datos y publicar los cambios | Con la clave de GitHub de quien edita (ver [admin.md](admin.md)). |
 
 ## Antes de publicar
 

@@ -1,46 +1,48 @@
 # Guía de contenido
 
-Todo el contenido de la web está en archivos de datos dentro de `js/models/`. Para añadir o cambiar un disco, un vídeo o un producto sólo hay que editar el archivo correspondiente (y, si hace falta, subir las imágenes a `img/`). El HTML no se toca.
+**La forma fácil: [artekills.com/admin](admin.md).** Desde ahí se añaden, cambian, ordenan y borran discos, vídeos y productos (fotos incluidas) con formularios, desde el móvil o el ordenador, y se publican con un botón. Esta guía explica los datos por dentro, para entenderlos o editarlos a mano.
 
-Después de cualquier cambio: [comprueba la web en local](../README.md#verla-en-local), en español y en inglés y en un tamaño de móvil, y publica con un `push` a `main` ([despliegue.md](despliegue.md)).
+Los discos, vídeos y productos están en tres archivos de datos dentro de `js/data/` (las fotos, en `img/`). El HTML no se toca. Los textos de la interfaz y los enlaces del pie están en otros sitios (ver al final).
 
-> **Cuidado con la sintaxis.** Los archivos de datos son JavaScript: cada objeto va entre `{ }`, los objetos se separan con comas y los textos van entre comillas dobles. Si falta una coma o sobra una comilla, la página entera deja de funcionar (la consola del navegador dice dónde está el error). Los textos **no deben contener `<` ni comillas dobles `"`** (usa comillas tipográficas « » o “ ”).
+Si editas a mano: [comprueba la web en local](../README.md#verla-en-local), en español y en inglés y en un tamaño de móvil, y publica con un `push` a `main` ([despliegue.md](despliegue.md)).
+
+> **Cuidado con la sintaxis.** Los archivos de `js/data/` son **JSON** después de `export default`: claves y textos entre comillas dobles, objetos separados por comas, sin coma después del último y sin comentarios dentro. Si algo no cuadra, la página entera deja de funcionar (la consola del navegador dice dónde está el error). Los textos **no deben contener `<` ni comillas dobles `"`** (usa comillas tipográficas « » o “ ”).
 
 ## Discos
 
-Archivo: `js/models/releases.js`, lista `RELEASES`.
+Archivo: `js/data/releases.js`.
 
 - El orden es **del más reciente al más antiguo**. **El primero es el "Último lanzamiento"** de la portada; el orden de la lista es también el del carrusel y la vista de lista.
-- **Si cambia el primer disco** (uno nuevo, o un dato del que ya estaba), ejecuta `node tools/portada.mjs` desde la carpeta del repositorio (hace falta [Node.js](https://nodejs.org) 18 o posterior). Actualiza la portada que viene escrita en `index.html`, para que se vea al instante. Si no lo haces, la web funciona igual, pero al entrar se verá un momento la portada anterior hasta que JavaScript ponga la nueva.
-- Cada disco es un objeto en una sola línea:
+- **Si cambia el primer disco** a mano (uno nuevo, o un dato del que ya estaba), ejecuta `node tools/portada.mjs` desde la carpeta del repositorio (hace falta [Node.js](https://nodejs.org) 18 o posterior). Actualiza la portada que viene escrita en `index.html`, para que se vea al instante. Si no lo haces, la web funciona igual, pero al entrar se verá un momento la portada anterior hasta que JavaScript ponga la nueva.
+- Cada disco es un objeto (la página de administración lo escribe con un campo por línea):
 
 ```js
-{img:"nombre-portada",t:"Título",a:"Arte Kills",k:"album",y:"2026",n:9,sp:"ID_DE_SPOTIFY",links:{yt:"…",tidal:"…",apple:"…",bandcamp:"…",ytm:"…"}},
+{"img": "nombre-portada", "t": "Título", "a": "Arte Kills", "k": "album", "y": "2026", "n": 9, "sp": "ID_DE_SPOTIFY", "links": {"yt": "…", "tidal": "…", "apple": "…", "bandcamp": "…", "ytm": "…"}},
 ```
 
 | Campo | Obligatorio | Qué es |
 |-------|:-----------:|--------|
 | `img` | sí | Nombre de la portada en `img/`, **sin** `.webp`. La web carga `img/<img>.webp` (1200×1200). |
 | `t` | sí | Título, escrito normal (las tarjetas lo ponen en mayúsculas). |
-| `a` | sí | Artista principal (`"Arte Kills"`) o, si hay varios, una lista en orden de crédito (`["Arte Kills","Silver J"]`). Se muestran como "A & B" o "A, B & C". Los artistas invitados ("feat.") no van aquí. |
+| `a` | sí | Artista principal (`"Arte Kills"`) o, si hay varios, una lista en orden de crédito (`["Arte Kills", "Silver J"]`). Se muestran como "A & B" o "A, B & C". Los artistas invitados ("feat.") no van aquí. |
 | `k` | sí | Tipo: `"album"` o `"ep"`. Para otro tipo (p. ej. sencillo) hay que añadir la clave `kind.<tipo>` en `i18n.js`, en los dos idiomas. |
 | `y` | sí | Año de salida, sólo el año: `"2026"`. |
-| `n` | sí | Número de canciones (`9` → "9 canciones" / "9 tracks"). Excepcionalmente puede ser un texto libre: `{es:"…",en:"…"}`. Sólo se ve en la vista de lista. |
+| `n` | sí | Número de canciones (`9` → "9 canciones" / "9 tracks"). Excepcionalmente puede ser un texto libre: `"…"` o `{"es": "…", "en": "…"}`. Sólo se ve en la vista de lista. |
 | `sp` | no | ID del álbum en Spotify: activa la preescucha y el botón de Spotify. Es lo que va tras `/album/` en el enlace del álbum: `https://open.spotify.com/album/`**`6VGBkOI87jrnjTRuvFNyJG`**. |
 | `links` | sí | Enlaces directos al disco en cada plataforma. Claves: `bandcamp`, `yt` (YouTube), `apple` (Apple Music), `ytm` (YouTube Music) y `tidal`. Spotify no hace falta (sale de `sp`). Si falta una plataforma, simplemente no se muestra su botón. |
 
-**Portada**: imagen WebP cuadrada de **1200×1200 px** en `img/`, con el nombre en minúsculas y con guiones (`img/nombre-del-disco.webp`). Esa resolución hace falta para que se vea nítida en la tarjeta grande del carrusel, tanto en el ordenador (unos 714 px de ancho) como en los móviles con pantalla de alta densidad. Se saca de la portada original en alta resolución (la que se sube a las tiendas), no ampliando una más pequeña. Para convertir a WebP sirve [Squoosh](https://squoosh.app) (gratis, en el navegador): calidad entre 80 y 90, y comprobar con su comparador que no se nota la diferencia; idealmente, que no pase de 400 KB. Si la imagen no carga, la tarjeta se ve de color con el título.
+**Portada**: imagen WebP cuadrada de **1200×1200 px** en `img/`, con el nombre en minúsculas y con guiones (`img/nombre-del-disco.webp`). Esa resolución hace falta para que se vea nítida en la tarjeta grande del carrusel, tanto en el ordenador (unos 714 px de ancho) como en los móviles con pantalla de alta densidad. Se saca de la portada original en alta resolución (la que se sube a las tiendas), no ampliando una más pequeña. La página de administración la recorta, la reduce y la convierte sola; a mano, para convertir a WebP sirve [Squoosh](https://squoosh.app) (gratis, en el navegador): calidad entre 80 y 90, y comprobar con su comparador que no se nota la diferencia; idealmente, que no pase de 400 KB. Si la imagen no carga, la tarjeta se ve de color con el título.
 
 **Enlaces de Apple Music y Tidal**: usa el enlace web normal del álbum (`https://music.apple.com/es/album/…/123456` y `https://tidal.com/album/123456`); la web lo convierte en el enlace de la app cuando hace falta.
 
-**Al añadir un disco nuevo** conviene también actualizar la fecha `<lastmod>` de `sitemap.xml` (ver [despliegue.md](despliegue.md#buscadores)).
+**Al añadir un disco nuevo a mano** conviene también actualizar la fecha `<lastmod>` de `sitemap.xml` (ver [despliegue.md](despliegue.md#buscadores)); la página de administración lo hace sola.
 
 ## Videoclips
 
-Archivo: `js/models/videos.js`, lista `VIDEOS`.
+Archivo: `js/data/videos.js`.
 
 ```js
-{id:"NYuIrof_Kdk",t:"Grand Chelem",d:"2026-04-29"},
+{"id": "NYuIrof_Kdk", "t": "Grand Chelem", "d": "2026-04-29"},
 ```
 
 | Campo | Qué es |
@@ -54,24 +56,24 @@ Archivo: `js/models/videos.js`, lista `VIDEOS`.
 
 ## Merch
 
-Archivo: `js/models/merch.js`, lista `MERCH`. El orden de la lista es el del carrusel.
+Archivo: `js/data/merch.js`. El orden de la lista es el del carrusel.
 
 ```js
-{k:"cd",t:{es:"CD «Taiga & Cazador»",en:"«Taiga & Cazador» CD"},p:{es:"10 € + gastos de envío",en:"€10 + shipping"},d:{es:"…",en:"…"},url:"https://www.instagram.com/p/…/",cta:"cta.instagram",imgs:["img/cd-taiga-cazador-1.webp","img/cd-taiga-cazador-2.webp"]},
+{"k": "cd", "t": {"es": "CD «Taiga & Cazador»", "en": "«Taiga & Cazador» CD"}, "p": {"es": "10 € + gastos de envío", "en": "€10 + shipping"}, "d": {"es": "…", "en": "…"}, "url": "https://www.instagram.com/p/…/", "cta": "cta.instagram", "imgs": ["img/cd-taiga-cazador-1.webp", "img/cd-taiga-cazador-2.webp"]},
 ```
 
 | Campo | Obligatorio | Qué es |
 |-------|:-----------:|--------|
 | `k` | sí | Tipo de producto: `"cd"`, `"vinyl"` o `"shirt"` (es la etiqueta de la tarjeta). Para otro tipo, añade `kind.<tipo>` en `i18n.js`. |
-| `t` | sí | Nombre del producto, en los dos idiomas. |
+| `t` | sí | Nombre del producto, en los dos idiomas (si falta `en`, se muestra el español). |
 | `p` | sí | Precio tal como se muestra, en los dos idiomas. |
 | `d` | no | Descripción del pop up, en los dos idiomas. |
 | `url` | no | Enlace de compra. Sin él no hay botón de compra. |
 | `cta` | no | Texto del botón: `"cta.instagram"` ("Pedir por Instagram") o, si se omite, "Comprar". Se pueden añadir más textos en `i18n.js`. |
 | `imgs` | sí | Rutas de las fotos. La primera es la principal (tarjeta y lista); si hay más de una, el pop up muestra miniaturas para cambiar de foto. |
 
-- **Fotos**: WebP cuadrado de **900×900 px**, convertido igual que las portadas (las tarjetas recortan un poco por encima del centro). Una foto vertical también funciona (la de la camiseta es de 720×900).
-- El texto de envíos (`MERCH_ENVIO`, al principio del archivo) es común a todos los productos.
+- **Fotos**: WebP de **900 px por el lado corto** (las actuales son cuadradas de 900×900), convertido igual que las portadas. Las tarjetas y el pop up las muestran cuadradas, recortando un poco por encima del centro, así que una foto vertical u horizontal también funciona (la de la camiseta es de 720×900).
+- El texto de envíos (`MERCH_ENVIO`, en `js/models/merch.js`) es común a todos los productos.
 
 ## Textos de la interfaz
 
@@ -94,7 +96,7 @@ Los enlaces a Instagram y Bandcamp y el texto de copyright están escritos direc
 ## Comprobación rápida
 
 - [ ] La página carga sin errores en la consola del navegador.
-- [ ] Si cambió el primer disco, se ha ejecutado `node tools/portada.mjs` (vuelve a ejecutarlo: debe decir que la portada ya estaba al día).
+- [ ] Si cambió el primer disco a mano, se ha ejecutado `node tools/portada.mjs` (vuelve a ejecutarlo: debe decir que la portada ya estaba al día).
 - [ ] El disco, vídeo o producto aparece en el carrusel y en la vista de lista ("Ver lista").
 - [ ] El pop up se abre y muestra lo esperado (preescucha, plataformas, fotos…).
 - [ ] Se ve bien en español y en inglés (botón ES/EN).

@@ -14,6 +14,7 @@ Es una sola página, en español e inglés, hecha con HTML, CSS y JavaScript pur
 - **Modo oscuro** automático, según el sistema.
 - **Adaptada a cualquier pantalla**: probada de 280 a 3440 px de ancho, en vertical y en horizontal (ver [docs/pruebas.md](docs/pruebas.md)).
 - **Accesible**: se puede usar con teclado y lector de pantalla, y respeta la preferencia de "reducir movimiento".
+- **Página de administración** ([artekills.com/admin](docs/admin.md)) para editar lanzamientos, videoclips y merch desde el móvil y publicarlos con un botón.
 
 ## Verla en local
 
@@ -42,8 +43,9 @@ css/                  Estilos, uno por zona; se cargan en este orden:
   ajustes.css           últimos ajustes (se carga la última)
 js/
   main.js             Punto de entrada: arranca los controladores
+  data/               Contenido: releases.js (discos), videos.js, merch.js; los escribe /admin
   models/             Datos y lógica sin interfaz
-    releases.js         discos            videos.js     videoclips      merch.js   productos
+    releases.js         discos            videos.js     videoclips      merch.js   productos (leen js/data)
     i18n.js             idiomas y textos  platforms.js  plataformas     appLinks.js abrir en la app
     contact.js          envío del formulario           theme.js      colores de las secciones
     carouselModel.js    estado de un carrusel          spring.js     muelle de las animaciones
@@ -52,6 +54,7 @@ js/
   controllers/        Conectan eventos, modelos y vistas
 img/                  Portadas y fotos de merch (WebP), logotipos y sprite SVG
 fonts/                Fuentes Raleway y Merriweather (alfabeto latino) y sus licencias OFL
+admin/                Página de administración (artekills.com/admin; ver docs/admin.md)
 tools/portada.mjs     Escribe en index.html la portada del último lanzamiento (no se publica)
 icons/                Iconos de la web (Android y manifiesto)
 docs/                 Documentación (no se publica en la web)
@@ -65,16 +68,18 @@ La organización del código (modelo-vista-controlador) está explicada en [docs
 
 ## Actualizar el contenido
 
-Todo el contenido está en tres archivos de datos; no hace falta tocar el HTML:
+**Lanzamientos, videoclips y merch se editan desde [artekills.com/admin](docs/admin.md)**: formularios, fotos (se convierten solas a WebP), vista previa y botón de publicar. Hace falta una clave de GitHub con permiso sobre el repositorio; cómo crearla, en [docs/admin.md](docs/admin.md).
+
+A mano, el contenido está en tres archivos de datos (JSON); no hace falta tocar el HTML:
 
 | Para…                          | Edita                  | Y añade                                   |
 |--------------------------------|------------------------|-------------------------------------------|
-| Añadir o cambiar un disco      | `js/models/releases.js`| la portada en `img/` (WebP 1200×1200)      |
-| Añadir un videoclip            | `js/models/videos.js`  | nada: la miniatura viene de YouTube       |
-| Añadir o cambiar un producto   | `js/models/merch.js`   | las fotos en `img/` (WebP 900×900)        |
+| Añadir o cambiar un disco      | `js/data/releases.js`  | la portada en `img/` (WebP 1200×1200)      |
+| Añadir un videoclip            | `js/data/videos.js`    | nada: la miniatura viene de YouTube       |
+| Añadir o cambiar un producto   | `js/data/merch.js`     | las fotos en `img/` (WebP, 900 px el lado corto) |
 | Cambiar un texto de la interfaz| `js/models/i18n.js`    | el texto en español **y** en inglés       |
 
-El primer disco de la lista es el que aparece en la portada como "Último lanzamiento"; si cambia, ejecuta `node tools/portada.mjs` para que la portada de `index.html` se actualice. Paso a paso, con ejemplos: [docs/contenido.md](docs/contenido.md).
+El primer disco de la lista es el que aparece en la portada como "Último lanzamiento"; si lo cambias a mano, ejecuta `node tools/portada.mjs` para que la portada de `index.html` se actualice (la página de administración lo hace sola). Paso a paso, con ejemplos: [docs/contenido.md](docs/contenido.md).
 
 ## Publicar
 
@@ -85,6 +90,7 @@ Cada `push` a `main` lanza el flujo "pages build and deployment" de GitHub Pages
 | Documento | Contenido |
 |-----------|-----------|
 | [docs/arquitectura.md](docs/arquitectura.md) | Cómo está organizado el código, qué hace cada archivo, flujo de arranque y convenciones |
+| [docs/admin.md](docs/admin.md) | Página de administración: clave de GitHub, cómo se usa y qué hace al publicar |
 | [docs/contenido.md](docs/contenido.md) | Guía para añadir discos, vídeos, productos y textos |
 | [docs/carrusel.md](docs/carrusel.md) | Funcionamiento interno de los carruseles (geometría, muelle, gestos, avance automático) |
 | [docs/estilos.md](docs/estilos.md) | Hojas de estilo, variables, cortes de diseño y modo oscuro |
