@@ -17,6 +17,7 @@
 
 <header class="top">
   <h1><img src="../img/logo-principal-vertical.svg" alt="" width="28" height="32"> Administración</h1>
+  <span class="modo" id="modo" hidden title="Los cambios se guardan en los archivos de tu ordenador">Modo local</span>
   <a class="ver" href="../" target="_blank" rel="noopener">Ver la web ↗</a>
   <button class="salir" id="salir" type="button" hidden>Salir</button>
 </header>
@@ -76,7 +77,7 @@
 <!-- Confirmación antes de publicar: resumen de los cambios. -->
 <dialog id="confirm" aria-labelledby="cftitle">
   <div class="dhead"><h2 id="cftitle">Publicar en la web</h2><button class="x" type="button" id="cfx" aria-label="Cerrar">×</button></div>
-  <p>Se publicarán estos cambios; la web se actualiza en 1-2 minutos:</p>
+  <p id="cftext">Se publicarán estos cambios; la web se actualiza en 1-2 minutos:</p>
   <ul class="resumen" id="resumen"></ul>
   <p class="err" id="cferr" role="alert"></p>
   <div class="dfoot"><button class="btn" type="button" id="cfcancel">Cancelar</button><button class="btn prim" type="button" id="cfok">Publicar</button></div>

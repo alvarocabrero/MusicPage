@@ -27,6 +27,14 @@ python3 -m http.server 8000
 
 y abre <http://localhost:8000>. No hay nada que instalar ni compilar: cada cambio se ve al recargar.
 
+Para usar también la **página de administración en local** (guarda en los archivos de la carpeta, sin GitHub ni clave), arranca en su lugar el servidor de `tools/` (hace falta [Node.js](https://nodejs.org) 18 o posterior):
+
+```sh
+node tools/admin-local.mjs
+```
+
+y abre <http://localhost:8000/admin/>. Más en [docs/admin.md](docs/admin.md#modo-local).
+
 ## Estructura
 
 ```
@@ -56,6 +64,7 @@ img/                  Portadas y fotos de merch (WebP), logotipos y sprite SVG
 fonts/                Fuentes Raleway y Merriweather (alfabeto latino) y sus licencias OFL
 admin/                Página de administración (artekills.com/admin; ver docs/admin.md)
 tools/portada.mjs     Escribe en index.html la portada del último lanzamiento (no se publica)
+tools/admin-local.mjs Servidor local de la web y de la administración en modo local (no se publica)
 icons/                Iconos de la web (Android y manifiesto)
 docs/                 Documentación (no se publica en la web)
 CNAME                 Dominio propio para GitHub Pages

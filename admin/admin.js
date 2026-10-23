@@ -4,6 +4,7 @@
    cambios → "Publicar" lo sube todo en un solo commit: datos, fotos nuevas (ya en WebP), fotos que ya no se usan
    (se borran) y la portada de index.html si cambia el último lanzamiento. Detalles: docs/admin.md. */
 import {github,GitHubError,REPO} from "./github.js";
+import {isLocal,local} from "./local.js";
 import {prepareImage} from "./images.js";
 import {heroHTML} from "../js/views/releaseView.js";
 import {setLang} from "../js/models/i18n.js";
@@ -30,7 +31,8 @@ const clone=o=>JSON.parse(JSON.stringify(o));
 const same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
 
 /* ---------- Estado ---------- */
-let gh;                 /* cliente de GitHub */
+let gh;                 /* cliente de GitHub (o del servidor local, ver local.js) */
+let LOCAL=false;        /* modo local: se guarda en la carpeta del repositorio en vez de publicar */
 let base;               /* commit de main sobre el que se edita: {sha, tree, files: {ruta: sha}} */
 const src={};           /* texto original de cada archivo de datos */
 const orig={},work={};  /* datos publicados y copia de trabajo, por sección */
@@ -76,19 +78,21 @@ function showLogin(msg){$("app").hidden=$("bar").hidden=$("salir").hidden=true;$
 
 /** Mensaje claro para los errores de GitHub. @param {Error} e */
 function explain(e){
- if(e instanceof TypeError)return "No se puede conectar con GitHub. Comprueba la conexión a internet y vuelve a intentarlo.";
+ if(e instanceof TypeError)return LOCAL?"No se puede conectar con el servidor local. ¿Sigue abierto node tools/admin-local.mjs?":"No se puede conectar con GitHub. Comprueba la conexión a internet y vuelve a intentarlo.";
+ if(LOCAL&&e instanceof GitHubError)return e.message;
  if(!(e instanceof GitHubError))return e.message||String(e);
  if(e.status===401)return "La clave no es válida o ha caducado. Crea una nueva.";
  if(e.status===403||e.status===404)return "Esta clave no tiene permiso para publicar en "+REPO+" (necesita Contents: Read and write).";
  return "GitHub ha respondido: "+e.message;
 }
 
-async function start(token){
- gh=github(token);
+/** Arranca el editor con un cliente (github(clave) o local()). */
+async function start(client){
+ gh=client;
  $("login").hidden=true;$("app").hidden=false;$("list").innerHTML='<li class="cargando">Cargando…</li>';
  await gh.check();
  await load();
- $("salir").hidden=false;
+ $("salir").hidden=LOCAL;
  render();
 }
 
@@ -334,11 +338,11 @@ const closeCf=()=>$("confirm").close();
 $("cfx").addEventListener("click",closeCf);$("cfcancel").addEventListener("click",closeCf);
 
 $("cfok").addEventListener("click",async()=>{
- const btn=$("cfok");btn.disabled=true;$("cferr").textContent="Publicando…";
+ const btn=$("cfok");btn.disabled=true;$("cferr").textContent=LOCAL?"Guardando…":"Publicando…";
  try{
   await publish();
   $("cferr").textContent="";$("confirm").close();
-  toast("¡Publicado! La web se actualiza en 1-2 minutos.",true);
+  toast(LOCAL?"Guardado en tu carpeta. Recarga la web local para verlo.":"¡Publicado! La web se actualiza en 1-2 minutos.",true);
  }catch(e){$("cferr").textContent=explain(e);btn.disabled=false}
 });
 
@@ -347,7 +351,7 @@ async function publish(){
  const head=await gh.head();
  if(head.sha!==base.sha){
   const touched=[...Object.values(FILES),"index.html","sitemap.xml"].filter(p=>head.files[p]!==base.files[p]);
-  if(touched.length)throw new Error("Alguien ha publicado cambios en la web mientras editabas ("+touched.join(", ")+"). Copia lo que necesites, recarga la página y vuelve a hacer tus cambios.");
+  if(touched.length)throw new Error((LOCAL?"Estos archivos han cambiado en la carpeta mientras editabas":"Alguien ha publicado cambios en la web mientras editabas")+" ("+touched.join(", ")+"). Copia lo que necesites, recarga la página y vuelve a hacer tus cambios.");
  }
  const write={},remove=[];
  for(const s in FILES)if(!same(orig[s],work[s]))write[FILES[s]]=serialize(s,work[s]);
@@ -360,7 +364,7 @@ async function publish(){
  const list=changes();
  const message="Admin: "+list[0]+(list.length>1?" y "+(list.length-1)+" cambio"+(list.length>2?"s":"")+" más":"")+"\n\n"+list.map(c=>"- "+c).join("\n")+"\n";
  try{await gh.publish({parent:head.sha,tree:head.tree,message,write,remove})}
- catch(e){if(e instanceof GitHubError&&e.status===422)throw new Error("Alguien ha publicado a la vez. Vuelve a pulsar Publicar.");throw e}
+ catch(e){if(e instanceof GitHubError&&e.status===422)throw new Error(LOCAL?"Los archivos han cambiado en la carpeta. Vuelve a pulsar Guardar.":"Alguien ha publicado a la vez. Vuelve a pulsar Publicar.");throw e}
  pending.forEach((v,p)=>{if(used.has(p))recent.set(p,v.url)});
  pending.clear();
  await load();
@@ -385,7 +389,7 @@ $("loginf").addEventListener("submit",async e=>{
  e.preventDefault();
  const t=$("token").value.trim();if(!t)return;
  $("loginerr").textContent="Comprobando…";
- try{await start(t);setToken(t,$("recordar").checked);$("token").value=""}
+ try{await start(github(t));setToken(t,$("recordar").checked);$("token").value=""}
  catch(err){showLogin(explain(err))}
 });
 $("salir").addEventListener("click",()=>{
@@ -393,6 +397,16 @@ $("salir").addEventListener("click",()=>{
  leaving=true;setToken(null);location.reload();
 });
 
-const saved=getToken();
-if(saved)start(saved).catch(err=>{if(err instanceof GitHubError&&err.status===401)setToken(null);showLogin(explain(err))});
-else showLogin();
+/* Modo local (página abierta desde node tools/admin-local.mjs): sin clave, guarda en la carpeta. */
+if(await isLocal()){
+ LOCAL=true;
+ $("modo").hidden=false;
+ $("publicar").textContent="Guardar";$("cfok").textContent="Guardar";
+ $("cftitle").textContent="Guardar en tu carpeta";
+ $("cftext").textContent="Se guardarán estos cambios en los archivos de tu carpeta (no se publica nada). Para subirlos a la web, haz commit y push:";
+ start(local()).catch(err=>{$("list").innerHTML="";toast(explain(err))});
+}else{
+ const saved=getToken();
+ if(saved)start(github(saved)).catch(err=>{if(err instanceof GitHubError&&err.status===401)setToken(null);showLogin(explain(err))});
+ else showLogin();
+}

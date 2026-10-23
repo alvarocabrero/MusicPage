@@ -4,6 +4,18 @@
 
 La página no está enlazada desde la web y los buscadores no la indexan. Aun así, sin una clave de GitHub con permiso sobre el repositorio no se puede cambiar nada: quien la abra sin clave sólo ve la pantalla de entrada.
 
+## Modo local
+
+Para probar la herramienta, o editar sin publicar al momento, se puede usar en el propio ordenador, sobre la carpeta del repositorio:
+
+```sh
+node tools/admin-local.mjs
+```
+
+(hace falta [Node.js](https://nodejs.org) 18 o posterior; para otro puerto: `node tools/admin-local.mjs 8080`). Abre <http://localhost:8000/admin/>: arriba aparece **«Modo local»**, no pide clave y el botón «Publicar» pasa a ser **«Guardar»**, que escribe los cambios en los archivos de la carpeta (`js/data/`, fotos en `img/`, portada de `index.html` y `sitemap.xml`). En <http://localhost:8000> se ve la web con ellos. **No se publica nada**: para subirlo a la web, se hace commit y push como siempre (por ejemplo, con GitHub Desktop).
+
+El servidor sólo escucha en ese ordenador y sólo deja escribir esos archivos, y sólo desde la propia página de administración. Para pararlo: Ctrl+C.
+
 ## Entrar: la clave de GitHub
 
 La primera vez pide una **clave de GitHub** (token). Se guarda sólo en ese navegador (con «Recordar en este dispositivo») y se puede quitar con «Salir».
@@ -56,7 +68,7 @@ Si la cuenta que va a editar es **colaboradora** del repositorio pero no la due�
 | Vista previa | Carga la `index.html` de la web en un marco y, con un *import map*, sustituye los archivos de `js/data/` por los editados. Las fotos aún no publicadas se cambian por las locales. |
 | Publicar | Un solo commit con la API de Git Data: archivos de datos, fotos nuevas, borrado de las fotos que ya no usa nadie, la portada de `index.html` y la fecha `<lastmod>` de `sitemap.xml`. Si alguien ha publicado mientras tanto en **otros** archivos, se publica encima sin problema; si ha cambiado los **mismos** datos, avisa y no publica nada. |
 
-Archivos: `admin/index.html` (página), `admin/admin.js` (lógica), `admin/github.js` (API de GitHub), `admin/images.js` (fotos), `admin/admin.css`.
+Archivos: `admin/index.html` (página), `admin/admin.js` (lógica), `admin/github.js` (API de GitHub), `admin/local.js` y `tools/admin-local.mjs` (modo local), `admin/images.js` (fotos), `admin/admin.css`.
 
 ## Editar a mano
 
