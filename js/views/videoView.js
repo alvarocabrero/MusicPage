@@ -78,3 +78,16 @@ export const videoDialogView={
  /** Quita el reproductor al cerrar, para que el vídeo deje de sonar. */
  clear(){$("vpv").innerHTML=""}
 };
+
+/* Portada: aviso de novedad bajo los botones de plataformas (miniatura, "Nuevo videoclip" y título). Es un botón
+   .novedad con data-i (índice en VIDEOS); videosController lo conecta al pop up. */
+export const heroVideoView={
+ /**
+  * Añade el aviso al final de #hrel.
+  * @param {import("../models/videos.js").Video} v Videoclip nuevo.
+  * @param {number} i Índice de v en VIDEOS.
+  */
+ render(v,i){
+  $("hrel").insertAdjacentHTML("beforeend",'<button class="novedad" data-i="'+i+'" aria-label="'+t("video.watchAria",{t:v.t})+'"><img alt="" src="'+videoThumb(v.id).replace("maxresdefault","mqdefault")+'" width="96" height="54"><span><small>'+t("video.newClip")+'</small><b>'+v.t+'</b></span>'+ICON_PLAY+'</button>');
+ }
+};

@@ -39,3 +39,11 @@
 /* Rayita roja bajo los títulos de sección (en las secciones con carrusel toma el color de --dash, ver carousel.css). */
 .dash{display:block;width:44px;height:6px;background:var(--rojo);margin:0 0 18px}
 section .dash{margin:22px 0}
+/* Aviso de videoclip nuevo bajo los botones de plataformas (lo añade videosController si el vídeo es reciente). */
+.hrel .novedad{display:flex;align-items:center;gap:12px;width:100%;margin-top:14px;padding:8px 14px 8px 8px;border:2px solid var(--tinta);border-radius:12px;background:#fff;color:#000;text-align:left;cursor:pointer;font:inherit}
+.hrel .novedad img{display:block;width:96px;height:54px;object-fit:cover;border-radius:6px;flex:none}
+.hrel .novedad span{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.hrel .novedad small{font:800 .65rem/1.4 var(--display);letter-spacing:.06em;text-transform:uppercase;color:var(--rojo)}
+.hrel .novedad b{font:800 1rem/1.2 var(--display);text-transform:uppercase}
+.hrel .novedad svg{width:30px;height:30px;flex:none;color:var(--rojo)}
+.hrel .novedad:hover{background:#f4f4f4}
