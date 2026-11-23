@@ -91,7 +91,7 @@ section .dash{background:var(--dash,var(--rojo))}
 .ring{position:absolute;left:0;top:0;width:54px;height:54px;border:3px solid #fff;border-radius:30px;pointer-events:none;opacity:0;z-index:9;mix-blend-mode:difference;transition:width .25s,opacity .2s}
 /* El ancho también depende del alto, para que el vídeo (16:9) y la cabecera del pop up quepan siempre en pantalla
    (la primera declaración es para navegadores sin unidades dvh). */
-#vdlg{width:min(860px,calc(100% - 24px));width:min(860px,calc(100% - 24px),calc((100dvh - 130px)*16/9 + 8px))}
+#vdlg{width:min(860px,calc(100% - 24px));width:min(860px,calc(100% - 24px),calc((100dvh - 130px)*16/9))}
 /* Reproductor del pop up de vídeo, siempre 16:9. */
 .vp iframe{display:block;width:100%;aspect-ratio:16/9;border:0}
 /* Con ratón: se oculta la flecha del sistema sobre el escenario y se muestra el anillo (más grande al arrastrar). */
