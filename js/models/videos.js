@@ -25,6 +25,15 @@ export const VIDEOS=[
  {id:"xgTiVnYMqH0",t:"Televice",d:"2023-09-15"}
 ].sort((a,b)=>b.d.localeCompare(a.d));
 
+/** Días que un videoclip se anuncia como "Nuevo" desde su fecha de publicación. */
+const DIAS_NUEVO=30;
+/**
+ * ¿Se publicó hace menos de DIAS_NUEVO días? Entonces la tarjeta lleva la etiqueta "Nuevo" (se apaga sola).
+ * @param {Video} v
+ * @returns {boolean}
+ */
+export const esNuevo=v=>Date.now()-Date.parse(v.d)<DIAS_NUEVO*864e5;
+
 /* Miniatura en la mayor resolución disponible (1280×720); si el vídeo no la tiene, se prueba con las siguientes. */
 
 /**

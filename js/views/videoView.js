@@ -4,7 +4,7 @@
    youtube-nocookie.com. Los títulos de videos.js se insertan tal cual en el HTML (sin "<" ni comillas dobles). */
 import {ICON_PLAY} from "./icons.js";
 import {t} from "../models/i18n.js";
-import {videoThumb,videoThumbFallbacks,videoEmbedUrl,videoWatchUrl} from "../models/videos.js";
+import {esNuevo,videoThumb,videoThumbFallbacks,videoEmbedUrl,videoWatchUrl} from "../models/videos.js";
 
 /** Atajo de document.getElementById. @param {string} id @returns {HTMLElement} */
 const $=id=>document.getElementById(id);
@@ -32,7 +32,7 @@ const IFRAME_ALLOW="accelerometer; autoplay; encrypted-media; gyroscope; picture
  * @param {import("../models/videos.js").Video} v
  * @returns {string} HTML.
  */
-export const cardHTML=v=>thumbImg(v,'class="th"')+'<div class="shade"></div><span class="tipo">'+t("video.tag")+'</span><div class="cc"><h3 class="tt">'+v.t+'</h3><button class="rm" aria-label="'+t("video.watchAria",{t:v.t})+'">'+ICON_PLAY+'<span>'+t("video.watch")+'</span></button></div>';
+export const cardHTML=v=>thumbImg(v,'class="th"')+'<div class="shade"></div><span class="tipo">'+t("video.tag")+'</span>'+(esNuevo(v)?'<span class="nuevo">'+t("video.new")+'</span>':'')+'<div class="cc"><h3 class="tt">'+v.t+'</h3><button class="rm" aria-label="'+t("video.watchAria",{t:v.t})+'">'+ICON_PLAY+'<span>'+t("video.watch")+'</span></button></div>';
 
 /**
  * Fila de la vista de lista: botón con la miniatura y el icono de reproducir (.vbtn, con data-id y data-title
@@ -40,7 +40,7 @@ export const cardHTML=v=>thumbImg(v,'class="th"')+'<div class="shade"></div><spa
  * @param {import("../models/videos.js").Video} v
  * @returns {string} HTML.
  */
-export const rowHTML=v=>'<article class="slide vs" role="listitem"><button class="vbtn" data-id="'+v.id+'" data-title="'+v.t+'" aria-label="'+t("video.play",{t:v.t})+'">'+thumbImg(v,'')+'<span class="play"></span></button><div class="vcap"><b>'+v.t+'</b><a href="'+videoWatchUrl(v.id)+'" target="_blank" rel="noopener">'+t("video.openYT")+'</a></div></article>';
+export const rowHTML=v=>'<article class="slide vs" role="listitem"><button class="vbtn" data-id="'+v.id+'" data-title="'+v.t+'" aria-label="'+t("video.play",{t:v.t})+'">'+thumbImg(v,'')+'<span class="play"></span></button><div class="vcap"><b>'+v.t+''+(esNuevo(v)?' <span class="nuevo">'+t("video.new")+'</span>':'')+'</b><a href="'+videoWatchUrl(v.id)+'" target="_blank" rel="noopener">'+t("video.openYT")+'</a></div></article>';
 
 /* En la vista "ver todos", sustituye la miniatura por el reproductor. */
 /**

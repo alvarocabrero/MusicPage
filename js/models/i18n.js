@@ -25,7 +25,7 @@ const DICT={
   "contact.subject":"Nuevo mensaje desde la web de Arte Kills","contact.sending":"Enviando…","contact.sent":"¡Mensaje enviado! Gracias por escribir.","contact.failed":"No se pudo enviar. Inténtalo más tarde o escríbenos por",
   "release.latest":"Último lanzamiento","listen":"Escuchar","release.open":"Abrir {t}: preescucha y plataformas","release.cover":"Portada de {t}","release.preview":"Preescucha de {t}",
   "kind.album":"Álbum","kind.ep":"EP","tracks":"{n} canciones",
-  "video.tag":"Videoclip","video.watch":"Ver vídeo","video.watchAria":"Ver {t}","video.play":"Reproducir el vídeo {t}","video.openYT":"Abrir en YouTube",
+  "video.tag":"Videoclip","video.new":"Nuevo","video.watch":"Ver vídeo","video.watchAria":"Ver {t}","video.play":"Reproducir el vídeo {t}","video.openYT":"Abrir en YouTube",
   "kind.cd":"CD","kind.vinyl":"Vinilo","kind.shirt":"Camiseta",
   "merch.view":"Ver producto","merch.viewAria":"Ver {t}","buy":"Comprar","cta.instagram":"Pedir por Instagram","photo":"Ver foto {i} de {n}"
  },
@@ -41,7 +41,7 @@ const DICT={
   "contact.subject":"New message from the Arte Kills website","contact.sending":"Sending…","contact.sent":"Message sent! Thanks for getting in touch.","contact.failed":"Couldn't send it. Try again later or message us on",
   "release.latest":"Latest release","listen":"Listen","release.open":"Open {t}: preview and platforms","release.cover":"Cover of {t}","release.preview":"Preview of {t}",
   "kind.album":"Album","kind.ep":"EP","tracks":"{n} tracks",
-  "video.tag":"Music video","video.watch":"Watch video","video.watchAria":"Watch {t}","video.play":"Play video {t}","video.openYT":"Open on YouTube",
+  "video.tag":"Music video","video.new":"New","video.watch":"Watch video","video.watchAria":"Watch {t}","video.play":"Play video {t}","video.openYT":"Open on YouTube",
   "kind.cd":"CD","kind.vinyl":"Vinyl","kind.shirt":"T-shirt",
   "merch.view":"View product","merch.viewAria":"View {t}","buy":"Buy","cta.instagram":"Order on Instagram","photo":"View photo {i} of {n}"
  }
