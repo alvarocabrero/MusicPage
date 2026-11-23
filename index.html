@@ -111,6 +111,14 @@
   <button class="nv nv-p" id="vprev" aria-label="Anterior" data-i18n-attr="aria-label:dlg.prev">‹</button><button class="nv nv-n" id="vnext" aria-label="Siguiente" data-i18n-attr="aria-label:dlg.next">›</button>
 </dialog>
 
+<!-- Novedad: aviso del último videoclip al entrar en la web (#nbody); se muestra una vez por vídeo. -->
+<dialog id="ndlg" aria-labelledby="ntt">
+  <div class="dbox nbox">
+    <button class="nx" id="ndx" aria-label="Cerrar" data-i18n-attr="aria-label:dlg.close">×</button>
+    <div id="nbody"></div>
+  </div>
+</dialog>
+
 <!-- Producto: fotos, descripción, envíos y botón de compra (#mbody). -->
 <dialog id="mdlg" aria-labelledby="mt">
   <div class="dbox">

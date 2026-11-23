@@ -63,3 +63,15 @@ html:has(dialog[open]){overflow:hidden;overscroll-behavior:none}
 .plats svg{width:32px;height:32px;flex:none;fill:currentColor}
 .plats a:hover,.plats a:focus-visible{background:var(--rojo);border-color:var(--rojo);color:#fff}
 @media (max-width:380px){.plats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* Pop up de novedad (#ndlg), minimalista: tarjeta pequeña y redondeada, miniatura con play y, debajo, etiqueta y título. */
+#ndlg{width:min(380px,calc(100% - 32px))}
+.nbox{position:relative;border:0;border-radius:14px;overflow:hidden;box-shadow:0 18px 50px #0006}
+.nx{position:absolute;right:10px;top:10px;z-index:1;width:30px;height:30px;border:0;border-radius:50%;background:#0008;color:#fff;font:600 1.1rem/1 var(--display);cursor:pointer}
+.nx:hover{background:#000}
+.nbtn{position:relative;display:block;color:inherit;width:100%;padding:0;border:0;background:#000;cursor:pointer;aspect-ratio:16/9;overflow:hidden}
+.nbtn img{display:block;width:100%;height:100%;object-fit:cover}
+.nbtn .play{position:absolute;left:50%;top:50%;width:52px;height:52px;transform:translate(-50%,-50%);border-radius:50%;background:#fffe url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 7v10l8-5z' fill='%23000'/%3E%3C/svg%3E") 56% 50%/60% no-repeat;transition:transform .2s}
+.nbtn:hover .play{transform:translate(-50%,-50%) scale(1.08)}
+.ncap{padding:14px 18px 16px}
+.ncap small{display:block;font:800 .65rem/1.4 var(--display);letter-spacing:.08em;text-transform:uppercase;color:var(--rojo)}
+.ncap b{display:block;margin-top:2px;font:800 1.15rem/1.25 var(--display);text-transform:uppercase}

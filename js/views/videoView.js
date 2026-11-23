@@ -91,3 +91,19 @@ export const heroVideoView={
   $("hrel").insertAdjacentHTML("beforeend",'<button class="novedad" data-i="'+i+'" aria-label="'+t("video.watchAria",{t:v.t})+'"><img alt="" src="'+videoThumb(v.id).replace("maxresdefault","mqdefault")+'" width="96" height="54"><span><small>'+t("video.newClip")+'</small><b>'+v.t+'</b></span>'+ICON_PLAY+'</button>');
  }
 };
+
+/* Pop up de novedad: aparece al entrar en la web cuando hay un videoclip nuevo (ver videosController). Muestra la
+   miniatura grande y el título; la miniatura es un enlace al vídeo en YouTube. */
+export const newsDialogView={
+ el:$("ndlg"),close:$("ndx"),
+ /**
+  * @param {import("../models/videos.js").Video} v Videoclip nuevo.
+  */
+ render(v){
+  $("nbody").innerHTML='<a class="nbtn" href="'+videoWatchUrl(v.id)+'" target="_blank" rel="noopener" aria-label="'+t("video.watchAria",{t:v.t})+'"><img alt="" src="'+videoThumb(v.id).replace("maxresdefault","hqdefault")+'"><span class="play"></span></a><div class="ncap"><small>'+t("video.newClip")+'</small><b id="ntt">'+v.t+'</b></div>';
+ },
+ /** Abre el pop up como modal. */
+ open(){if(!this.el.open)this.el.showModal()},
+ /** Cierra el pop up. */
+ hide(){this.el.close()}
+};
