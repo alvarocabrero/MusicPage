@@ -53,4 +53,11 @@ section .dash{margin:22px 0}
 .hrel .novedad svg{animation:nvlate 2.2s ease-in-out infinite}
 @keyframes nvbrillo{0%,55%{transform:translateX(-120%)}100%{transform:translateX(320%)}}
 @keyframes nvlate{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
-@media (prefers-reduced-motion:reduce){.hrel .novedad:after,.hrel .novedad svg{animation:none}}
+/* Más llamativo (también en bucle): un halo rojo que se expande y se desvanece, el borde que pasa de negro a rojo
+   y un punto parpadeante junto a "Nuevo videoclip". */
+.hrel .novedad{animation:nvhalo 2.4s ease-out infinite,nvborde 2.4s ease-in-out infinite}
+.hrel .novedad small:before{content:"";display:inline-block;width:7px;height:7px;margin-right:6px;border-radius:50%;background:var(--rojo);vertical-align:1px;animation:nvpunto 1.2s ease-in-out infinite}
+@keyframes nvhalo{0%{box-shadow:0 0 0 0 rgba(226,44,20,.45)}70%,100%{box-shadow:0 0 0 14px rgba(226,44,20,0)}}
+@keyframes nvborde{0%,100%{border-color:#000}50%{border-color:var(--rojo)}}
+@keyframes nvpunto{0%,100%{opacity:1}50%{opacity:.25}}
+@media (prefers-reduced-motion:reduce){.hrel .novedad,.hrel .novedad:after,.hrel .novedad svg,.hrel .novedad small:before{animation:none}}
