@@ -39,11 +39,18 @@
 /* Rayita roja bajo los títulos de sección (en las secciones con carrusel toma el color de --dash, ver carousel.css). */
 .dash{display:block;width:44px;height:6px;background:var(--rojo);margin:0 0 18px}
 section .dash{margin:22px 0}
-/* Aviso de videoclip nuevo bajo los botones de plataformas (lo añade videosController si el vídeo es reciente). */
-.hrel .novedad{display:flex;align-items:center;gap:12px;width:100%;margin-top:14px;padding:8px 14px 8px 8px;border:2px solid var(--tinta);border-radius:12px;background:#fff;color:#000;text-align:left;cursor:pointer;font:inherit}
+/* Aviso de videoclip nuevo sobre el último lanzamiento (lo añade videosController si el vídeo es reciente). */
+.hrel .novedad{position:relative;overflow:hidden;display:flex;align-items:center;gap:12px;width:100%;margin-bottom:22px;padding:8px 14px 8px 8px;border:2px solid var(--tinta);border-radius:12px;background:#fff;color:#000;text-align:left;cursor:pointer;font:inherit}
 .hrel .novedad img{display:block;width:96px;height:54px;object-fit:cover;border-radius:6px;flex:none}
 .hrel .novedad span{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
 .hrel .novedad small{font:800 .65rem/1.4 var(--display);letter-spacing:.06em;text-transform:uppercase;color:var(--rojo)}
 .hrel .novedad b{font:800 1rem/1.2 var(--display);text-transform:uppercase}
 .hrel .novedad svg{width:30px;height:30px;flex:none;color:var(--rojo)}
 .hrel .novedad:hover{background:#f4f4f4}
+/* Efecto sutil en bucle del aviso: un destello suave cruza la tarjeta y el icono de play late despacio.
+   Se desactiva si el visitante pide reducir el movimiento. */
+.hrel .novedad:after{content:"";position:absolute;top:0;bottom:0;left:0;width:40%;background:linear-gradient(100deg,transparent,rgba(226,44,20,.12),transparent);transform:translateX(-120%);animation:nvbrillo 4.5s ease-in-out infinite;pointer-events:none}
+.hrel .novedad svg{animation:nvlate 2.2s ease-in-out infinite}
+@keyframes nvbrillo{0%,55%{transform:translateX(-120%)}100%{transform:translateX(320%)}}
+@keyframes nvlate{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+@media (prefers-reduced-motion:reduce){.hrel .novedad:after,.hrel .novedad svg{animation:none}}
