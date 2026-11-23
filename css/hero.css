@@ -39,25 +39,43 @@
 /* Rayita roja bajo los títulos de sección (en las secciones con carrusel toma el color de --dash, ver carousel.css). */
 .dash{display:block;width:44px;height:6px;background:var(--rojo);margin:0 0 18px}
 section .dash{margin:22px 0}
-/* Aviso de videoclip nuevo sobre el último lanzamiento (lo añade videosController si el vídeo es reciente). */
-.hrel .novedad{position:relative;overflow:hidden;display:flex;align-items:center;gap:12px;width:100%;margin-bottom:22px;padding:8px 14px 8px 8px;border:2px solid var(--tinta);border-radius:12px;background:#fff;color:#000;text-align:left;cursor:pointer;font:inherit}
-.hrel .novedad img{display:block;width:96px;height:54px;object-fit:cover;border-radius:6px;flex:none}
-.hrel .novedad span{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
-.hrel .novedad small{font:800 .65rem/1.4 var(--display);letter-spacing:.06em;text-transform:uppercase;color:var(--rojo)}
-.hrel .novedad b{font:800 1rem/1.2 var(--display);text-transform:uppercase}
-.hrel .novedad svg{width:30px;height:30px;flex:none;color:var(--rojo)}
-.hrel .novedad:hover{background:#f4f4f4}
+/* Aviso de videoclip nuevo: tarjeta flotante fija en la esquina (la crea videosController). */
+.novedad{position:relative;overflow:hidden;display:flex;align-items:center;gap:12px;width:100%;margin:0;padding:8px 14px 8px 8px;border:2px solid var(--tinta);border-radius:12px;background:#fff;color:#000;text-align:left;cursor:pointer;font:inherit}
+.novedad img{display:block;width:96px;height:54px;object-fit:cover;border-radius:6px;flex:none}
+.novedad span{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.novedad small{font:800 .65rem/1.4 var(--display);letter-spacing:.06em;text-transform:uppercase;color:var(--rojo)}
+.novedad b{font:800 1rem/1.2 var(--display);text-transform:uppercase}
+.novedad svg{width:30px;height:30px;flex:none;color:var(--rojo)}
+.novedad:hover{background:#f4f4f4}
 /* Efecto sutil en bucle del aviso: un destello suave cruza la tarjeta y el icono de play late despacio.
    Se desactiva si el visitante pide reducir el movimiento. */
-.hrel .novedad:after{content:"";position:absolute;top:0;bottom:0;left:0;width:40%;background:linear-gradient(100deg,transparent,rgba(226,44,20,.12),transparent);transform:translateX(-120%);animation:nvbrillo 4.5s ease-in-out infinite;pointer-events:none}
-.hrel .novedad svg{animation:nvlate 2.2s ease-in-out infinite}
+.novedad:after{content:"";position:absolute;top:0;bottom:0;left:0;width:40%;background:linear-gradient(100deg,transparent,rgba(226,44,20,.12),transparent);transform:translateX(-120%);animation:nvbrillo 4.5s ease-in-out infinite;pointer-events:none}
+.novedad svg{animation:nvlate 2.2s ease-in-out infinite}
 @keyframes nvbrillo{0%,55%{transform:translateX(-120%)}100%{transform:translateX(320%)}}
 @keyframes nvlate{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
 /* Más llamativo (también en bucle): un halo rojo que se expande y se desvanece, el borde que pasa de negro a rojo
    y un punto parpadeante junto a "Nuevo videoclip". */
-.hrel .novedad{animation:nvhalo 2.4s ease-out infinite,nvborde 2.4s ease-in-out infinite}
-.hrel .novedad small:before{content:"";display:inline-block;width:7px;height:7px;margin-right:6px;border-radius:50%;background:var(--rojo);vertical-align:1px;animation:nvpunto 1.2s ease-in-out infinite}
+.novedad{animation:nvhalo 2.4s ease-out infinite,nvborde 2.4s ease-in-out infinite}
+.novedad small:before{content:"";display:inline-block;width:7px;height:7px;margin-right:6px;border-radius:50%;background:var(--rojo);vertical-align:1px;animation:nvpunto 1.2s ease-in-out infinite}
 @keyframes nvhalo{0%{box-shadow:0 0 0 0 rgba(226,44,20,.45)}70%,100%{box-shadow:0 0 0 14px rgba(226,44,20,0)}}
 @keyframes nvborde{0%,100%{border-color:#000}50%{border-color:var(--rojo)}}
 @keyframes nvpunto{0%,100%{opacity:1}50%{opacity:.25}}
-@media (prefers-reduced-motion:reduce){.hrel .novedad,.hrel .novedad:after,.hrel .novedad svg,.hrel .novedad small:before{animation:none}}
+@media (prefers-reduced-motion:reduce){.novedad,.novedad:after,.novedad svg,.novedad small:before{animation:none}}
+/* Tarjeta flotante (.flot): fija en la esquina inferior derecha (en móvil, a todo el ancho abajo), con la × para
+   cerrarla. Entra deslizándose desde abajo; debajo de los pop ups (que van en la capa superior del navegador). */
+.flot{position:fixed;right:16px;bottom:max(16px,env(safe-area-inset-bottom));z-index:50;width:min(340px,calc(100% - 32px));animation:nventra .6s .8s cubic-bezier(.2,.8,.2,1) both}
+.flot .novedad{width:100%;margin:0}
+.flot .fx{position:absolute;right:-8px;top:-8px;width:26px;height:26px;border:0;border-radius:50%;background:#000;color:#fff;font:600 1rem/1 var(--display);cursor:pointer;z-index:2}
+.flot .fx:hover{background:var(--rojo)}
+@keyframes nventra{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.flot{animation:none}}
+/* ordenador (≥ 821 px): tarjeta flotante más grande, con miniatura de 160×90 y texto mayor */
+@media (min-width:821px){
+ .flot{right:28px;bottom:28px;width:460px}
+ .flot .novedad{gap:18px;padding:12px 22px 12px 12px;border-radius:16px}
+ .flot .novedad img{width:160px;height:90px;border-radius:8px}
+ .flot .novedad small{font-size:.8rem}
+ .flot .novedad b{font-size:1.5rem}
+ .flot .novedad svg{width:46px;height:46px}
+ .flot .fx{width:32px;height:32px;right:-10px;top:-10px;font-size:1.2rem}
+}

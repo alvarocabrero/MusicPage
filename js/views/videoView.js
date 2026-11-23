@@ -79,24 +79,21 @@ export const videoDialogView={
  clear(){$("vpv").innerHTML=""}
 };
 
-/* Portada: aviso de novedad sobre el último lanzamiento (miniatura, "Nuevo videoclip" y título). Es un botón
-   .novedad con data-i (índice en VIDEOS); videosController lo conecta al pop up. Lo pinta heroView (releaseView.js),
-   así que también va en el HTML pregenerado de la portada y no hay salto al cargar. */
-/** @param {import("../models/videos.js").Video} v Videoclip nuevo. @param {number} i Índice en VIDEOS. @returns {string} HTML. */
-export const novedadHTML=(v,i)=>'<button class="novedad" data-i="'+i+'" aria-label="'+t("video.watchAria",{t:v.t})+'"><img alt="" src="'+videoThumb(v.id).replace("maxresdefault","mqdefault")+'" width="96" height="54"><span><small>'+t("video.newClip")+'</small><b>'+v.t+'</b></span>'+ICON_PLAY+'</button>';
-
-/* Pop up de novedad: aparece al entrar en la web cuando hay un videoclip nuevo (ver videosController). Muestra la
-   miniatura grande y el título; la miniatura es un enlace al vídeo en YouTube. */
-export const newsDialogView={
- el:$("ndlg"),close:$("ndx"),
+/* Aviso flotante de novedad: tarjeta fija en la esquina de la pantalla (miniatura, "Nuevo videoclip" y título) con
+   una × para cerrarla. Al ser fija no ocupa sitio en la página ni la desplaza. La pulsación abre el reproductor. */
+export const floatingNewView={
  /**
+  * Crea la tarjeta y la añade al <body>.
   * @param {import("../models/videos.js").Video} v Videoclip nuevo.
+  * @param {function():void} onOpen Qué hacer al pulsar la tarjeta (abrir el reproductor).
   */
- render(v){
-  $("nbody").innerHTML='<a class="nbtn" href="'+videoWatchUrl(v.id)+'" target="_blank" rel="noopener" aria-label="'+t("video.watchAria",{t:v.t})+'"><img alt="" src="'+videoThumb(v.id).replace("maxresdefault","hqdefault")+'"><span class="play"></span></a><div class="ncap"><small>'+t("video.newClip")+'</small><b id="ntt">'+v.t+'</b></div>';
- },
- /** Abre el pop up como modal. */
- open(){if(!this.el.open)this.el.showModal()},
- /** Cierra el pop up. */
- hide(){this.el.close()}
+ render(v,onOpen){
+  const box=document.createElement("div");
+  box.className="flot";
+  box.innerHTML='<button class="novedad" aria-label="'+t("video.watchAria",{t:v.t})+'"><img alt="" src="'+videoThumb(v.id).replace("maxresdefault","mqdefault")+'" width="96" height="54"><span><small>'+t("video.newClip")+'</small><b>'+v.t+'</b></span>'+ICON_PLAY+'</button><button class="fx" aria-label="'+t("dlg.close")+'">×</button>';
+  box.querySelector(".novedad").onclick=onOpen;
+  box.querySelector(".fx").onclick=()=>box.remove();
+  document.body.appendChild(box);
+ }
 };
+

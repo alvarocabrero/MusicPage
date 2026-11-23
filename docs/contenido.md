@@ -51,7 +51,7 @@ Archivo: `js/models/videos.js`, lista `VIDEOS`.
 
 - **La lista se ordena sola** del más reciente al más antiguo, así que el vídeo nuevo puede añadirse en cualquier posición.
 - La miniatura se toma de YouTube automáticamente (la de 1280×720 si existe; si no, una más pequeña).
-- **Aviso de novedad:** mientras el vídeo más reciente tenga menos de 30 días (`DIAS_NUEVO` en `videos.js`), lleva la etiqueta "Nuevo" en el carrusel, un aviso sobre "Último lanzamiento" en la portada y un pop up al abrir la web. El aviso de la portada también va escrito en `index.html`: **al añadir un vídeo nuevo, y cuando pasen los 30 días, ejecuta `node tools/portada.mjs`** para actualizarlo. Si se olvida, la web funciona igual; sólo se nota un pequeño salto al cargar.
+- **Aviso de novedad:** mientras el vídeo más reciente tenga menos de 30 días (`DIAS_NUEVO` en `videos.js`), lleva la etiqueta "Nuevo" en el carrusel y una tarjeta flotante en la esquina (con una × para cerrarla; la crea `videosController.js`). Todo se calcula en el navegador con la fecha `d`, así que no hay que regenerar nada: a los 30 días desaparece solo.
 
 ## Merch
 
@@ -95,7 +95,7 @@ Los enlaces a Instagram y Bandcamp y el texto de copyright están escritos direc
 ## Comprobación rápida
 
 - [ ] La página carga sin errores en la consola del navegador.
-- [ ] Si cambió el primer disco o el vídeo más reciente, se ha ejecutado `node tools/portada.mjs` (vuelve a ejecutarlo: debe decir que la portada ya estaba al día).
+- [ ] Si cambió el primer disco, se ha ejecutado `node tools/portada.mjs` (vuelve a ejecutarlo: debe decir que la portada ya estaba al día).
 - [ ] El disco, vídeo o producto aparece en el carrusel y en la vista de lista ("Ver lista").
 - [ ] El pop up se abre y muestra lo esperado (preescucha, plataformas, fotos…).
 - [ ] Se ve bien en español y en inglés (botón ES/EN).
