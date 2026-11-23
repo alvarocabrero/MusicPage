@@ -47,10 +47,11 @@ Archivo: `js/models/videos.js`, lista `VIDEOS`.
 |-------|--------|
 | `id` | ID del vídeo en YouTube: lo que va tras `watch?v=` en `https://www.youtube.com/watch?v=`**`NYuIrof_Kdk`**. |
 | `t` | Título tal como debe verse (sin añadidos como "(visualizer)" o "(videoclip oficial)"). |
-| `d` | Fecha de publicación en YouTube, `AAAA-MM-DD`. Sólo sirve para ordenar. |
+| `d` | Fecha de publicación en YouTube, `AAAA-MM-DD`. Sirve para ordenar y para anunciar la novedad (ver abajo). |
 
 - **La lista se ordena sola** del más reciente al más antiguo, así que el vídeo nuevo puede añadirse en cualquier posición.
 - La miniatura se toma de YouTube automáticamente (la de 1280×720 si existe; si no, una más pequeña).
+- **Aviso de novedad:** mientras el vídeo más reciente tenga menos de 30 días (`DIAS_NUEVO` en `videos.js`), lleva la etiqueta "Nuevo" en el carrusel, un aviso sobre "Último lanzamiento" en la portada y un pop up al abrir la web. El aviso de la portada también va escrito en `index.html`: **al añadir un vídeo nuevo, y cuando pasen los 30 días, ejecuta `node tools/portada.mjs`** para actualizarlo. Si se olvida, la web funciona igual; sólo se nota un pequeño salto al cargar.
 
 ## Merch
 
@@ -94,7 +95,7 @@ Los enlaces a Instagram y Bandcamp y el texto de copyright están escritos direc
 ## Comprobación rápida
 
 - [ ] La página carga sin errores en la consola del navegador.
-- [ ] Si cambió el primer disco, se ha ejecutado `node tools/portada.mjs` (vuelve a ejecutarlo: debe decir que la portada ya estaba al día).
+- [ ] Si cambió el primer disco o el vídeo más reciente, se ha ejecutado `node tools/portada.mjs` (vuelve a ejecutarlo: debe decir que la portada ya estaba al día).
 - [ ] El disco, vídeo o producto aparece en el carrusel y en la vista de lista ("Ver lista").
 - [ ] El pop up se abre y muestra lo esperado (preescucha, plataformas, fotos…).
 - [ ] Se ve bien en español y en inglés (botón ES/EN).

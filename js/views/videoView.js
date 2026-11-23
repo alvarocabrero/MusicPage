@@ -79,18 +79,11 @@ export const videoDialogView={
  clear(){$("vpv").innerHTML=""}
 };
 
-/* Portada: aviso de novedad bajo los botones de plataformas (miniatura, "Nuevo videoclip" y título). Es un botón
-   .novedad con data-i (índice en VIDEOS); videosController lo conecta al pop up. */
-export const heroVideoView={
- /**
-  * Añade el aviso al principio de #hrel (encima de "Último lanzamiento").
-  * @param {import("../models/videos.js").Video} v Videoclip nuevo.
-  * @param {number} i Índice de v en VIDEOS.
-  */
- render(v,i){
-  $("hrel").insertAdjacentHTML("afterbegin",'<button class="novedad" data-i="'+i+'" aria-label="'+t("video.watchAria",{t:v.t})+'"><img alt="" src="'+videoThumb(v.id).replace("maxresdefault","mqdefault")+'" width="96" height="54"><span><small>'+t("video.newClip")+'</small><b>'+v.t+'</b></span>'+ICON_PLAY+'</button>');
- }
-};
+/* Portada: aviso de novedad sobre el último lanzamiento (miniatura, "Nuevo videoclip" y título). Es un botón
+   .novedad con data-i (índice en VIDEOS); videosController lo conecta al pop up. Lo pinta heroView (releaseView.js),
+   así que también va en el HTML pregenerado de la portada y no hay salto al cargar. */
+/** @param {import("../models/videos.js").Video} v Videoclip nuevo. @param {number} i Índice en VIDEOS. @returns {string} HTML. */
+export const novedadHTML=(v,i)=>'<button class="novedad" data-i="'+i+'" aria-label="'+t("video.watchAria",{t:v.t})+'"><img alt="" src="'+videoThumb(v.id).replace("maxresdefault","mqdefault")+'" width="96" height="54"><span><small>'+t("video.newClip")+'</small><b>'+v.t+'</b></span>'+ICON_PLAY+'</button>';
 
 /* Pop up de novedad: aparece al entrar en la web cuando hay un videoclip nuevo (ver videosController). Muestra la
    miniatura grande y el título; la miniatura es un enlace al vídeo en YouTube. */

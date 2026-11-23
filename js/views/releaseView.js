@@ -5,6 +5,8 @@ import {ICON_GO,PICON} from "./icons.js";
 import {linksFor} from "../models/platforms.js";
 import {linkAttrs} from "../models/appLinks.js";
 import {t,tr} from "../models/i18n.js";
+import {VIDEOS,esNuevo} from "../models/videos.js";
+import {novedadHTML} from "./videoView.js";
 
 /** Atajo de document.getElementById. @param {string} id @returns {HTMLElement} */
 const $=id=>document.getElementById(id);
@@ -73,13 +75,13 @@ const linksHTML=r=>linksFor(r).map(x=>'<li>'+linkHTML(x)+'<b>'+PICON[x.p.id]+x.p
    tools/portada.mjs con esta misma función), para que la portada salga completa sin esperar a JavaScript. */
 export const heroView={
  /**
-  * Pinta en #hrel el bloque del último lanzamiento: etiqueta, título, "Artistas · Tipo · Año", hueco de la
+  * Pinta en #hrel el bloque del último lanzamiento: antes de todo, el aviso del videoclip nuevo (si lo hay); etiqueta, título, "Artistas · Tipo · Año", hueco de la
   * preescucha (.hp; con .sp si el disco tiene Spotify, para reservar su alto) y botones de plataformas.
   * El reproductor no va aquí: lo pone loadPlayer().
   * @param {import("../models/releases.js").Release} r
   */
  render(r){
-  $("hrel").innerHTML='<span class="tipo">'+t("release.latest")+'</span><h2>'+r.t+'</h2><p class="hm">'+artists(r)+SEP+kind(r)+SEP+date(r)+'</p><div class="hp'+(r.sp?' sp':'')+'"></div><ul class="plats">'+linksHTML(r)+'</ul>';
+  $("hrel").innerHTML=(esNuevo(VIDEOS[0])?novedadHTML(VIDEOS[0],0):'')+'<span class="tipo">'+t("release.latest")+'</span><h2>'+r.t+'</h2><p class="hm">'+artists(r)+SEP+kind(r)+SEP+date(r)+'</p><div class="hp'+(r.sp?' sp':'')+'"></div><ul class="plats">'+linksHTML(r)+'</ul>';
  },
  /**
   * Pone el reproductor de Spotify en el hueco reservado de la portada.
