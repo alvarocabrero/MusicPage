@@ -46,7 +46,7 @@ section .dash{margin:22px 0}
 .novedad small{font:800 .65rem/1.4 var(--display);letter-spacing:.06em;text-transform:uppercase;color:var(--rojo)}
 .novedad b{font:800 1rem/1.2 var(--display);text-transform:uppercase}
 .novedad svg{width:30px;height:30px;flex:none;color:var(--rojo)}
-.novedad:hover{background:#f4f4f4}
+.novedad:hover{background:rgba(182,187,191,.25)}
 /* Efecto sutil en bucle del aviso: un destello suave cruza la tarjeta y el icono de play late despacio.
    Se desactiva si el visitante pide reducir el movimiento. */
 .novedad:after{content:"";position:absolute;top:0;bottom:0;left:0;width:40%;background:linear-gradient(100deg,transparent,rgba(226,44,20,.12),transparent);transform:translateX(-120%);animation:nvbrillo 4.5s ease-in-out infinite;pointer-events:none}

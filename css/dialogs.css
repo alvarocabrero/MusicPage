@@ -48,7 +48,7 @@ html:has(dialog[open]){overflow:hidden;overscroll-behavior:none}
 .dh{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;padding:22px 22px 14px 26px}
 .dh h3{font-size:1.45rem;text-transform:uppercase;letter-spacing:-.01em}
 .dh p{margin:6px 0 0;font:500 .9rem/1.4 var(--display)}
-.dx{flex:none;background:rgba(128,128,128,.2);color:var(--tinta);border:0;border-radius:50%;width:36px;height:36px;font:500 1.3rem/1 var(--display);padding:0 0 2px;cursor:pointer;transition:background-color .2s,color .2s}
+.dx{flex:none;background:rgba(182,187,191,.3);color:var(--tinta);border:0;border-radius:50%;width:36px;height:36px;font:500 1.3rem/1 var(--display);padding:0 0 2px;cursor:pointer;transition:background-color .2s,color .2s}
 .dx:hover{background:var(--rojo);color:#fff}
 /* Preescucha de Spotify del pop up de disco: reproductor compacto (152 px) o, en pantallas de 880 px de alto
    o más, el grande con lista de canciones (352 px). */
@@ -65,7 +65,7 @@ html:has(dialog[open]){overflow:hidden;overscroll-behavior:none}
 @media (max-width:380px){.plats{grid-template-columns:repeat(2,minmax(0,1fr))}}
 /* Botones de plataformas dentro de los pop ups: esquinas redondeadas y borde fino y suave (en la portada siguen igual). */
 dialog .plats{padding:12px 22px 24px}
-dialog .plats a{border:2px solid rgba(128,128,128,.35);border-radius:14px}
+dialog .plats a{border:2px solid rgba(182,187,191,.5);border-radius:14px}
 dialog .plats a:hover,dialog .plats a:focus-visible{border-color:var(--rojo)}
 /* Baraja (móvil): contador "2 / 9" entre las flechas y dos cartas que asoman por detrás del pop up, algo giradas,
    para que se entienda que se pasa de una a otra deslizando. Las cartas cubren la caja (no la fila de las flechas:
