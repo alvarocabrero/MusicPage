@@ -57,6 +57,16 @@ function initSwipe(box,go){
  box.addEventListener("pointercancel",fin);
 }
 
+/* La primera vez que se abre un pop up en un móvil, la carta hace un amago de deslizarse a la izquierda y vuelve,
+   para enseñar que se puede pasar con el dedo. Sólo una vez por visita y no si se pide reducir el movimiento. */
+let pistaHecha=false;
+/**  {HTMLElement} box Caja visible del pop up (.dbox). */
+function pista(box){
+ if(pistaHecha||!matchMedia("(pointer:coarse)").matches||matchMedia("(prefers-reduced-motion:reduce)").matches)return;
+ pistaHecha=true;
+ box.animate([{transform:"none"},{transform:"translateX(-46px) rotate(-2deg)"},{transform:"translateX(8px) rotate(.4deg)"},{transform:"none"}],{duration:1000,delay:450,easing:"ease-in-out"});
+}
+
 /* items: lista de elementos; view: vista del pop up; show(i) pinta el elemento i. */
 /**
  * @template T
@@ -68,14 +78,27 @@ function initSwipe(box,go){
  */
 export function initDialog({items,view,show}){
  const cursor=new Cursor(items.length);
- function abrir(i){cursor.goto(i);show(items[cursor.index]);view.open()}
+ /* Contador "2 / 9" entre las flechas (se ve en móvil, donde las flechas van debajo del pop up). */
+ const cuenta=document.createElement("span");
+ cuenta.className="dcount";
+ cuenta.setAttribute("aria-live","polite");
+ view.prev.after(cuenta);
+ /* .deck: en móvil, dos cartas asoman por detrás del pop up para que se vea que es una baraja (dialogs.css). */
+ view.el.classList.add("deck");
+ const caja=view.el.querySelector(".dbox");
+ function abrir(i){
+  cursor.goto(i);show(items[cursor.index]);
+  cuenta.textContent=(cursor.index+1)+" / "+items.length;
+  const recien=!view.isOpen();
+  view.open();
+  if(recien&&caja&&items.length>1)pista(caja);
+ }
  view.close.onclick=()=>view.hide();
  /* Un clic en el fondo oscuro (fuera de la caja) llega al propio <dialog>: entonces se cierra. */
  view.el.addEventListener("click",e=>{if(e.target===view.el)view.hide()});
  view.el.addEventListener("close",()=>view.clear());
  view.prev.onclick=()=>abrir(cursor.step(-1));
  view.next.onclick=()=>abrir(cursor.step(1));
- const caja=view.el.querySelector(".dbox");
  if(caja)initSwipe(caja,d=>abrir(cursor.step(d)));
  /* ← y → pasan al anterior/siguiente mientras el pop up está abierto. */
  document.addEventListener("keydown",e=>{
