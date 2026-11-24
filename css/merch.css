@@ -12,7 +12,7 @@
 .mb .mt button.on,.mb .mt button:hover{opacity:1;border-color:var(--rojo)}
 .mb .mt img{display:block;width:100%;height:100%;object-fit:cover}
 .mb .md{margin:0;font:300 .95rem/1.55 var(--texto)}
-.mb .me{margin:0;font:300 .85rem/1.5 var(--texto)}
+.mb .me{margin:0;font:italic 300 .85rem/1.5 var(--texto)}
 .mb .abrir{text-decoration:none;margin-top:6px}
 /* Tablet y ordenador: la foto (y la fila de miniaturas, que la acompaña) también se ajusta al alto que queda tras
    la cabecera y los textos (~310 px), para que el pop up quepa entero sin scroll y el botón de compra quede a la vista. */

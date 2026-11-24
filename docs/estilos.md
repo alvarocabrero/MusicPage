@@ -29,11 +29,11 @@ Definidas en `:root` (`base.css`):
 | `--fondo` | `#fff` (`#000` en oscuro) | Fondo de la página |
 | `--tinta` | `#000` (`#fff` en oscuro) | Texto, bordes y contornos |
 | `--display` | Raleway | Títulos, menú, botones, datos y texto base |
-| `--texto` | Merriweather | Textos de párrafo: descripción y nota de envíos de los productos, mensaje del formulario de contacto y su aviso de estado |
+| `--texto` | Merriweather | Textos de párrafo: descripción y nota de envíos de los productos (la nota, en cursiva), mensaje del formulario de contacto y su aviso de estado |
 
 En las secciones con carrusel, `--fondo` y `--tinta` se sustituyen por `--sbg` y `--sfg`, los colores de la tarjeta activa, que cambian con una transición (ver [carrusel.md](carrusel.md#colores-de-la-sección)). La portada es siempre blanca y el pie siempre rojo, también en modo oscuro.
 
-**Fuentes**: Raleway y Merriweather, servidas desde `fonts/` (no desde Google): son los archivos que da Google Fonts para el alfabeto latino, sin modificar, con su licencia OFL al lado (`fonts/OFL-*.txt`). Son fuentes variables (un archivo por familia con todos los pesos) y se declaran al principio de `base.css`. Raleway se precarga desde `index.html`; Merriweather sólo la usan los textos de párrafo (pop up de producto y formulario de contacto), así que se descarga cuando aparece uno de ellos (mientras llega, el texto se ve en Georgia). Si se añade un texto con caracteres fuera del alfabeto latino (por ejemplo, cirílico), se verá con la fuente del sistema.
+**Fuentes**: Raleway y Merriweather, servidas desde `fonts/` (no desde Google): son los archivos que da Google Fonts para el alfabeto latino, sin modificar, con su licencia OFL al lado (`fonts/OFL-*.txt`). Son fuentes variables (un archivo por familia con todos los pesos) y se declaran al principio de `base.css`. Raleway se precarga desde `index.html`; Merriweather sólo la usan los textos de párrafo (pop up de producto y formulario de contacto), así que se descarga cuando aparece uno de ellos (mientras llega, el texto se ve en Georgia). Merriweather tiene dos archivos: normal y cursiva (`merriweather-italic-latin.woff2`, sólo para la nota de envíos). Si se añade un texto con caracteres fuera del alfabeto latino (por ejemplo, cirílico), se verá con la fuente del sistema.
 
 ## Cortes de diseño
 
