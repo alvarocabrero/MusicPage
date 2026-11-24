@@ -67,21 +67,27 @@ html:has(dialog[open]){overflow:hidden;overscroll-behavior:none}
 dialog .plats{padding:12px 22px 24px}
 dialog .plats a{border:2px solid rgba(182,187,191,.5);border-radius:14px}
 dialog .plats a:hover,dialog .plats a:focus-visible{border-color:var(--rojo)}
-/* Baraja (móvil): contador "2 / 9" entre las flechas y dos cartas que asoman por detrás del pop up, algo giradas,
-   para que se entienda que se pasa de una a otra deslizando. Las cartas cubren la caja (no la fila de las flechas:
-   58 px = 48 de flecha + 10 de separación). En ordenador las flechas van a los lados y no hace falta. */
-.dcount{display:none}
+/* Baraja (móvil): contador "2 / 9" entre las flechas y, detrás del pop up, la siguiente tarjeta de verdad (.dpeek:
+   la crea dialogController con view.peekHTML, sin reproductores) translúcida y algo girada; más atrás, una carta lisa
+   (:after). Ocupan lo mismo que la caja (no la fila de las flechas: 58 px = 48 de flecha + 10 de separación) y
+   giran ancladas abajo. Al pasar hacia delante, la tarjeta nueva sube desde la pose de .dpeek (dialogController).
+   En ordenador las flechas van a los lados y no hace falta. */
+.dcount,.dpeek{display:none}
 @media (max-width:700px){
  dialog.deck[open] .dcount{display:flex;align-items:center;justify-content:center;flex:1;color:#fff;font:800 .9rem/1 var(--display);letter-spacing:.1em}
- dialog.deck[open]:before,dialog.deck[open]:after{content:"";position:absolute;left:0;right:0;top:0;bottom:58px;border-radius:22px;background:#fff;z-index:-1;pointer-events:none;transform-origin:50% 100%}
- dialog.deck[open]:before{transform:translateY(14px) scale(.95) rotate(-3deg);opacity:.6}
- dialog.deck[open]:after{transform:translateY(28px) scale(.9) rotate(3.5deg);opacity:.35}
+ dialog.deck[open] .dpeek,dialog.deck[open]:after{position:absolute;left:0;right:0;top:0;bottom:58px;max-height:none;pointer-events:none;transform-origin:50% 100%}
+ dialog.deck[open] .dpeek{display:block;overflow:hidden;z-index:-1;transform:translateY(14px) scale(.95) rotate(-3deg);opacity:.35}
+ dialog.deck[open]:after{content:"";border-radius:22px;background:#fff;z-index:-2;transform:translateY(28px) scale(.9) rotate(3.5deg);opacity:.2}
+ /* En la carta de detrás, la portada (disco) o la miniatura (vídeo) ocupan el hueco del reproductor. */
+ .dpeek .pk{display:block;width:100%;object-fit:cover}
+ .dpeek .dp .pk{height:152px;border-radius:12px}
+ .dpeek .vp .pk{aspect-ratio:16/9}
 }
-/* Animación mínima de la baraja: las dos cartas de detrás se balancean despacio, desfasadas (4 s en bucle). */
+/* Animación mínima de la baraja: las cartas de detrás se balancean despacio, desfasadas (4 s en bucle). */
 @media (max-width:700px){
- dialog.deck[open]:before{animation:carta1 4s ease-in-out infinite}
+ dialog.deck[open] .dpeek{animation:carta1 4s ease-in-out infinite}
  dialog.deck[open]:after{animation:carta2 4s ease-in-out infinite}
 }
 @keyframes carta1{0%,100%{transform:translateY(14px) scale(.95) rotate(-3deg)}50%{transform:translateY(16px) scale(.95) rotate(-4.5deg)}}
 @keyframes carta2{0%,100%{transform:translateY(28px) scale(.9) rotate(3.5deg)}50%{transform:translateY(31px) scale(.9) rotate(5deg)}}
-@media (prefers-reduced-motion:reduce){dialog.deck[open]:before,dialog.deck[open]:after{animation:none}}
+@media (prefers-reduced-motion:reduce){dialog.deck[open] .dpeek,dialog.deck[open]:after{animation:none}}

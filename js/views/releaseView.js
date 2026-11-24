@@ -103,6 +103,15 @@ export const releaseDialogView={
   $("dpv").innerHTML=embedHTML(r);
   $("dpl").innerHTML=linksHTML(r);
  },
+ /**
+  * Versión estática del pop up para la carta de detrás de la baraja (móvil): igual, pero con la portada en el
+  * hueco de la preescucha (sin reproductor) y sin ids.
+  * @param {import("../models/releases.js").Release} r
+  * @returns {string} HTML.
+  */
+ peekHTML(r){
+  return '<div class="dh"><div><h3>'+r.t+'</h3><p>'+artists(r)+SEP+kind(r)+SEP+date(r)+'</p></div></div><div class="dp"><img class="pk" src="img/'+r.img+'.webp" alt=""></div><ul class="plats">'+linksHTML(r)+'</ul>';
+ },
  /** Abre el pop up como modal (si no lo estaba ya: al navegar con las flechas sólo se cambia el contenido). */
  open(){if(!this.el.open)this.el.showModal()},
  /** Cierra el pop up. */

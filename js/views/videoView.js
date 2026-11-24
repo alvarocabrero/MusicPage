@@ -69,6 +69,14 @@ export const videoDialogView={
   $("vtt").textContent=v.t;
   $("vpv").innerHTML='<iframe src="'+videoEmbedUrl(v.id)+'" title="'+v.t+'" allow="'+IFRAME_ALLOW+'" allowfullscreen></iframe>';
  },
+ /**
+  * Versión estática del pop up para la carta de detrás de la baraja (móvil): título y miniatura en lugar del reproductor.
+  * @param {import("../models/videos.js").Video} v
+  * @returns {string} HTML.
+  */
+ peekHTML(v){
+  return '<div class="dh"><div><h3>'+v.t+'</h3></div></div><div class="vp"><img class="pk" src="'+videoThumb(v.id).replace("maxresdefault","hqdefault")+'" alt=""></div>';
+ },
  /** Abre el pop up como modal (si no lo estaba ya). */
  open(){if(!this.el.open)this.el.showModal()},
  /** Cierra el pop up. */

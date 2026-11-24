@@ -55,6 +55,14 @@ export const merchDialogView={
   $("mm").textContent=kind(m)+(m.p?" · "+tr(m.p):"");
   this.body.innerHTML=bodyHTML(m);
  },
+ /**
+  * Versión estática del pop up para la carta de detrás de la baraja (móvil), sin ids.
+  * @param {import("../models/merch.js").MerchItem} m
+  * @returns {string} HTML.
+  */
+ peekHTML(m){
+  return '<div class="dh"><div><h3>'+tr(m.t)+'</h3><p>'+kind(m)+(m.p?" · "+tr(m.p):"")+'</p></div></div><div class="mb">'+bodyHTML(m)+'</div>';
+ },
  /* Muestra en la foto principal la miniatura pulsada. */
  /** @param {HTMLButtonElement} btn Miniatura pulsada (su data-s es la ruta de la foto). */
  showPhoto(btn){

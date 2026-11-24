@@ -5,11 +5,14 @@
 import {Cursor} from "../models/cursor.js";
 
 /* Móvil: deslizar el pop up a izquierda o derecha pasa al siguiente o anterior, como una baraja de cartas.
-   La tarjeta sigue al dedo girando un poco; si se suelta pasados 80 px (o con un gesto rápido) sale volando y entra
-   la siguiente por el lado contrario; si no, vuelve a su sitio. Sólo con el dedo (pointerType "touch"); con touch-action
+   La tarjeta sigue al dedo girando un poco; si se suelta pasados 80 px (o con un gesto rápido) sale volando y, hacia
+   delante, la siguiente (que ya asomaba translúcida detrás) sube al frente; hacia atrás, la anterior entra por el
+   lado. Si no se pasa del umbral, vuelve a su sitio. Sólo con el dedo (pointerType "touch"); con touch-action
    pan-y el desplazamiento vertical del contenido sigue funcionando. Los reproductores incrustados (iframe) se quedan
    con sus propios toques: el gesto se hace sobre la cabecera, el borde o el pie del pop up. */
-const UMBRAL=80,SALIDA=180,ENTRADA=320;
+const UMBRAL=80,SALIDA=180,ENTRADA=420;
+/** Pose de la carta de detrás de la baraja (igual que .dpeek en dialogs.css). */
+const CARTA_DETRAS="translateY(14px) scale(.95) rotate(-3deg)";
 /**
  * @param {HTMLElement} box Caja visible del pop up (.dbox).
  * @param {function(number):void} go Pasa al elemento siguiente (1) o anterior (-1).
@@ -49,7 +52,16 @@ function initSwipe(box,go){
   box.animate([{transform:pose(dx),opacity:1},{transform:pose(lado*innerWidth),opacity:0}],{duration:SALIDA,easing:"ease-in"}).onfinish=()=>{
    box.style.transform="";
    go(d);
-   box.animate([{transform:pose(-lado*innerWidth*.6),opacity:0},{transform:"none",opacity:1}],{duration:ENTRADA,easing:"cubic-bezier(.2,.8,.2,1)"}).onfinish=()=>{busy=false};
+   const listo=()=>{box.style.transformOrigin="";busy=false};
+   if(d>0){
+    /* Hacia delante: la nueva es la carta translúcida que ya se veía detrás (.dpeek, misma posición, giro y tamaño,
+       anclada abajo); sube al frente haciéndose opaca. */
+    box.style.transformOrigin="50% 100%";
+    box.animate([{transform:CARTA_DETRAS,opacity:.35},{opacity:.85,offset:.6},{transform:"none",opacity:1}],{duration:ENTRADA,easing:"cubic-bezier(.2,.8,.2,1)"}).onfinish=listo;
+   }else{
+    /* Hacia atrás: la anterior vuelve desde el lado por el que salió la actual. */
+    box.animate([{transform:pose(-lado*innerWidth*.6),opacity:0},{transform:"none",opacity:1}],{duration:ENTRADA,easing:"cubic-bezier(.2,.8,.2,1)"}).onfinish=listo;
+   }
   };
   box.style.transform="translateX("+lado*innerWidth+"px)";
  };
@@ -60,7 +72,7 @@ function initSwipe(box,go){
 /* La primera vez que se abre un pop up en un móvil, la carta hace un amago de deslizarse a la izquierda y vuelve,
    para enseñar que se puede pasar con el dedo. Sólo una vez por visita y no si se pide reducir el movimiento. */
 let pistaHecha=false;
-/**  {HTMLElement} box Caja visible del pop up (.dbox). */
+/** @param {HTMLElement} box Caja visible del pop up (.dbox). */
 function pista(box){
  if(pistaHecha||!matchMedia("(pointer:coarse)").matches||matchMedia("(prefers-reduced-motion:reduce)").matches)return;
  pistaHecha=true;
@@ -83,11 +95,21 @@ export function initDialog({items,view,show}){
  cuenta.className="dcount";
  cuenta.setAttribute("aria-live","polite");
  view.prev.after(cuenta);
- /* .deck: en móvil, dos cartas asoman por detrás del pop up para que se vea que es una baraja (dialogs.css). */
+ /* .deck: en móvil, el pop up es una baraja (dialogs.css): detrás asoma la siguiente tarjeta de verdad (.dpeek,
+    translúcida, pintada con view.peekHTML sin reproductores) y, más atrás, una carta lisa. */
  view.el.classList.add("deck");
  const caja=view.el.querySelector(".dbox");
+ let peek=null;
+ if(caja&&view.peekHTML&&items.length>1){
+  peek=document.createElement("div");
+  peek.className="dbox dpeek";
+  peek.setAttribute("aria-hidden","true");
+  peek.inert=true;
+  caja.after(peek);
+ }
  function abrir(i){
   cursor.goto(i);show(items[cursor.index]);
+  if(peek)peek.innerHTML=view.peekHTML(items[(cursor.index+1)%items.length]);
   cuenta.textContent=(cursor.index+1)+" / "+items.length;
   const recien=!view.isOpen();
   view.open();
