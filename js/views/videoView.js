@@ -50,7 +50,7 @@ export const rowHTML=v=>'<article class="slide vs" role="listitem"><button class
  */
 export function playInline(btn){
  const f=document.createElement("iframe");
- f.src=videoEmbedUrl(btn.dataset.id);
+ f.src=videoEmbedUrl(btn.dataset.id,true);
  f.title=btn.dataset.title;
  f.allow=IFRAME_ALLOW;
  f.allowFullscreen=true;
@@ -62,7 +62,7 @@ export function playInline(btn){
 export const videoDialogView={
  el:$("vdlg"),prev:$("vprev"),next:$("vnext"),close:$("vdx"),
  /**
-  * Pone el título y el reproductor (empieza a sonar solo).
+  * Pone el título y el reproductor (sin reproducción automática: se le da al play del propio reproductor).
   * @param {import("../models/videos.js").Video} v
   */
  render(v){

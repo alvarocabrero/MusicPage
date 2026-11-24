@@ -60,13 +60,15 @@ export const videoThumb=id=>thumb(id,"maxresdefault");
 export const videoThumbFallbacks=id=>[thumb(id,"sddefault"),thumb(id,"hqdefault")];
 
 /**
- * URL del reproductor incrustado: dominio sin cookies de YouTube, reproducción automática, vídeos relacionados
- * sólo del mismo canal (rel=0) y, en el iPhone, reproducción dentro del pop up o de la lista en vez de a pantalla
- * completa (playsinline=1; el botón de pantalla completa del reproductor sigue funcionando).
+ * URL del reproductor incrustado: dominio sin cookies de YouTube, vídeos relacionados sólo del mismo canal (rel=0)
+ * y, en el iPhone, reproducción dentro del pop up o de la lista en vez de a pantalla completa (playsinline=1; el
+ * botón de pantalla completa del reproductor sigue funcionando). Con autoplay empieza a sonar solo: se usa en la vista
+ * de lista, donde ya se ha pulsado "reproducir"; el pop up no lo usa (hay que darle al play del reproductor).
  * @param {string} id ID del vídeo.
+ * @param {boolean} [autoplay=false] Reproducción automática.
  * @returns {string}
  */
-export const videoEmbedUrl=id=>"https://www.youtube-nocookie.com/embed/"+id+"?autoplay=1&rel=0&playsinline=1";
+export const videoEmbedUrl=(id,autoplay)=>"https://www.youtube-nocookie.com/embed/"+id+"?"+(autoplay?"autoplay=1&":"")+"rel=0&playsinline=1";
 
 /**
  * URL del vídeo en youtube.com (enlace "Abrir en YouTube" de la vista de lista).
