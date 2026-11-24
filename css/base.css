@@ -14,7 +14,7 @@
    --gris         gris de la paleta de identidad.
    --fondo/--tinta  color de fondo y de texto/bordes de la página; cambian en modo oscuro, y las secciones con
                   carrusel los sustituyen por los colores de la tarjeta activa (ver carousel.css).
-   --display      Raleway: títulos, menú, botones, datos y texto base.  --texto  Merriweather: textos largos
+   --display      Raleway: títulos, menú, botones, datos y texto base.  --texto  Merriweather: textos de párrafo (descripciones, envíos, formulario)
                   (descripciones de los productos).
    El relleno con env(safe-area-inset-*) evita que la muesca o la barra de inicio del móvil tapen el contenido. */
 :root{--rojo:#e22c14;--gris:#b6bbbf;--fondo:#fff;--tinta:#000;

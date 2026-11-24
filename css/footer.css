@@ -20,12 +20,12 @@ footer a{font-weight:800}
 .cf-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .cf label{display:flex;flex-direction:column;gap:6px;font:800 .9rem var(--display)}
 .cf input,.cf textarea{font:500 1rem var(--display);color:#000;background:#fff;border:3px solid #000;border-radius:0;padding:12px 14px;width:100%}
-.cf textarea{resize:vertical;min-height:120px}
+.cf textarea{resize:vertical;min-height:120px;font:300 1rem/1.6 var(--texto)}
 .cf input:focus-visible,.cf textarea:focus-visible{outline:3px solid #fff;outline-offset:2px}
 /* Pie del formulario: botón de enviar y mensaje de estado (#cf-msg). El botón queda desactivado mientras se envía. */
 .cf-foot{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px}
 .cf-btn{background:#000;color:#fff;border:3px solid #000;padding:12px 26px;font:800 1rem var(--display);cursor:pointer}
 .cf-btn:hover{background:#fff;color:#000}
 .cf-btn:disabled{opacity:.6;cursor:wait}
-footer p.cf-msg{font:500 .95rem var(--display)}
+footer p.cf-msg{font:400 .95rem/1.5 var(--texto)}
 @media (max-width:600px){.cf-row{grid-template-columns:1fr}}
