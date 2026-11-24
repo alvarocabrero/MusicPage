@@ -30,7 +30,7 @@ const frena=t=>1-Math.pow(1-t,3);
  */
 function poner(el,x){
  const a=Math.min(1,Math.abs(x));
- el.style.transform=x===0?"":"translateX("+x*DESPLAZA+"%) rotateY("+(-x*GIRO)+"deg) scale("+(1-a*ESCALA)+")";
+ el.style.transform=x===0?"":"perspective(900px) translateX("+x*DESPLAZA+"%) rotateY("+(-x*GIRO)+"deg) scale("+(1-a*ESCALA)+")";
  el.style.opacity=x===0?"":String(1-a*OPACIDAD);
  el.style.zIndex=String(2+Math.round((1-a)*10));
 }
@@ -38,8 +38,9 @@ function poner(el,x){
 /**
  * @param {HTMLElement} caja Caja visible del pop up (.dbox).
  * @param {function(number):void} go Pasa al elemento siguiente (1) o anterior (-1) y repinta todo.
- * @returns {{lados:HTMLElement[],pasar:function(number):void,ocupado:function():boolean}}
- *   lados: tarjetas de la izquierda (anterior) y la derecha (siguiente); pasar(d): animación de paso (flechas).
+ * @returns {{lados:HTMLElement[],pasar:function(number):void,ocupado:function():boolean,quitar:function():void,reponer:function():void}}
+ *   lados: tarjetas de la izquierda (anterior) y la derecha (siguiente); pasar(d): animación de paso (flechas);
+ *   quitar(): vacía los lados al cerrar; reponer(): los vuelve a colocar al abrir.
  */
 function initCoverflow(caja,go){
  const lados=[0,1].map(()=>{
@@ -56,7 +57,10 @@ function initCoverflow(caja,go){
  const tween=(desde,hasta,ms)=>new Promise(res=>{
   if(matchMedia("(prefers-reduced-motion:reduce)").matches)ms=0;
   const t0=performance.now();
-  const k=now=>{const t=ms?Math.min(1,(now-t0)/ms):1;pintar(desde+(hasta-desde)*frena(t));t<1?requestAnimationFrame(k):res()};
+  const k=now=>{
+   if(!caja.closest("dialog").open)return res();
+   const t=ms?Math.min(1,(now-t0)/ms):1;pintar(desde+(hasta-desde)*frena(t));t<1?requestAnimationFrame(k):res();
+  };
   k(t0);
  });
  /* Termina de pasar desde el desplazamiento actual: la tira se mueve hasta que la vecina queda en el centro y
@@ -64,7 +68,8 @@ function initCoverflow(caja,go){
  async function pasar(d){
   busy=true;
   await tween(p,-d,PASO*(1-Math.min(1,Math.abs(p))));
-  go(d);pintar(0);
+  /* Si el pop up se ha cerrado durante la animación, no se vuelve a abrir. */
+  if(caja.closest("dialog").open){go(d);pintar(0)}
   busy=false;
  }
  pintar(0);
@@ -96,7 +101,10 @@ function initCoverflow(caja,go){
  };
  caja.addEventListener("pointerup",fin);
  caja.addEventListener("pointercancel",fin);
- return {lados,pasar,ocupado:()=>busy};
+ /* Al cerrar el pop up se vacían las tarjetas de los lados y se les quita la pose 3D: si no, el navegador puede dejar
+    su capa pintada en pantalla un momento después de cerrar. Al abrir, reponer() las vuelve a colocar. */
+ const quitar=()=>{lados.forEach(el=>{el.innerHTML="";el.style.transform=el.style.opacity=el.style.zIndex=""});poner(caja,0)};
+ return {lados,pasar,ocupado:()=>busy,quitar,reponer:()=>pintar(0)};
 }
 
 /* items: lista de elementos; view: vista del pop up; show(i) pinta el elemento i. */
@@ -116,13 +124,13 @@ export function initDialog({items,view,show}){
  cuenta.setAttribute("aria-live","polite");
  view.prev.after(cuenta);
  const caja=view.el.querySelector(".dbox");
- /* .cf: en móvil, el pop up es un coverflow (dialogs.css). */
+ /* .coverflow: en móvil, el pop up es un coverflow (dialogs.css). */
  const cf=caja&&view.peekHTML&&items.length>1?initCoverflow(caja,d=>abrir(cursor.step(d))):null;
- if(cf)view.el.classList.add("cf");
+ if(cf)view.el.classList.add("coverflow");
  const n=items.length,vecino=d=>items[(cursor.index+d+n)%n];
  function abrir(i){
   cursor.goto(i);show(items[cursor.index]);
-  if(cf){cf.lados[0].innerHTML=view.peekHTML(vecino(-1));cf.lados[1].innerHTML=view.peekHTML(vecino(1))}
+  if(cf){cf.lados[0].innerHTML=view.peekHTML(vecino(-1));cf.lados[1].innerHTML=view.peekHTML(vecino(1));cf.reponer()}
   cuenta.textContent=(cursor.index+1)+" / "+n;
   view.open();
  }
@@ -134,7 +142,7 @@ export function initDialog({items,view,show}){
  view.close.onclick=()=>view.hide();
  /* Un clic en el fondo oscuro (fuera de la caja) llega al propio <dialog>: entonces se cierra. */
  view.el.addEventListener("click",e=>{if(e.target===view.el)view.hide()});
- view.el.addEventListener("close",()=>view.clear());
+ view.el.addEventListener("close",()=>{view.clear();if(cf)cf.quitar()});
  view.prev.onclick=()=>paso(-1);
  view.next.onclick=()=>paso(1);
  /* ← y → pasan al anterior/siguiente mientras el pop up está abierto. */

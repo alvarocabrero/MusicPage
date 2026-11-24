@@ -17,17 +17,17 @@ dialog{border:0;background:none;color:var(--tinta);padding:0;width:min(560px,cal
 .nv-p{right:calc(100% + 12px)}.nv-n{left:calc(100% + 12px)}
 /* Cuando no caben a los lados, las flechas pasan a una fila propia justo debajo del pop up, dentro del diálogo
    (que limita su altura a la pantalla), así nunca quedan fuera. Pop ups normales: hasta 700 px; el de vídeo, más ancho: hasta 1000 px.
-   Se maqueta con flex en fila (flex-direction:row explícito: Chrome 156 trae los <dialog> en columna por defecto): la caja a todo el ancho y, debajo, una flecha en cada extremo. (Con rejilla, Safari estira el
+   Se maqueta con flex: la caja a todo el ancho y, debajo, una flecha en cada extremo. (Con rejilla, Safari estira el
    <dialog> hasta su altura máxima y la caja quedaba con un hueco vacío debajo del contenido.) La caja no pasa del alto
    que deja libre la fila de las flechas (100dvh − 24 px de margen − 10 de separación − 48 de flecha); si su contenido
    no cabe, se desplaza por dentro. */
 @media (max-width:700px){
- dialog[open]{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:space-between;align-content:flex-start;gap:10px;max-height:calc(100dvh - 24px)}
+ dialog[open]{display:flex;flex-wrap:wrap;justify-content:space-between;align-content:flex-start;gap:10px;max-height:calc(100dvh - 24px)}
  dialog[open] .dbox{flex:1 0 100%;min-width:0;max-height:calc(100dvh - 82px)}
  dialog[open] .nv{position:static;transform:none;width:64px;height:48px;border-radius:999px;padding:0 0 3px}
 }
 @media (min-width:701px) and (max-width:1000px){
- #vdlg[open]{display:flex;flex-direction:row;flex-wrap:wrap;justify-content:space-between;align-content:flex-start;gap:10px;max-height:calc(100dvh - 24px)}
+ #vdlg[open]{display:flex;flex-wrap:wrap;justify-content:space-between;align-content:flex-start;gap:10px;max-height:calc(100dvh - 24px)}
  #vdlg[open] .dbox{flex:1 0 100%;min-width:0;max-height:calc(100dvh - 82px)}
  #vdlg[open] .nv{position:static;transform:none;width:64px;height:48px;border-radius:999px;padding:0 0 3px}
 }
@@ -75,10 +75,10 @@ dialog .plats a:hover,dialog .plats a:focus-visible{border-color:var(--rojo)}
    a los lados y no hace falta. */
 .dcount,.dside{display:none}
 @media (max-width:700px){
- dialog.cf[open],#vdlg.cf[open]{width:calc(100% - 72px);perspective:900px}
- dialog.cf[open] .dcount{display:flex;align-items:center;justify-content:center;flex:1;color:#fff;font:800 .9rem/1 var(--display);letter-spacing:.1em}
- dialog.cf .dbox{position:relative}
- dialog.cf[open] .dside{display:block;position:absolute;left:0;right:0;top:0;bottom:58px;max-height:none;overflow:hidden;pointer-events:none}
+ dialog.coverflow[open],#vdlg.coverflow[open]{width:calc(100% - 72px)}
+ dialog.coverflow[open] .dcount{display:flex;align-items:center;justify-content:center;flex:1;color:#fff;font:800 .9rem/1 var(--display);letter-spacing:.1em}
+ dialog.coverflow .dbox{position:relative}
+ dialog.coverflow[open] .dside{display:block;position:absolute;left:0;right:0;top:0;bottom:58px;max-height:none;overflow:hidden;pointer-events:none}
  .dside .pk{display:block;width:100%;object-fit:cover}
  .dside .dp .pk{height:152px;border-radius:12px}
  .dside .vp .pk{aspect-ratio:16/9}
